@@ -1,20 +1,54 @@
 <div
+  class="room-card-container"
+>
+  <div
     fxLayout="column"
     class="room-card"
->
+  >
     <div
-        class="image-container"
+      class="image-container"
     >
-        <img src="https://cdn.sklum.com/fr/wk/1225672/table-de-bureau-en-bois-taluk.jpg" class="card-img-top" alt="...">
+      <img src="assets/room.jpg" class="card-img-top" alt="...">
     </div>
     <div
-        fxLayout="row"
+      fxLayout="column"
+      class="info-container"
     >
-        <div>
-            <p>Part Dieu</p>
-            <p>5 km à coté de chez vous</p>
-            <p>23-28 juin</p>
+      <p class="address">2578 Folsom street, san francisco, CA, 94110</p>
+      <span class="rent-type">Type de salle</span>
+      <p class="rent-price">130€/Jour</p>
+    </div>
+
+    <div
+      class="pico"
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+    >
+      <div style="padding: 10px; border-top: 1px solid #E4E4E4; width: 100%">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <mat-icon>airline_seat_recline_normal</mat-icon>
+          <p style="margin: 0; margin-left: 5px">3</p>
         </div>
-        <p>New</p>
+      </div>
+      <div class="middle" style="padding: 10px; border-top: 1px solid #E4E4E4; width: 100%">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <mat-icon> near_me</mat-icon>
+          <p style="margin: 0; margin-left: 5px">3 Km</p>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        style="padding: 10px; border-top: 1px solid #E4E4E4;  width: 100%">
+        <mat-icon>star</mat-icon>
+        <p style="margin: 0; margin-left: 5px">3</p>
+      </div>
     </div>
+  </div>
 </div>

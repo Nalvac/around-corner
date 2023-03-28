@@ -31,6 +31,7 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
     FlexLayoutModule,
     MatDatepickerModule,
     MatInputModule,
+    MatIconModule,
     MatNativeDateModule,
     FormsModule,
     NgbInputDatepicker,

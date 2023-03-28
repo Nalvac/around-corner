@@ -1,17 +1,44 @@
+@import "src/assets/variables";
 :host {
-    display: block;
+  display: block;
+  font-family: $font-outfit;
 }
 
-.room-card {
-
-    padding: 10px;
+.room-card-container {
+  padding: 20px;
+  font-size: 12px;
+  .room-card {
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    border-radius: 10px;
+    width: 250px;
+    margin: 0 5px;
     .image-container {
-        width: 300px;
-        border-radius: 10px;
-    
-        img {
-            border-radius: 10px;
-        }
-    
+      img {
+        border-radius: 10px 10px 0 0 ;
+      }
     }
+    .info-container  {
+      padding: 10px;
+      .rent-type {
+
+      }
+      .address {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .rent-price {
+        font-size: 14px;
+        font-weight: bold;
+        color: #FF2768;
+      }
+    }
+
+    .pico {
+      text-align: center;
+      .middle {
+        border-left: 1px solid #E4E4E4;
+        border-right: 1px solid #E4E4E4;
+      }
+    }
+  }
 }
