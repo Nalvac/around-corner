@@ -1,1 +1,32 @@
-@import "~bootstrap/dist/css/bootstrap.css";
+
+
+:host {
+  display: block;
+}
+
+.nav-bar-container {
+
+  height: 80px;
+  .input-container {
+    width: 95px;
+    margin-right: 10px;
+
+    input {
+      background-color: #DAF0F8;
+    }
+    ::ng-deep .form-control:focus {
+      border-color: #7A7A7A!important;
+      box-shadow: none;
+    }
+
+
+  }
+
+
+}
+
+
+::ng-deep .dropdown-menu.show {
+  display: block;
+  margin-top: 30px!important;
+}

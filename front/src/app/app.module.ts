@@ -6,6 +6,13 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { RoomCardComponent } from './room-card/room-card.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
+import {FormsModule} from "@angular/forms";
+import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
+import {MatIconModule} from "@angular/material/icon";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -16,7 +23,14 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    FlexLayoutModule
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    FormsModule,
+    NgbInputDatepicker,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
