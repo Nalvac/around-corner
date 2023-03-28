@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Bookings;
+use App\Entity\Desks;
+use App\Entity\Users;
 use App\Repository\BookingsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,77 +36,116 @@ class BookingController extends AbstractController
         return new JsonResponse($data,Response::HTTP_OK);
     }
 
-    #[Route(path: 'api/status-desk/{id}', name: 'api_delete_status_desk', methods: ['DELETE'])]
-    public function deleteOption(StatusDesksRepository $statusDesksRepository, string $id): JsonResponse
+    #[Route(path: 'api/booking/{id}', name: 'api_delete_booking', methods: ['DELETE'])]
+    public function deleteBooking(BookingsRepository $bookingsRepository, string $id): JsonResponse
     {
-        $status = $statusDesksRepository->findOneById($id);
-        if (!$status) {
-            throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
+        $booking = $bookingsRepository->findOneById($id);
+        if (!$booking) {
+            throw new \Exception('Sorry, booking does not exist', Response::HTTP_NOT_FOUND);
         }
 
-        // Supprimer la référence de statut dans tous les bureaux associés
-        $desks = $status->getDesks();
-        foreach ($desks as $desk) {
-            $desk->setStatusDesks(null);
-        }
-
-        $statusDesksRepository->remove($status,true);
+        $bookingsRepository->remove($booking,true);
         return new JsonResponse(
             [
-                'message' => "Status is deleted",
+                'message' => "Booking is deleted",
             ], Response::HTTP_OK
         );
     }
 
-    #[Route(path: 'api/status-desk/{id}', name: 'api_update_status_desk', methods: ['PUT'])]
-    public function editOption(StatusDesksRepository $statusDesksRepository, Request $request, string $id): JsonResponse
+    #[Route(path: 'api/booking/{id}', name: 'api_update_booking', methods: ['PATCH'])]
+    public function editBooking(EntityManagerInterface $entityManager, Request $request, string $id): JsonResponse
     {
-        $status = $statusDesksRepository->findOneById($id);
-        if ($status == null) {
-            throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
+        $desksRepository = $entityManager->getRepository(Desks::class);
+        $usersRepository = $entityManager->getRepository(Users::class);
+        $bookingsRepository = $entityManager->getRepository(Bookings::class);
+
+        $booking = $bookingsRepository->findOneById($id);
+
+        if ($booking == null) {
+            throw new \Exception('Sorry, Booking does not exist', Response::HTTP_NOT_FOUND);
         }
 
         $data = json_decode(
             $request->getContent(),
             true
         );
-        $name = $data["name"];
 
-        if (!empty($name)) {
-            $status->setName($name);
-            $statusDesksRepository->save($status, true);
-            return new JsonResponse(
-                [
-                    'message' => "Status is updated",
-                ], Response::HTTP_OK
-            );
-        } else {
-            return new JsonResponse('Name of option is empty with no data',Response::HTTP_BAD_REQUEST);
+        if (!empty($data["note"])){
+            $note = $data["note"];
+            $booking->setNote($note);
         }
+        if (!empty($data["price"])){
+            $price = $data["price"];
+            $booking->setPrice($price);
+        }
+        if (!empty($data["opinion"])){
+            $opinion = $data["opinion"];
+            $booking->setOpinion($opinion);
+        }
+        if (!empty($data["userId"])){
+            $userId = $data["userId"];
+            $userId = $usersRepository->findOneById($userId);
+            $booking->setUsers($userId);
+        }
+        if (!empty($data["deskId"])){
+            $deskId = $data["deskId"];
+            $deskId = $desksRepository->findOneById($deskId);
+            $booking->setUsers($deskId);
+        }
+
+        $entityManager->persist($booking);
+        $entityManager->flush();
+
+        return new JsonResponse(
+            [
+                'message' => "Booking is updated",
+            ], Response::HTTP_OK
+        );
     }
 
-    #[Route(path: 'api/status-desk', name: 'api_post_desk_status', methods: ['POST'])]
-    public function addDeskStatut(StatusDesksRepository $statusDesksRepository, Request $request): JsonResponse
+    #[Route(path: 'api/booking', name: 'api_post_booking', methods: ['POST'])]
+    public function addBooking(EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
-        $statutDesk = new StatusDesks();
-        $data = json_decode( $request->getContent(), true);
-        $name = $data["name"];
+        $desksRepository = $entityManager->getRepository(Desks::class);
+        $usersRepository = $entityManager->getRepository(Users::class);
 
-        $checkIfDeskStatutExists = $statusDesksRepository->findOneBy(['name' => $name]);
-        if ($checkIfDeskStatutExists) {
-            return new JsonResponse("this statut desk already exist", Response::HTTP_INTERNAL_SERVER_ERROR);
+        $booking = new Bookings();
+        //get data from body
+        $data = json_decode(
+            $request->getContent(),
+            true
+        );
+
+        $userId = $data['userId'];
+        $deskId = $data['deskId'];
+        $note = $data['note'];
+        $price = $data['price'];
+        $opinion = $data['opinion'];
+
+        if (empty($userId) || empty($deskId) || empty($note) || empty($price) || empty($opinion)) {
+            return new JsonResponse("Some data are empty! Check userId, deskId, note, price, opinion if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        if (!empty($name)) {
-            $statutDesk->setName($name);
-            $statusDesksRepository->save($statutDesk, true);
-            return new JsonResponse(
-                [
-                    'message' => "Statut is added",
-                ], Response::HTTP_OK
-            );
-        } else {
-            return new JsonResponse('Name of statut is empty with no data',Response::HTTP_BAD_REQUEST);
-        }
+        $userId = $usersRepository->findOneById($userId);
+        $deskId = $desksRepository->findOneById($deskId);
+
+        $booking->setUsers($userId)
+                ->setDesks($deskId)
+                ->setNote($note)
+                ->setPrice($price)
+                ->setOpinion($opinion)
+                ->setStartDate(new \DateTime())
+                ->setEndDate(new \DateTime())
+                ->setCreated(new \DateTime());
+
+        $entityManager->persist($booking);
+        $entityManager->flush();
+
+        return new JsonResponse(
+            [
+                'message' => "Booking is added",
+            ], Response::HTTP_OK
+        );
+
     }
 }
