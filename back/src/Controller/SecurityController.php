@@ -59,7 +59,6 @@ class SecurityController extends AbstractController
         $statusUsersId = $data['statusUsersId'];
         $statusUsersId = $statusUsersRepository->find($statusUsersId);
 
-
         $user = new Users();
         $user
             ->setPassword($encoder->hashPassword($user, $password))
