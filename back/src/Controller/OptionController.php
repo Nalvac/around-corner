@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Options;
 use App\Repository\OptionsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -56,6 +57,35 @@ class OptionController extends AbstractController
             return new JsonResponse(
                 [
                     'message' => "Option is updated",
+                ], Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse('Name of option is empty with no data',Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    #[Route(path: 'api/option', name: 'api_update_options', methods: ['POST'])]
+    public function addOption(OptionsRepository $optionsRepository, Request $request): JsonResponse
+    {
+        $option = new Options();
+
+        $data = json_decode(
+            $request->getContent(),
+            true
+        );
+        $name = $data["name"];
+
+        $checkIfOptionExists = $optionsRepository->findOneBy(['name'=>$name]);
+        if ($checkIfOptionExists) {
+            return new JsonResponse("Option already exists", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        if (!empty($name)) {
+            $option->setName($name);
+            $optionsRepository->save($option, true);
+            return new JsonResponse(
+                [
+                    'message' => "Option is added",
                 ], Response::HTTP_OK
             );
         } else {
