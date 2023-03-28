@@ -209,7 +209,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    public function getStatusUsers(): ?StatusUsers
+    public function getStatus(): ?StatusUsers
     {
         return $this->statusUsers;
     }
