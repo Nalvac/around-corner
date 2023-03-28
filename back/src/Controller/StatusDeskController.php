@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\StatusDesks;
 use App\Repository\StatusDesksRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -71,6 +72,31 @@ class StatusDeskController extends AbstractController
             );
         } else {
             return new JsonResponse('Name of option is empty with no data',Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    #[Route(path: 'api/status-desk', name: 'api_post_desk_status', methods: ['POST'])]
+    public function addDeskStatut(StatusDesksRepository $statusDesksRepository, Request $request): JsonResponse
+    {
+        $statutDesk = new StatusDesks();
+        $data = json_decode( $request->getContent(), true);
+        $name = $data["name"];
+
+        $checkIfDeskStatutExists = $statusDesksRepository->findOneBy(['name' => $name]);
+        if ($checkIfDeskStatutExists) {
+            return new JsonResponse("this statut desk already exist", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        if (!empty($name)) {
+            $statutDesk->setName($name);
+            $statusDesksRepository->save($statutDesk, true);
+            return new JsonResponse(
+                [
+                    'message' => "Statut is added",
+                ], Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse('Name of statut is empty with no data',Response::HTTP_BAD_REQUEST);
         }
     }
 }

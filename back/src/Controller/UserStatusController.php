@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\StatusUsers;
 use App\Repository\StatusUsersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -71,6 +72,31 @@ class UserStatusController  extends AbstractController
             );
         } else {
             return new JsonResponse('Name of option is empty with no data',Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    #[Route(path: 'api/status-user', name: 'api_post_user_status', methods: ['POST'])]
+    public function addUserStatut(StatusUsersRepository $statusUsersRepository, Request $request): JsonResponse
+    {
+        $option = new StatusUsers();
+        $data = json_decode( $request->getContent(), true);
+        $name = $data["name"];
+
+        $checkIfUserStatutExists = $statusUsersRepository->findOneBy(['name' => $name]);
+        if ($checkIfUserStatutExists) {
+            return new JsonResponse("this statut user already exist", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        if (!empty($name)) {
+            $option->setName($name);
+            $statusUsersRepository->save($option, true);
+            return new JsonResponse(
+                [
+                    'message' => "Statut is added",
+                ], Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse('Name of statut is empty with no data',Response::HTTP_BAD_REQUEST);
         }
     }
 }
