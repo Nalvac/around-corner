@@ -5,18 +5,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { RoomCardComponent } from './room-card/room-card.component';
-import {NavbarComponent} from "./navbar/navbar.component";
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    NavbarComponent,
-    RoomCardComponent
+    RoomCardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
-    FlexLayoutModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
