@@ -13,13 +13,17 @@ import {FormsModule} from "@angular/forms";
 import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatIconModule} from "@angular/material/icon";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BannerComponent } from './banner/banner.component';
+import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     RoomCardComponent,
-    NavbarComponent
+    NavbarComponent,
+    BannerComponent,
+    HowItWorksComponent
   ],
   imports: [
     BrowserModule,

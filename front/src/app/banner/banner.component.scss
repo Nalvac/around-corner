@@ -1,0 +1,34 @@
+:host{
+  display: block;
+}
+
+.banner-container{
+  color: white;
+  background-image: url("../../assets/main-image.png");
+  height: 600px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+  .rent-container {
+
+    padding: 20px;
+    .rent-type{
+      padding: 2px 5px;
+      border-radius: 5px;
+      .item {
+        width: 100px;
+        text-align: center;
+        padding:  5px;
+        border-radius: 5px;
+        color: black;
+        background-color: white;
+        margin-right: 10px;
+      }
+    }
+    .info-container {
+
+    }
+  }
+}
