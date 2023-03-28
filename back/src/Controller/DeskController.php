@@ -10,6 +10,7 @@ use App\Entity\Desks;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\HttpFoundation\Request;
 
 class DeskController extends AbstractController
 {
@@ -26,7 +27,7 @@ class DeskController extends AbstractController
     /**
      * Afficher tout les bureaux 
     */
-    #[Route('/api/desk_all', name: 'app_desk_all')]
+    #[Route('/api/desk_all', name: 'app_desk_all', methods: ['GET'])]
     public function all_desk(): Response
     {
       $desks = $this->entityManager->getRepository(Desks::class)->findAll();
@@ -44,21 +45,22 @@ class DeskController extends AbstractController
         }
 
         $averageNote = $numBookings > 0 ? $sumNotes / $numBookings : null;
-  
 
-          $data[] = [
-              'id' => $desk->getId(),
-              'price' => $desk->getPrice(),
-              'adress' => $desk->getAdress(),
-              'city' => $desk->getCity(),
-              'zipCode' => $desk->getZipCode(),
-              'averageNote' => $averageNote,
-              // 'description' => $desk->getDescription(),
-              // 'numberPlaces' => $desk->getNumberPlaces(),
-              // 'status_desks_id' => $desk->getStatusDesks()->getName(),
-              // 'user_id' => $desk->getUsers()->getId(),
+        // Les data commentés sont laissé pour le futur, si jamais on a besoin de tout les bureau ainsi que leur description etc... 
+        // Il suffit juste de décomenté
+        $data[] = [
+            'id' => $desk->getId(),
+            'price' => $desk->getPrice(),
+            'adress' => $desk->getAdress(),
+            'city' => $desk->getCity(),
+            'zipCode' => $desk->getZipCode(),
+            'averageNote' => $averageNote,
+            // 'description' => $desk->getDescription(),
+            'numberPlaces' => $desk->getNumberPlaces(),
+            // 'status_desks_id' => $desk->getStatusDesks()->getName(),
+            // 'user_id' => $desk->getUsers()->getId(),
 
-          ];
+        ];
       }
       
       $response = new JsonResponse();
@@ -71,7 +73,26 @@ class DeskController extends AbstractController
 
     /**
      * Editer un bureau
+     * 
     */
+    #[Route('/api/desk_edit/{id}', name: 'app_desk_edit', methods: ['PUT'])]
+    public function desk_edit($id, Request $request): JsonResponse
+    {
+
+      $data = json_decode($request->getContent(), true);
+      $desk = $this->entityManager->getRepository(Desks::class)->findOneById($id);
+
+      $desk->setPrice($data['price'] ?? $desk->getPrice());
+      $desk->setAdress($data['address'] ?? $desk->getAdress());
+      $desk->setCity($data['city'] ?? $desk->getCity());
+      $desk->setZipCode($data['zipCode'] ?? $desk->getZipCode());
+      $desk->setDescription($data['description'] ?? $desk->getDescription());
+      $desk->setNumberPlaces($data['numberPlaces'] ?? $desk->getNumberPlaces());
+
+      $this->entityManager->flush();
+
+      return new JsonResponse(['message' => 'Le bureau a été mis à jour avec succès.'], JsonResponse::HTTP_OK);
+    }
 
     /**
       * Supprimer un bureau
