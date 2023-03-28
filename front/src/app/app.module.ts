@@ -9,7 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatNativeDateModule} from "@angular/material/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatIconModule} from "@angular/material/icon";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -17,6 +17,11 @@ import { BannerComponent } from './banner/banner.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { LoginComponent } from './login/login.component';
 import {CarouselModule} from "ngx-bootstrap/carousel";
+import {MatCardModule} from "@angular/material/card";
+import {AppRoutingModule} from "./app.component.routing";
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -26,10 +31,13 @@ import {CarouselModule} from "ngx-bootstrap/carousel";
     NavbarComponent,
     BannerComponent,
     HowItWorksComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatDatepickerModule,
@@ -40,8 +48,12 @@ import {CarouselModule} from "ngx-bootstrap/carousel";
     NgbInputDatepicker,
     MatIconModule,
     CarouselModule.forRoot(),
+    MatCardModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
