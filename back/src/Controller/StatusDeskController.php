@@ -2,19 +2,19 @@
 
 namespace App\Controller;
 
-use App\Repository\StatusUsersRepository;
+use App\Repository\StatusDesksRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserStatusController  extends AbstractController
+class StatusDeskController extends AbstractController
 {
-    #[Route(path: 'api/status-user', name: 'api_status', methods: ['GET'])]
-    public function options(StatusUsersRepository $statusUsersRepository): JsonResponse
+    #[Route(path: 'api/status-desk', name: 'api_status_desk', methods: ['GET'])]
+    public function options(StatusDesksRepository $statusDesksRepository): JsonResponse
     {
-        $models = $statusUsersRepository->findAll();
+        $models = $statusDesksRepository->findAll();
         foreach ($models as $status) {
             $data[] = [
                 'id' => $status->getId(),
@@ -25,21 +25,21 @@ class UserStatusController  extends AbstractController
         return new JsonResponse($data,Response::HTTP_OK);
     }
 
-    #[Route(path: 'api/status-user/{id}', name: 'api_delete_status', methods: ['DELETE'])]
-    public function deleteOption(StatusUsersRepository $statusUsersRepository, string $id): JsonResponse
+    #[Route(path: 'api/status-desk/{id}', name: 'api_delete_status_desk', methods: ['DELETE'])]
+    public function deleteOption(StatusDesksRepository $statusDesksRepository, string $id): JsonResponse
     {
-        $status = $statusUsersRepository->findOneById($id);
+        $status = $statusDesksRepository->findOneById($id);
         if (!$status) {
             throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
 
-        // Supprimer la référence de statut dans tous les utilisateurs associés
-        $users = $status->getUsers();
-        foreach ($users as $user) {
-            $user->setStatus(null);
+        // Supprimer la référence de statut dans tous les bureaux associés
+        $desks = $status->getDesks();
+        foreach ($desks as $desk) {
+            $desk->setStatusDesks(null);
         }
 
-        $statusUsersRepository->remove($status,true);
+        $statusDesksRepository->remove($status,true);
         return new JsonResponse(
             [
                 'message' => "Status is deleted",
@@ -47,10 +47,10 @@ class UserStatusController  extends AbstractController
         );
     }
 
-    #[Route(path: 'api/status-user/{id}', name: 'api_update_status', methods: ['PUT'])]
-    public function editOption(StatusUsersRepository $statusUsersRepository, Request $request, string $id): JsonResponse
+    #[Route(path: 'api/status-desk/{id}', name: 'api_update_status_desk', methods: ['PUT'])]
+    public function editOption(StatusDesksRepository $statusDesksRepository, Request $request, string $id): JsonResponse
     {
-        $status = $statusUsersRepository->findOneById($id);
+        $status = $statusDesksRepository->findOneById($id);
         if ($status == null) {
             throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
@@ -63,7 +63,7 @@ class UserStatusController  extends AbstractController
 
         if (!empty($name)) {
             $status->setName($name);
-            $statusUsersRepository->save($status, true);
+            $statusDesksRepository->save($status, true);
             return new JsonResponse(
                 [
                     'message' => "Status is updated",
