@@ -2,17 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\StatusUsers;
-use App\Repository\OptionsRepository;
 use App\Repository\StatusUsersRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class UserStatusController  extends AbstractController
 {
@@ -55,7 +50,7 @@ class UserStatusController  extends AbstractController
     #[Route(path: 'api/status-user/{id}', name: 'api_update_status', methods: ['PUT'])]
     public function editOption(StatusUsersRepository $statusUsersRepository, Request $request, string $id): JsonResponse
     {
-        $status = $statusUsersRepository->findOneBy(['id' => $id]);
+        $status = $statusUsersRepository->findOneById($id);
         if ($status == null) {
             throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
