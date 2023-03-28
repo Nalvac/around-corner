@@ -26,7 +26,7 @@ class DeskController extends AbstractController
     /**
      * Afficher tout les bureaux 
     */
-    #[Route('/api/desk_all', name: 'app_desk_all')]
+    #[Route('/api/desk-all', name: 'app_desk_all')]
     public function all_desk(): Response
     {
       $desks = $this->entityManager->getRepository(Desks::class)->findAll();

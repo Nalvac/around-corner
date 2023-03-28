@@ -32,7 +32,7 @@ class OptionController extends AbstractController
         return new JsonResponse(
             [
                 'message' => "Option is deleted",
-            ], 200
+            ], Response::HTTP_OK
         );
     }
 
@@ -51,7 +51,7 @@ class OptionController extends AbstractController
         $name = $data["name"];
 
         if (!empty($name)) {
-            $option->setName('test');
+            $option->setName($name);
             $optionsRepository->save($option, true);
             return new JsonResponse(
                 [
