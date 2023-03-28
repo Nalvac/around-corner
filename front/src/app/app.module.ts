@@ -15,6 +15,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { BannerComponent } from './banner/banner.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
+import { LoginComponent } from './login/login.component';
+import {CarouselModule} from "ngx-bootstrap/carousel";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
     RoomCardComponent,
     NavbarComponent,
     BannerComponent,
-    HowItWorksComponent
+    HowItWorksComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { HowItWorksComponent } from './how-it-works/how-it-works.component';
     FormsModule,
     NgbInputDatepicker,
     MatIconModule,
+    CarouselModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
