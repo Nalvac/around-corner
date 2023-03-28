@@ -78,7 +78,15 @@ class DeskController extends AbstractController
     #[Route('/api/desk_edit/{id}', name: 'app_desk_edit', methods: ['PUT'])]
     public function desk_edit($id, Request $request): JsonResponse
     {
-
+      // schéma json attendu (si une donnée est manquante c'est pas grave et il ne faut pas de données en plus) : 
+      // {
+      //   "price": 25.0,
+      //   "address": "123 rue de la ville",
+      //   "city": "Paris",
+      //   "zipCode": "75001",
+      //   "description": "Bureau spacieux et lumineux",
+      //   "numberPlaces": 2
+      // }
       $data = json_decode($request->getContent(), true);
       $desk = $this->entityManager->getRepository(Desks::class)->findOneById($id);
 
@@ -91,12 +99,13 @@ class DeskController extends AbstractController
 
       $this->entityManager->flush();
 
-      return new JsonResponse(['message' => 'Le bureau a été mis à jour avec succès.'], JsonResponse::HTTP_OK);
+      return new JsonResponse(['message' => 'Le bureau est a jours.'], JsonResponse::HTTP_OK);
     }
 
     /**
       * Supprimer un bureau
     */
+    #[Route(path: 'api/desk_delet/{id}', name: 'app_desk_delet', methods: ['DELETE'])]
 
     /**
      * Ajouter une option à un bureau
