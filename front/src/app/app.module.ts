@@ -24,6 +24,7 @@ import { RegisterComponent } from './register/register.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatSelectModule} from "@angular/material/select";
 import { FooterComponent } from './footer/footer.component';
+import { RoomDetailComponent } from './room-detail/room-detail.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    FooterComponent
+    FooterComponent,
+    RoomDetailComponent
   ],
   imports: [
     BrowserModule,
