@@ -37,6 +37,8 @@ class DeskController extends AbstractController
       $data = [];
       
       foreach ($desks as $desk) {
+        
+        $images = $this->entityManager->getRepository(Images::class)->findBy(['desk' => $id]);
 
         // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
         $bookings = $desk->getBookings();
@@ -60,6 +62,7 @@ class DeskController extends AbstractController
             'averageNote' => $averageNote,
             // 'description' => $desk->getDescription(),
             'numberPlaces' => $desk->getNumberPlaces(),
+            'images' => $images,
             // 'status_desks_id' => $desk->getStatusDesks()->getName(),
             // 'user_id' => $desk->getUsers()->getId(),
 
@@ -73,6 +76,51 @@ class DeskController extends AbstractController
           
       return $response;
     }
+
+    /**
+     * Afficher un seul bureau
+     */
+    #[Route('/api/desk/{id}', name: 'app_desk', methods: ['GET'])]
+    public function desk($id): Response
+    {
+      $desks = $this->entityManager->getRepository(Desks::class)->findOneById($id);
+      $images = $this->entityManager->getRepository(Images::class)->findBy(['desk' => $id]);
+      
+      // On fait la moyenne des notes pour le bureau, s'il n'y a pas de note on retourn null
+      $bookings = $desk->getBookings();
+      $numBookings = count($bookings);
+      $sumNotes = 0;
+
+      foreach ($bookings as $booking) {
+          $sumNotes += $booking->getNote();
+      }
+
+      $averageNote = $numBookings > 0 ? $sumNotes / $numBookings : null;
+
+      // Les data commentés sont laissé pour le futur, si jamais on a besoin de tout les bureau ainsi que leur description etc... 
+      // Il suffit juste de décomenté
+      $data[] = [
+          'id' => $desk->getId(),
+          'price' => $desk->getPrice(),
+          'adress' => $desk->getAdress(),
+          'city' => $desk->getCity(),
+          'zipCode' => $desk->getZipCode(),
+          'averageNote' => $averageNote,
+          'description' => $desk->getDescription(),
+          'numberPlaces' => $desk->getNumberPlaces(),
+          'images' => $images,
+          'status_desks_id' => $desk->getStatusDesks()->getName(),
+          'user_id' => $desk->getUsers()->getId(),
+      ];
+      
+      $response = new JsonResponse();
+      $response->setContent(json_encode($data));
+      $response->setStatusCode(Response::HTTP_OK);
+      $response->setData(['data' => $data]);
+          
+      return $response;
+    }
+
 
     /**
      * Editer un bureau
@@ -157,7 +205,36 @@ class DeskController extends AbstractController
 
     /**
      * Ajouter des images
-     */
+    */
+    #[Route('/api/desk-add-image', name: 'app_desk_add_image', methods: ['POST'])]
+    public function add_desk_image(): Response
+    {
+      
+      $data = json_decode($request->getContent(), true);
+      $images = $data['images'];
+     
+      $desk = $this->entityManager->getRepository(Desks::class)->findOneById($data["did"]);
+      
+      foreach ($images as $image){
+        $image = new Images();
+        $image->setLink($image);
+        $image->setDesks($desk);
+        
+        $this->entityManager->persist($image);
+        $this->entityManager->flush();
+      }
+      
+
+      return new JsonResponse(
+        [
+            'message' => "Image is/are added",
+        ], Response::HTTP_OK
+      );
+    }
+
+    /**
+     * Supprimer une image lié a un bureau
+    */
 
     
 
@@ -184,6 +261,10 @@ class DeskController extends AbstractController
         ], Response::HTTP_OK
       );
     }
+
+    /**
+    * Supprimer une date de disponibilité lié a un bureau
+    */
     
 
     // /**
