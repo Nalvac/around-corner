@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Images;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,8 +38,13 @@ class DeskController extends AbstractController
       $data = [];
       
       foreach ($desks as $desk) {
-        
-        $images = $this->entityManager->getRepository(Images::class)->findBy(['desk' => $id]);
+        $tabImage = [];
+        $images = $this->entityManager->getRepository(Images::class)->findBy(['desks' => $desk->getId()]);
+
+        foreach ($images as $image) {
+            $tabImage[$image->getId()] = $image->getLink();
+        }
+
 
         // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
         $bookings = $desk->getBookings();
@@ -62,7 +68,7 @@ class DeskController extends AbstractController
             'averageNote' => $averageNote,
             // 'description' => $desk->getDescription(),
             'numberPlaces' => $desk->getNumberPlaces(),
-            'images' => $images,
+            'images' => $tabImage,
             // 'status_desks_id' => $desk->getStatusDesks()->getName(),
             // 'user_id' => $desk->getUsers()->getId(),
 
@@ -83,8 +89,12 @@ class DeskController extends AbstractController
     #[Route('/api/desk/{id}', name: 'app_desk', methods: ['GET'])]
     public function desk($id): Response
     {
-      $desks = $this->entityManager->getRepository(Desks::class)->findOneById($id);
-      $images = $this->entityManager->getRepository(Images::class)->findBy(['desk' => $id]);
+      $desk = $this->entityManager->getRepository(Desks::class)->findOneById($id);
+      $tabImage = [];
+      $images = $this->entityManager->getRepository(Images::class)->findBy(['desks' => $desk->getId()]);
+      foreach ($images as $image) {
+          $tabImage[$image->getId()] = $image->getLink();
+      }
       
       // On fait la moyenne des notes pour le bureau, s'il n'y a pas de note on retourn null
       $bookings = $desk->getBookings();
@@ -108,7 +118,7 @@ class DeskController extends AbstractController
           'averageNote' => $averageNote,
           'description' => $desk->getDescription(),
           'numberPlaces' => $desk->getNumberPlaces(),
-          'images' => $images,
+          'images' => $tabImage,
           'status_desks_id' => $desk->getStatusDesks()->getName(),
           'user_id' => $desk->getUsers()->getId(),
       ];
@@ -157,13 +167,12 @@ class DeskController extends AbstractController
       * Ajouter un bureau
     */
     #[Route('/api/desk-add', name: 'app_desk_add', methods: ['POST'])]
-    public function add_desk(): Response
+    public function add_desk(Request $request): Response
     {
-
       $desk = new Desks();
       $data = json_decode($request->getContent(), true);
       $user = $this->entityManager->getRepository(Users::class)->findOneById($data["uid"]);
-      if($user->getIsCertfied === false){
+      if($user->getIsCertified() === false){
         return new JsonResponse('Sorry, you need to be certified to perform this action.', Response::HTTP_NOT_FOUND);
       }
 
@@ -207,20 +216,19 @@ class DeskController extends AbstractController
      * Ajouter des images
     */
     #[Route('/api/desk-add-image', name: 'app_desk_add_image', methods: ['POST'])]
-    public function add_desk_image(): Response
+    public function add_desk_image(Request $request): Response
     {
-      
       $data = json_decode($request->getContent(), true);
       $images = $data['images'];
      
       $desk = $this->entityManager->getRepository(Desks::class)->findOneById($data["did"]);
       
       foreach ($images as $image){
-        $image = new Images();
-        $image->setLink($image);
-        $image->setDesks($desk);
+        $obImage = new Images();
+        $obImage->setLink($image);
+        $obImage->setDesks($desk);
         
-        $this->entityManager->persist($image);
+        $this->entityManager->persist($obImage);
         $this->entityManager->flush();
       }
       
@@ -236,35 +244,33 @@ class DeskController extends AbstractController
      * Supprimer une image lié a un bureau
     */
     #[Route(path: 'api/desk-delete-image/{id}', name: 'api_delete_image', methods: ['DELETE'])]
-    public function desk_delet_image($id): JsonResponse
+    public function desk_delete_image(string $id): JsonResponse
     {
         $image = $this->entityManager->getRepository(Images::class)->findOneById($id);
         if ($image == null) {
-            throw new \Exception('Sorry, option does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, image does not exist', Response::HTTP_NOT_FOUND);
         }
-        $entityManager->remove($image);
-        $entityManager->flush();
+        $this->entityManager->remove($image);
+        $this->entityManager->flush();
         return new JsonResponse(
             [
-                'message' => "Desk is deleted",
+                'message' => "Image is deleted",
             ], Response::HTTP_OK
         );
     }
-
-    
 
     /**
     * Ajouter date de disponibilité
     */
     #[Route('/api/desk-add-availability', name: 'app_desk_add_availability', methods: ['POST'])]
-    public function add_desk_availability(): Response
+    public function add_desk_availability(Request $request): Response
     {
       $availability = new Availability();
       $data = json_decode($request->getContent(), true);
       $desk = $this->entityManager->getRepository(Desks::class)->findOneById($data["did"]);
       
-      $availability->setStartDate($data['startDate']);
-      $availability->setEndDate($data['endDate']);
+      $availability->setStartDate(new \DateTime($data['startDate']));
+      $availability->setEndDate(new \DateTime($data['startDate']));
       $availability->setDesks($desk);
       
       $this->entityManager->persist($availability);
@@ -306,13 +312,19 @@ class DeskController extends AbstractController
      * Afficher les bureaux qu'un utilisateur a mis en location
      */
     #[Route('/api/desk-all-by-owner/{id}', name: 'app_desk_all_by_owner', methods: ['GET'])]
-    public function all_desk_by_owner(): Response
+    public function all_desk_by_owner(string $id): Response
     {
 
-      $desk =  $this->entityManager->getRepository(Desks::class)->findBy(['user' => $id]);
+      $desks =  $this->entityManager->getRepository(Desks::class)->findBy(['owners' => $id]);
+
       $data = [];
       
       foreach ($desks as $desk) {
+
+          $images = $this->entityManager->getRepository(Images::class)->findBy(['desks' => $desk->getId()]);
+          foreach ($images as $image) {
+              $tabImage[$image->getId()] = $image->getLink();
+          }
 
         // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
         $bookings = $desk->getBookings();
@@ -337,6 +349,7 @@ class DeskController extends AbstractController
             'description' => $desk->getDescription(),
             'numberPlaces' => $desk->getNumberPlaces(),
             'status_desks_id' => $desk->getStatusDesks()->getName(),
+            'image' => $tabImage
         ];
       }
       
