@@ -79,16 +79,13 @@ class SecurityController extends AbstractController
         return new JsonResponse(sprintf('User %s successfully created', $user->getUserIdentifier()), Response::HTTP_OK);
     }
 
-    /**
-     * @throws Exception
-     */
     #[Route(path: 'api/user', name: 'api_delete', methods: ['DELETE'])]
     public function deleteUser(UsersRepository $userRepository, Request $request): JsonResponse
     {
         $email = json_decode($request->getContent())->email;
         $user = $userRepository->findOneBy(['email' => $email]);
         if ($user == null) {
-            throw new Exception('Sorry, User does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, User does not exist', Response::HTTP_NOT_FOUND);
         }
         $userRepository->remove($user, true);
         return new JsonResponse(

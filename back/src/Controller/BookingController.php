@@ -6,6 +6,7 @@ use App\Entity\Bookings;
 use App\Entity\Desks;
 use App\Entity\Users;
 use App\Repository\BookingsRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -45,7 +46,7 @@ class BookingController extends AbstractController
     {
         $booking = $bookingsRepository->findOneById($id);
         if (!$booking) {
-            throw new \Exception('Sorry, booking does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, booking does not exist', Response::HTTP_NOT_FOUND);
         }
 
         $bookingsRepository->remove($booking,true);
@@ -114,11 +115,15 @@ class BookingController extends AbstractController
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     #[Route(path: 'api/booking', name: 'api_post_booking', methods: ['POST'])]
     public function addBooking(EntityManagerInterface $entityManager, Request $request): JsonResponse
     {
         $desksRepository = $entityManager->getRepository(Desks::class);
         $usersRepository = $entityManager->getRepository(Users::class);
+        $bookingsRepository = $entityManager->getRepository(Bookings::class);
 
         $booking = new Bookings();
         //get data from body
@@ -132,9 +137,11 @@ class BookingController extends AbstractController
         $note = $data['note'];
         $price = $data['price'];
         $opinion = $data['opinion'];
+        $startDate = $data['startDate'];
+        $endDate = $data['endDate'];
 
-        if (empty($userId) || empty($deskId) || empty($note) || empty($price) || empty($opinion)) {
-            return new JsonResponse("Some data are empty! Check userId, deskId, note, price, opinion if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (empty($userId) || empty($deskId) || empty($note) || empty($price) || empty($opinion) || empty($startDate) || empty($endDate)) {
+            return new JsonResponse("Some data are empty! Check userId, deskId, note, price, opinion, startDate and endDate if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $userId = $usersRepository->findOneById($userId);
@@ -143,14 +150,38 @@ class BookingController extends AbstractController
         if (is_null($userId)  or is_null($deskId)) {
             return new JsonResponse("Invalid! Check if userId or deskId exists", Response::HTTP_NOT_FOUND);
         } else {
-            $booking->setUsers($userId)
-                ->setDesks($deskId)
-                ->setNote($note)
-                ->setPrice($price)
-                ->setOpinion($opinion)
-                ->setStartDate(new \DateTime())
-                ->setEndDate(new \DateTime())
-                ->setCreated(new \DateTime());
+            //start Date
+            $startDate = strtotime($startDate);
+            //end Date
+            $endDate = strtotime($endDate);
+            //current Date
+            $currentDate = strtotime(date('d-m-Y'));
+
+            if ($startDate < $currentDate)
+                return new JsonResponse("Invalid! Veuillez mettre un startDate à partir d' aujourd'hui", Response::HTTP_NOT_FOUND);
+
+            if ($endDate < $startDate)
+                return new JsonResponse("Invalid! La date de sortie endDate est mis autant que startDate", Response::HTTP_NOT_FOUND);
+
+            if ($startDate < $endDate or $startDate = $endDate) {
+                $startDate = new \DateTime(date('d-m-Y',$startDate));
+                $endDate = new \DateTime(date('d-m-Y',$endDate));
+
+                $checkIfReservedStartDate = $bookingsRepository->findOneBy(['start_date' => $startDate]);
+                $checkIfReservedEndDate = $bookingsRepository->findOneBy(['endDate' => $endDate]);
+
+                if ($startDate = $checkIfReservedStartDate and $endDate = $checkIfReservedEndDate)
+                    return new JsonResponse("Sorry! Ce bureau est déjà réservé", Response::HTTP_INTERNAL_SERVER_ERROR);
+
+                $booking->setUsers($userId)
+                    ->setDesks($deskId)
+                    ->setNote($note)
+                    ->setPrice($price)
+                    ->setOpinion($opinion)
+                    ->setStartDate($startDate)
+                    ->setEndDate($endDate)
+                    ->setCreated(new \DateTime(date('d-m-Y')));
+            }
 
             $entityManager->persist($booking);
             $entityManager->flush();
