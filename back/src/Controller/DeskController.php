@@ -114,6 +114,10 @@ class DeskController extends AbstractController
       $desk = new Desks();
       $data = json_decode($request->getContent(), true);
       $user = $this->entityManager->getRepository(Users::class)->findOneById($data["uid"]);
+      if($user->getIsCertfied === false){
+        throw new \Exception('Sorry, you need to be certified to perform this action.', Response::HTTP_NOT_FOUND);
+      }
+
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
       
       $desk->setPrice($data['price'] ?? null);
@@ -132,7 +136,7 @@ class DeskController extends AbstractController
         [
             'message' => "Desk is added",
         ], Response::HTTP_OK
-    );
+      );
     }
 
 
@@ -170,6 +174,48 @@ class DeskController extends AbstractController
     /**
      * Afficher les bureaux qu'un utilisateur a mis en location
      */
+    #[Route('/api/desk-all-by-owner/{id}', name: 'app_desk_all_by_owner', methods: ['GET'])]
+    public function all_desk_by_owner(): Response
+    {
+
+      $desk =  $this->entityManager->getRepository(Desks::class)->findBy(['user' => $id]);
+      $data = [];
+      
+      foreach ($desks as $desk) {
+
+        // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
+        $bookings = $desk->getBookings();
+        $numBookings = count($bookings);
+        $sumNotes = 0;
+
+        foreach ($bookings as $booking) {
+            $sumNotes += $booking->getNote();
+        }
+
+        $averageNote = $numBookings > 0 ? $sumNotes / $numBookings : null;
+
+        // Les data commentés sont laissé pour le futur, si jamais on a besoin de tout les bureau ainsi que leur description etc... 
+        // Il suffit juste de décomenté
+        $data[] = [
+            'id' => $desk->getId(),
+            'price' => $desk->getPrice(),
+            'adress' => $desk->getAdress(),
+            'city' => $desk->getCity(),
+            'zipCode' => $desk->getZipCode(),
+            'averageNote' => $averageNote,
+            'description' => $desk->getDescription(),
+            'numberPlaces' => $desk->getNumberPlaces(),
+            'status_desks_id' => $desk->getStatusDesks()->getName(),
+        ];
+      }
+      
+      $response = new JsonResponse();
+      $response->setContent(json_encode($data));
+      $response->setStatusCode(Response::HTTP_OK);
+      $response->setData(['data' => $data]);
+          
+      return $response;
+    }
 
 
 
