@@ -126,6 +126,10 @@ class BookingController extends AbstractController
             return new JsonResponse("Some data are empty! Check userId, deskId, note, price, opinion if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        /*if ($userId = null or $deskId = null) {
+            return new JsonResponse("Invalid! Check if userId or deskId exists", Response::HTTP_NOT_FOUND);
+        }*/
+
         $userId = $usersRepository->findOneById($userId);
         $deskId = $desksRepository->findOneById($deskId);
 
