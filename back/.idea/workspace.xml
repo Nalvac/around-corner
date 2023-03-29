@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bda8992f-e6c6-4c30-a294-5d3b681c6eaa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/BookingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BookingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/StatusDeskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/StatusDeskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UserStatusController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserStatusController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Desks.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Desks.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

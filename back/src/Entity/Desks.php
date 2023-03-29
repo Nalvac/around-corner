@@ -37,7 +37,7 @@ class Desks
     private Collection $bookings;
 
     #[ORM\ManyToOne(inversedBy: 'desks')]
-    private ?Users $users = null;
+    private ?Users $owners = null;
 
     #[ORM\ManyToOne(inversedBy: 'desks')]
     private ?StatusDesks $statusDesks = null;
@@ -168,12 +168,12 @@ class Desks
 
     public function getUsers(): ?Users
     {
-        return $this->users;
+        return $this->owners;
     }
 
     public function setUsers(?Users $users): self
     {
-        $this->users = $users;
+        $this->owners = $users;
 
         return $this;
     }

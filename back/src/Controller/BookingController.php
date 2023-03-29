@@ -19,21 +19,25 @@ class BookingController extends AbstractController
     public function options(BookingsRepository $bookingsRepository): JsonResponse
     {
         $models = $bookingsRepository->findAll();
-        foreach ($models as $booking) {
-            $data[] = [
-                'id' => $booking->getId(),
-                'user' => $booking->getUsers()->getId(),
-                'desk' => $booking->getDesks()->getId(),
-                'note' => $booking->getNote(),
-                'price' => $booking->getPrice(),
-                'opinion' => $booking->getOpinion(),
-                'startDate' => $booking->getStartDate(),
-                'endDate' => $booking->getEndDate(),
-                'created' => $booking->getCreated()
-            ];
-        }
+        if (!empty($models)) {
+            foreach ($models as $booking) {
+                $data[] = [
+                    'id' => $booking->getId(),
+                    'user' => $booking->getUsers()->getId(),
+                    'desk' => $booking->getDesks()->getId(),
+                    'note' => $booking->getNote(),
+                    'price' => $booking->getPrice(),
+                    'opinion' => $booking->getOpinion(),
+                    'startDate' => $booking->getStartDate(),
+                    'endDate' => $booking->getEndDate(),
+                    'created' => $booking->getCreated()
+                ];
+            }
 
-        return new JsonResponse($data,Response::HTTP_OK);
+            return new JsonResponse($data,Response::HTTP_OK);
+        } else {
+            return new JsonResponse('Aucune reservation disponible',Response::HTTP_NOT_FOUND);
+        }
     }
 
     #[Route(path: 'api/booking/{id}', name: 'api_delete_booking', methods: ['DELETE'])]
@@ -62,7 +66,8 @@ class BookingController extends AbstractController
         $booking = $bookingsRepository->findOneById($id);
 
         if ($booking == null) {
-            throw new \Exception('Sorry, Booking does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, Booking does not exist', Response::HTTP_NOT_FOUND);
+
         }
 
         $data = json_decode(
@@ -85,12 +90,18 @@ class BookingController extends AbstractController
         if (!empty($data["userId"])){
             $userId = $data["userId"];
             $userId = $usersRepository->findOneById($userId);
-            $booking->setUsers($userId);
+            if (!is_null($userId))
+                $booking->setUsers($userId);
+            else
+                return new JsonResponse("Invalid, This user Id does not exists", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if (!empty($data["deskId"])){
             $deskId = $data["deskId"];
             $deskId = $desksRepository->findOneById($deskId);
-            $booking->setUsers($deskId);
+            if (!is_null($deskId))
+                $booking->setDesks($deskId);
+            else
+                return new JsonResponse("Invalid, This desk Id does not exists", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $entityManager->persist($booking);
@@ -126,14 +137,13 @@ class BookingController extends AbstractController
             return new JsonResponse("Some data are empty! Check userId, deskId, note, price, opinion if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        /*if ($userId = null or $deskId = null) {
-            return new JsonResponse("Invalid! Check if userId or deskId exists", Response::HTTP_NOT_FOUND);
-        }*/
-
         $userId = $usersRepository->findOneById($userId);
         $deskId = $desksRepository->findOneById($deskId);
 
-        $booking->setUsers($userId)
+        if (is_null($userId)  or is_null($deskId)) {
+            return new JsonResponse("Invalid! Check if userId or deskId exists", Response::HTTP_NOT_FOUND);
+        } else {
+            $booking->setUsers($userId)
                 ->setDesks($deskId)
                 ->setNote($note)
                 ->setPrice($price)
@@ -142,14 +152,15 @@ class BookingController extends AbstractController
                 ->setEndDate(new \DateTime())
                 ->setCreated(new \DateTime());
 
-        $entityManager->persist($booking);
-        $entityManager->flush();
+            $entityManager->persist($booking);
+            $entityManager->flush();
 
-        return new JsonResponse(
-            [
-                'message' => "Booking is added",
-            ], Response::HTTP_OK
-        );
+            return new JsonResponse(
+                [
+                    'message' => "Booking is added",
+                ], Response::HTTP_OK
+            );
+        }
 
     }
 }
