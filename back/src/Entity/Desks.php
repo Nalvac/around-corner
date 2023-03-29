@@ -40,7 +40,7 @@ class Desks
     private ?Users $owners = null;
 
     #[ORM\ManyToOne(inversedBy: 'desks')]
-    private ?StatusDesks $statusDesks = null;
+        private ?StatusDesks $statusDesks = null;
 
     #[ORM\OneToMany(mappedBy: 'desks', targetEntity: Availability::class)]
     private Collection $availabilities;

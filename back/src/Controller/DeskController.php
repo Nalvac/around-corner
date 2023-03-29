@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Images;
+use App\Entity\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -191,15 +192,103 @@ class DeskController extends AbstractController
     /**
      * Ajouter une option à un bureau
     */
+    #[Route('/api/desk/{id}/option', name: 'app_desk_add_option', methods: ['POST'])]
+    public function add_option_desk(Request $request, string $id): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $desk = $this->entityManager->getRepository(Desks::class)->findOneById($id);
+        $option = $this->entityManager->getRepository(Options::class)->findOneById($data['optionId']);
+
+        if (isset($option) && isset($desk)) {
+            $desk->addOption($option);
+            $this->entityManager->persist($desk);
+            $this->entityManager->flush();
+
+            return new JsonResponse(
+                [
+                    'message' => 'option a été ajouté au bureau',
+                ], Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse(
+                [
+                    'message' => 'Invalid! Soit l option n existe pas soit le bureau n existe pas',
+                ], Response::HTTP_OK
+            );
+        }
+
+    }
 
     /**
      * Enlever une option à un bureau
     */
+    #[Route('/api/desk/{desk_id}/option/{option_id}', name: 'app_desk_delete_option', methods: ['DELETE'])]
+    public function delete_option_desk(Request $request, string $desk_id, string $option_id): Response
+    {
+        $desk = $this->entityManager->getRepository(Desks::class)->findOneById($desk_id);
+        $option = $this->entityManager->getRepository(Options::class)->findOneById($option_id);
+
+        if (isset($option) && isset($desk)) {
+            $desk->removeOption($option);
+            $this->entityManager->persist($desk);
+            $this->entityManager->flush();
+
+            return new JsonResponse(
+                [
+                    'message' => 'option a été supprimé du bureau',
+                ], Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse(
+                [
+                    'message' => 'Invalid! Soit l option n existe pas soit le bureau n existe pas',
+                ], Response::HTTP_OK
+            );
+        }
+
+    }
     
 
     /**
-      *  Filter les bureaux
+      *  Filter les bureaux par nombre de place, ville, option, date (pas reservé), par type de salle, price
     */
+    #[Route('/api/desk/search', name: 'app_desk_search_filter', methods: ['POST'])]
+    public function search_desk(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $desks = $this->entityManager->getRepository(Desks::class)->getDeskWithFilter($data);
+
+        foreach ($desks as $desk) {
+            foreach ($desk->getOptions() as $option) {
+                $tabDesk = [];
+                if (in_array($option->getId(), $data['option'],true)) {
+                    $tabDesk[] = $desk;
+                }
+            }
+            foreach ($desk->getAvailabilities() as $avaibility) {
+                $tabDesk = [];
+                if ($avaibility->getStartDate() == new \DateTime($data['startDate']) and $avaibility->getStartDate() == new \DateTime($data['endDate'])) {
+                    $tabDesk[] = $desk;
+                }
+            }
+        }
+
+        if (!empty($tabDesk)) {
+            foreach ($tabDesk as $desk) {
+                $content = json_decode(self::desk($desk->getId())->getContent());
+                return new JsonResponse(
+                    $content
+                    , Response::HTTP_OK
+                );
+            }
+        } else {
+            return new JsonResponse(
+                [
+                    'message' => 'On a trouvé aucun bureaux',
+                ], Response::HTTP_OK
+            );
+        }
+    }
 
 
     /**
@@ -342,11 +431,6 @@ class DeskController extends AbstractController
             'image' => $tabImage
         ];
       }
-
       return new JsonResponse($data,Response::HTTP_OK);
     }
-
-
-
-
 }

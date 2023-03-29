@@ -15,11 +15,26 @@ use Symfony\Component\Serializer\SerializerInterface;
 class OptionController extends AbstractController
 {
     #[Route(path: 'api/option', name: 'api_options', methods: ['GET'])]
-    public function options(OptionsRepository $optionsRepository, SerializerInterface $serializer): JsonResponse
+    public function options(OptionsRepository $optionsRepository): JsonResponse
     {
         $models = $optionsRepository->findAll();
-        $data = $serializer->serialize($models, JsonEncoder::FORMAT);;
-        return new JsonResponse($data, Response::HTTP_OK, [], true);
+        if (!empty($models)) {
+            foreach ($models as $option) {
+                $tabDesk = [];
+                foreach ($option->getDesks() as $desk) {
+                    $tabDesk[] = $desk->getId();
+                }
+                $data[] = [
+                    'id' => $option->getId(),
+                    'name' => $option->getName(),
+                    'desk' => $tabDesk,
+                ];
+            }
+
+            return new JsonResponse($data,Response::HTTP_OK);
+        } else {
+            return new JsonResponse('Aucun option disponible',Response::HTTP_NOT_FOUND);
+        }
     }
 
     #[Route(path: 'api/option/{id}', name: 'api_delete_options', methods: ['DELETE'])]

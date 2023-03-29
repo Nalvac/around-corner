@@ -39,6 +39,21 @@ class DesksRepository extends ServiceEntityRepository
         }
     }
 
+    public function getDeskWithFilter(array $data)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.city = :city')
+            ->andWhere('d.numberPlaces >= :numberPlaces')
+            ->andWhere('d.statusDesks = :statusDesk')
+            ->setParameter('city', $data["city"])
+            ->setParameter('numberPlaces', $data["nbPlaces"])
+            ->setParameter('statusDesk', $data["statusDesk"])
+            ->orderBy('d.price', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Desks[] Returns an array of Desks objects
 //     */
