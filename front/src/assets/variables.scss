@@ -1,0 +1,79 @@
+$font-outfit: 'Outfit', sans-serif;
+$primary-palette: (
+  50: #e3f7ff,
+  100: #baecff,
+  200: #8ee0ff,
+  300: #65d3fb,
+  400: #4dcaf6,
+  500: #47c1ef,
+  600: #3fb1db,
+  700: #339cbf,
+  800: #2988a6,
+  900: #166678,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: rgba(white, 0.87),
+    500: rgba(white, 0.87),
+    600: rgba(white, 0.87),
+    700: rgba(white, 0.87),
+    800: rgba(white, 0.87),
+    900: rgba(white, 0.87),
+  )
+);
+
+$secondary-palette: (
+  50: #e0f2f2,
+  100: #b2e0de,
+  200: #80ccc9,
+  300: #4cb8b2,
+  400: #23a8a1,
+  500: #00988f,
+  600: #008b81,
+  700: #007b71,
+  800: #006b61,
+  900: #004f45,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: rgba(white, 0.87),
+    500: rgba(white, 0.87),
+    600: rgba(white, 0.87),
+    700: rgba(white, 0.87),
+    800: rgba(white, 0.87),
+    900: rgba(white, 0.87),
+  )
+);
+
+$warn-palette: (
+  50: #fde4e9,
+  100: #fbbcc8,
+  200: #f891a5,
+  300: #f36681,
+  400: #ed4867,
+  500: #e83150,
+  600: #d82c4e,
+  700: #c3264b,
+  800: #af1f48,
+  900: #8b1543,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: rgba(white, 0.87),
+    500: rgba(white, 0.87),
+    600: rgba(white, 0.87),
+    700: rgba(white, 0.87),
+    800: rgba(white, 0.87),
+    900: rgba(white, 0.87),
+  )
+);
+
+p {
+  font-family: $font-outfit;
+}

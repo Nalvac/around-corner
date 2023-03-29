@@ -1,0 +1,85 @@
+
+<div class="form-container">
+
+  <mat-card class="form-card">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <img src="assets/Logo-around-corner.png">
+    </div>
+
+    <form
+      class="form"
+      [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between"
+      >
+        <mat-form-field>
+          <input matInput formControlName="email" placeholder="Email">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" formControlName="password" placeholder="Mot de passe">
+        </mat-form-field>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+      >
+        <mat-form-field>
+          <input matInput formControlName="firstName" placeholder="Prénom">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="lastName" placeholder="Nom">
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <input matInput formControlName="nationality" placeholder="Nationalité">
+      </mat-form-field>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+      >
+        <mat-form-field>
+          <mat-select formControlName="gender" placeholder="Genre">
+            <mat-option value="M">Masculin</mat-option>
+            <mat-option value="F">Féminin</mat-option>
+            <mat-option value="O">Autre</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" formControlName="birthDate" placeholder="Date de naissance">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+      >
+        <mat-form-field>
+          <mat-select formControlName="statusUsersId" placeholder="Statut de l'utilisateur">
+            <mat-option value="1">Option 1</mat-option>
+            <mat-option value="2">Option 2</mat-option>
+            <mat-option value="3">Option 3</mat-option>
+            <mat-option value="4">Option 4</mat-option>
+            <mat-option value="5">Option 5</mat-option>
+            <mat-option value="6">Option 6</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="roles" placeholder="Rôles">
+        </mat-form-field>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="register">
+        <a class="register-page" style="color: #FF2768" href="login.component.html">J'ai un compte</a>
+      </div>
+      <button class="btn btn-primary" type="submit">S'inscrire</button>
+    </form>
+  </mat-card>
+
+</div>

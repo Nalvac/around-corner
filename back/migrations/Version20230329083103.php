@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230327133636 extends AbstractMigration
+final class Version20230329083103 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,10 +25,10 @@ final class Version20230327133636 extends AbstractMigration
         $this->addSql('CREATE TABLE desks (id INT AUTO_INCREMENT NOT NULL, users_id INT DEFAULT NULL, status_desks_id INT DEFAULT NULL, price DOUBLE PRECISION NOT NULL, adress VARCHAR(50) NOT NULL, city VARCHAR(50) NOT NULL, zip_code VARCHAR(25) NOT NULL, description VARCHAR(255) NOT NULL, number_places INT NOT NULL, INDEX IDX_BFDA654267B3B43D (users_id), INDEX IDX_BFDA6542F6099FD1 (status_desks_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE desks_options (desks_id INT NOT NULL, options_id INT NOT NULL, INDEX IDX_37791DA46BD33809 (desks_id), INDEX IDX_37791DA43ADB05F1 (options_id), PRIMARY KEY(desks_id, options_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE images (id INT AUTO_INCREMENT NOT NULL, desks_id INT DEFAULT NULL, link VARCHAR(255) NOT NULL, INDEX IDX_E01FBE6A6BD33809 (desks_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE options (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE options (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_D035FA875E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE status_desks (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE status_users (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, status_users_id INT DEFAULT NULL, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, gender VARCHAR(50) NOT NULL, nationality VARCHAR(50) NOT NULL, birth_date VARCHAR(30) NOT NULL, email VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, access DATETIME NOT NULL, created DATETIME NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', INDEX IDX_1483A5E9FA6913E5 (status_users_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, status_users_id INT DEFAULT NULL, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, gender VARCHAR(50) NOT NULL, nationality VARCHAR(50) NOT NULL, birth_date VARCHAR(30) NOT NULL, email VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, access DATETIME NOT NULL, created DATETIME NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', is_certified TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_1483A5E9E7927C74 (email), INDEX IDX_1483A5E9FA6913E5 (status_users_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE availability ADD CONSTRAINT FK_3FB7A2BF6BD33809 FOREIGN KEY (desks_id) REFERENCES desks (id)');
         $this->addSql('ALTER TABLE bookings ADD CONSTRAINT FK_7A853C3567B3B43D FOREIGN KEY (users_id) REFERENCES users (id)');
         $this->addSql('ALTER TABLE bookings ADD CONSTRAINT FK_7A853C356BD33809 FOREIGN KEY (desks_id) REFERENCES desks (id)');
