@@ -96,4 +96,15 @@ class SecurityController extends AbstractController
             ], 200
         );
     }
+
+    #[Route(path: 'api/logout', name: 'api_logout', methods: ['GET'])]
+    public function logout(): JsonResponse
+    {
+        return new JsonResponse(
+            [
+                'message' => "Merci, à bientôt",
+            ], 200
+        );
+    }
+
 }
