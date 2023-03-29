@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-navbar',
@@ -8,4 +9,6 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
   model: any;
 
+  selectedTypes = new FormControl();
+  types = ['Type 1', 'Type 2', 'Type 3', 'Type 4'];
 }

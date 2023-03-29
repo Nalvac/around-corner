@@ -8,7 +8,7 @@ import { RoomCardComponent } from './room-card/room-card.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgbInputDatepicker} from "@ng-bootstrap/ng-bootstrap";
 import {MatIconModule} from "@angular/material/icon";
@@ -22,6 +22,8 @@ import {AppRoutingModule} from "./app.component.routing";
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import {HttpClientModule} from "@angular/common/http";
+import {MatSelectModule} from "@angular/material/select";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {HttpClientModule} from "@angular/common/http";
     HowItWorksComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatCardModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [
   ],

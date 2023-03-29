@@ -11,6 +11,17 @@
   background-attachment: fixed;
   background-position: center;
 
+  .container {
+    text-align: center;
+    p {
+      padding: 10px;
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: bold;
+    }
+  }
+
+
   .rent-container {
 
     padding: 20px;
