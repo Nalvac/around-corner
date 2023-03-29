@@ -25,7 +25,7 @@ class OptionController extends AbstractController
     #[Route(path: 'api/option/{id}', name: 'api_delete_options', methods: ['DELETE'])]
     public function deleteOption(OptionsRepository $optionsRepository, string $id): JsonResponse
     {
-        $option = $optionsRepository->findOneById($id);;
+        $option = $optionsRepository->findOneById($id);
         if ($option == null) {
             throw new \Exception('Sorry, option does not exist', Response::HTTP_NOT_FOUND);
         }

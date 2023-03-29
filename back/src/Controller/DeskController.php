@@ -164,7 +164,7 @@ class DeskController extends AbstractController
       $data = json_decode($request->getContent(), true);
       $user = $this->entityManager->getRepository(Users::class)->findOneById($data["uid"]);
       if($user->getIsCertfied === false){
-        throw new \Exception('Sorry, you need to be certified to perform this action.', Response::HTTP_NOT_FOUND);
+        return new JsonResponse('Sorry, you need to be certified to perform this action.', Response::HTTP_NOT_FOUND);
       }
 
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
@@ -235,6 +235,21 @@ class DeskController extends AbstractController
     /**
      * Supprimer une image lié a un bureau
     */
+    #[Route(path: 'api/desk-delete-image/{id}', name: 'api_delete_image', methods: ['DELETE'])]
+    public function desk_delet_image($id): JsonResponse
+    {
+        $image = $this->entityManager->getRepository(Images::class)->findOneById($id);
+        if ($image == null) {
+            throw new \Exception('Sorry, option does not exist', Response::HTTP_NOT_FOUND);
+        }
+        $entityManager->remove($image);
+        $entityManager->flush();
+        return new JsonResponse(
+            [
+                'message' => "Desk is deleted",
+            ], Response::HTTP_OK
+        );
+    }
 
     
 
@@ -262,11 +277,23 @@ class DeskController extends AbstractController
       );
     }
 
-    /**
-    * Supprimer une date de disponibilité lié a un bureau
-    */
+    // /**
+    // * Supprimer une date de disponibilité lié a un bureau pour l'instant impossible, car on enregistre les dates en créneau. Le jour
+    // * ou on mets en place les demi journée en gros on enregistrera chaque demi journée par demi journée dans la bdd, donc a ce moment
+    // * on pourra supprimer des demis journées et pas un un créneau
+    // */
     
 
+    /**
+     * Afficher les dates de dispo d'un bureau pour l'owner (avec un tableau json qui renvoie les dates prise et l'utilisateur qui a pris)
+    */
+
+
+    /**
+    * Afficher les dates de dispo pour un hotel en vérifiant que les dates de dispo sont pas utiliser par un autre user
+    */
+
+    // A faire dans le futur
     // /**
     //  * Ajouter au like
     //  */
