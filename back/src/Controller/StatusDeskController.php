@@ -31,7 +31,7 @@ class StatusDeskController extends AbstractController
     {
         $status = $statusDesksRepository->findOneById($id);
         if (!$status) {
-            throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
 
         // Supprimer la référence de statut dans tous les bureaux associés
@@ -53,7 +53,7 @@ class StatusDeskController extends AbstractController
     {
         $status = $statusDesksRepository->findOneById($id);
         if ($status == null) {
-            throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
 
         $data = json_decode(
