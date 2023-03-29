@@ -57,6 +57,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Desks::class)]
     private Collection $desks;
 
+    #[ORM\Column]
+    private ?bool $isCertified = null;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
@@ -277,6 +280,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
                 $desk->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsCertified(): ?bool
+    {
+        return $this->isCertified;
+    }
+
+    public function setIsCertified(bool $isCertified): self
+    {
+        $this->isCertified = $isCertified;
 
         return $this;
     }

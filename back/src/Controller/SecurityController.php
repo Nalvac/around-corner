@@ -43,15 +43,19 @@ class SecurityController extends AbstractController
         $gender = $data['gender'];
         $nationality = $data['nationality'];
         $birthDate = $data['birthDate'];
+        $isCertified = $data['isCertified'];
 
-        if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality)) {
-            return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality) || empty($isCertified)) {
+            return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId, isCertified if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if (empty($password) || empty($email)) {
             return new JsonResponse("Invalid Username or Password or Email", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        if ($isCertified == "false") {
+            return new JsonResponse("Invalid, User has to be certified", Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
-        $checkIfUserExists = $userRepository->findOneBy(['email'=>$email]);
+        $checkIfUserExists = $userRepository->findOneBy(['email' => $email]);
         if ($checkIfUserExists) {
             return new JsonResponse("Email already exists", Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -70,6 +74,7 @@ class SecurityController extends AbstractController
             ->setStatus($statusUsersId)
             ->setNationality($nationality)
             ->setGender($gender)
+            ->setIsCertified((bool) $isCertified)
             ->setAccess(new \DateTime())
             ->setCreated(new \DateTime());
 
