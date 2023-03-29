@@ -1,4 +1,4 @@
-
+@import "src/assets/variables";
 
 :host {
   display: block;
@@ -16,10 +16,10 @@
     width: 95px;
     margin-right: 10px;
 
-    input {
+    input, select {
       background-color: #DAF0F8;
     }
-    ::ng-deep .form-control:focus {
+    ::ng-deep .form-control:focus, ::ng-deep .form-select:focus {
       border-color: #7A7A7A!important;
       box-shadow: none;
     }
@@ -31,8 +31,9 @@
     background-color: #DAF0F8;
     padding: 0.25rem 0.5rem;
     border-radius: 5px;
-
     margin-right: 10px;
+
+    border: 1px solid #ccc;
   }
 
   .dropdown-input {
@@ -78,7 +79,18 @@
     margin-right: 5px;
   }
 
+  .date-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DAF0F8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    height: 32px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
 
+  }
 }
 
 

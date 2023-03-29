@@ -1,0 +1,10 @@
+@import "src/assets/variables";
+:host {
+  display: block;
+  font-family: $font-outfit;
+}
+.sous-titre {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}

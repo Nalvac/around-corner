@@ -13,9 +13,26 @@ export class Dao {
     connexion(data: UserModel): Observable<any> {
       return this.httpService.post('api/login', data);
     }
-  signup(data: UserRegisterModel): Observable<any> {
-      return this.httpService.post('auth/register', data);
+    signup(data: UserRegisterModel): Observable<any> {
+      return this.httpService.post('api/register', data);
     }
+
+    getCoordinates(address: string): void {
+      this.httpService.getCoordinatesFromAddress(address).subscribe(
+      (response) => {
+        if (response && response.length > 0) {
+          const latitude = parseFloat(response[0].lat);
+          const longitude = parseFloat(response[0].lon);
+          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        } else {
+          console.log('No coordinates found for the given address.');
+        }
+      },
+      (error) => {
+        console.log('Error:', error);
+      }
+    );
+  }
 
     getDate() {}
 
