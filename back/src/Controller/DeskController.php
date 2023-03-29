@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Desks;
+use App\Entity\Users;
+use App\Entity\StatusDesks;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -103,8 +105,35 @@ class DeskController extends AbstractController
     }
 
     /**
-      * Supprimer un bureau
+      * Ajouter un bureau
     */
+    #[Route('/api/desk-add', name: 'app_desk_add', methods: ['POST'])]
+    public function add_desk(): Response
+    {
+
+      $desk = new Desks();
+      $data = json_decode($request->getContent(), true);
+      $user = $this->entityManager->getRepository(Users::class)->findOneById($data["uid"]);
+      $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
+      
+      $desk->setPrice($data['price'] ?? null);
+      $desk->setAdress($data['address'] ?? null);
+      $desk->setCity($data['city'] ?? null);
+      $desk->setZipCode($data['zipCode'] ?? null);
+      $desk->setDescription($data['description'] ?? null);
+      $desk->setNumberPlaces($data['numberPlaces'] ?? null);
+      $desk->setUsers($user);
+      $desk->setStatusDesks($statusDesks);
+      
+      $this->entityManager->persist($desk);
+      $this->entityManager->flush();
+
+      return new JsonResponse(
+        [
+            'message' => "Desk is added",
+        ], Response::HTTP_OK
+    );
+    }
 
 
     /**
@@ -123,49 +152,7 @@ class DeskController extends AbstractController
     /**
      * Ajouter des images
      */
-    #[Route('/api/desk-add-image/{id}', name: 'desk_add_image', methods: ['GET'])]
-    public function _add_image($id): Response
-    {
-      $desks = $this->entityManager->getRepository(Desks::class)->findAll();
-      $data = [];
-      
-      foreach ($desks as $desk) {
 
-        // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
-        $bookings = $desk->getBookings();
-        $numBookings = count($bookings);
-        $sumNotes = 0;
-
-        foreach ($bookings as $booking) {
-            $sumNotes += $booking->getNote();
-        }
-
-        $averageNote = $numBookings > 0 ? $sumNotes / $numBookings : null;
-
-        // Les data commentés sont laissé pour le futur, si jamais on a besoin de tout les bureau ainsi que leur description etc... 
-        // Il suffit juste de décomenté
-        $data[] = [
-            'id' => $desk->getId(),
-            'price' => $desk->getPrice(),
-            'adress' => $desk->getAdress(),
-            'city' => $desk->getCity(),
-            'zipCode' => $desk->getZipCode(),
-            'averageNote' => $averageNote,
-            // 'description' => $desk->getDescription(),
-            'numberPlaces' => $desk->getNumberPlaces(),
-            // 'status_desks_id' => $desk->getStatusDesks()->getName(),
-            // 'user_id' => $desk->getUsers()->getId(),
-
-        ];
-      }
-      
-      $response = new JsonResponse();
-      $response->setContent(json_encode($data));
-      $response->setStatusCode(Response::HTTP_OK);
-      $response->setData(['data' => $data]);
-          
-      return $response;
-    }
     
 
     /**
