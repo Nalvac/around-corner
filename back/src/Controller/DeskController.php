@@ -74,13 +74,8 @@ class DeskController extends AbstractController
 
         ];
       }
-      
-      $response = new JsonResponse();
-      $response->setContent(json_encode($data));
-      $response->setStatusCode(Response::HTTP_OK);
-      $response->setData(['data' => $data]);
-          
-      return $response;
+
+      return new JsonResponse($data,Response::HTTP_OK);
     }
 
     /**
@@ -122,13 +117,8 @@ class DeskController extends AbstractController
           'status_desks_id' => $desk->getStatusDesks()->getName(),
           'user_id' => $desk->getUsers()->getId(),
       ];
-      
-      $response = new JsonResponse();
-      $response->setContent(json_encode($data));
-      $response->setStatusCode(Response::HTTP_OK);
-      $response->setData(['data' => $data]);
-          
-      return $response;
+
+      return new JsonResponse($data,Response::HTTP_OK);
     }
 
 
@@ -352,13 +342,8 @@ class DeskController extends AbstractController
             'image' => $tabImage
         ];
       }
-      
-      $response = new JsonResponse();
-      $response->setContent(json_encode($data));
-      $response->setStatusCode(Response::HTTP_OK);
-      $response->setData(['data' => $data]);
-          
-      return $response;
+
+      return new JsonResponse($data,Response::HTTP_OK);
     }
 
 
