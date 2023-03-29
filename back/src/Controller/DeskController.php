@@ -27,7 +27,7 @@ class DeskController extends AbstractController
     /**
      * Afficher tout les bureaux 
     */
-    #[Route('/api/desk_all', name: 'app_desk_all', methods: ['GET'])]
+    #[Route('/api/desk-all', name: 'app_desk_all', methods: ['GET'])]
     public function all_desk(): Response
     {
       $desks = $this->entityManager->getRepository(Desks::class)->findAll();
@@ -75,7 +75,7 @@ class DeskController extends AbstractController
      * Editer un bureau
      * 
     */
-    #[Route('/api/desk_edit/{id}', name: 'app_desk_edit', methods: ['PUT'])]
+    #[Route('/api/desk-edit/{id}', name: 'app_desk_edit', methods: ['PUT'])]
     public function desk_edit($id, Request $request): JsonResponse
     {
       // schéma json attendu (si une donnée est manquante c'est pas grave et il ne faut pas de données en plus) : 
@@ -105,11 +105,16 @@ class DeskController extends AbstractController
     /**
       * Supprimer un bureau
     */
-    #[Route(path: 'api/desk_delet/{id}', name: 'app_desk_delet', methods: ['DELETE'])]
+
 
     /**
      * Ajouter une option à un bureau
     */
+
+    /**
+     * Enlever une option à un bureau
+    */
+    
 
     /**
       *  Filter les bureaux
@@ -118,6 +123,50 @@ class DeskController extends AbstractController
     /**
      * Ajouter des images
      */
+    #[Route('/api/desk-add-image/{id}', name: 'desk_add_image', methods: ['GET'])]
+    public function _add_image($id): Response
+    {
+      $desks = $this->entityManager->getRepository(Desks::class)->findAll();
+      $data = [];
+      
+      foreach ($desks as $desk) {
+
+        // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
+        $bookings = $desk->getBookings();
+        $numBookings = count($bookings);
+        $sumNotes = 0;
+
+        foreach ($bookings as $booking) {
+            $sumNotes += $booking->getNote();
+        }
+
+        $averageNote = $numBookings > 0 ? $sumNotes / $numBookings : null;
+
+        // Les data commentés sont laissé pour le futur, si jamais on a besoin de tout les bureau ainsi que leur description etc... 
+        // Il suffit juste de décomenté
+        $data[] = [
+            'id' => $desk->getId(),
+            'price' => $desk->getPrice(),
+            'adress' => $desk->getAdress(),
+            'city' => $desk->getCity(),
+            'zipCode' => $desk->getZipCode(),
+            'averageNote' => $averageNote,
+            // 'description' => $desk->getDescription(),
+            'numberPlaces' => $desk->getNumberPlaces(),
+            // 'status_desks_id' => $desk->getStatusDesks()->getName(),
+            // 'user_id' => $desk->getUsers()->getId(),
+
+        ];
+      }
+      
+      $response = new JsonResponse();
+      $response->setContent(json_encode($data));
+      $response->setStatusCode(Response::HTTP_OK);
+      $response->setData(['data' => $data]);
+          
+      return $response;
+    }
+    
 
     /**
     * Ajouter date de disponibilité
