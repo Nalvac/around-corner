@@ -44,8 +44,8 @@ class SecurityController extends AbstractController
         $nationality = $data['nationality'];
         $birthDate = $data['birthDate'];
 
-        if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality) || empty($isCertified)) {
-            return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId, isCertified if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality)) {
+            return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if (empty($password) || empty($email)) {
             return new JsonResponse("Invalid Username or Password or Email", Response::HTTP_UNPROCESSABLE_ENTITY);
