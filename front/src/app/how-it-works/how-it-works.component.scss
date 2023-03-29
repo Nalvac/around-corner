@@ -1,6 +1,14 @@
+@import "src/assets/variables";
 :host {
   display: block;
+  font-family: $font-outfit;
 }
 .how-works-container {
   padding: 10px 50px;
+
+  .sous-titre {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }

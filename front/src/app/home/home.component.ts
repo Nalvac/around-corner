@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Dao} from "../service/dao";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,11 +10,13 @@ export class HomeComponent implements OnInit{
   public lat;
   public lng;
 
+  constructor(private dao: Dao) {
+  }
   public ngOnInit(): void {
     this.getLocation();
     const distance = this.getDistanceFromLatLonInKm(48.858093, 2.294694, 51.50722, -0.127758);
     console.log(`Distance entre Paris et Londres : ${distance} km`);
-
+    this.dao.getCoordinates('150 rue du 4 août 1789 villeurbanne');
   }
 
   getLocation() {
