@@ -1,0 +1,51 @@
+h1 {
+    padding-top : 50px; 
+    padding-bottom: 50px;
+    padding-left: 100px;
+}
+
+img {
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    
+}
+
+section {
+    display: flex;
+    justify-content : space-around;
+}
+
+.col1{
+    text-align: center;
+}
+
+
+/* CSS */
+button {
+
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #FF2768;
+  border: 1px solid black;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #fff;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin-top: 30px;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
