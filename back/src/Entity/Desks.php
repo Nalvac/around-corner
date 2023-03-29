@@ -51,6 +51,9 @@ class Desks
     #[ORM\ManyToMany(targetEntity: Options::class, inversedBy: 'desks')]
     private Collection $options;
 
+    #[ORM\Column]
+    private ?int $Tax = null;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
@@ -270,6 +273,18 @@ class Desks
     public function removeOption(Options $option): self
     {
         $this->options->removeElement($option);
+
+        return $this;
+    }
+
+    public function getTax(): ?int
+    {
+        return $this->Tax;
+    }
+
+    public function setTax(int $Tax): self
+    {
+        $this->Tax = $Tax;
 
         return $this;
     }

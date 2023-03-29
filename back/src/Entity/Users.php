@@ -60,6 +60,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isCertified = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $adress = null;
+
+    #[ORM\Column(length: 6)]
+    private ?string $zipCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 21)]
+    private ?string $phoneNumber = null;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
@@ -292,6 +304,54 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsCertified(bool $isCertified): self
     {
         $this->isCertified = $isCertified;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): self
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getphoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setphoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
