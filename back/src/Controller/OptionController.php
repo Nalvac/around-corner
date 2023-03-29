@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Options;
 use App\Repository\OptionsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +25,7 @@ class OptionController extends AbstractController
     #[Route(path: 'api/option/{id}', name: 'api_delete_options', methods: ['DELETE'])]
     public function deleteOption(OptionsRepository $optionsRepository, string $id): JsonResponse
     {
-        $option = $optionsRepository->findOneBy(['id' => $id]);
+        $option = $optionsRepository->findOneById($id);;
         if ($option == null) {
             throw new \Exception('Sorry, option does not exist', Response::HTTP_NOT_FOUND);
         }
@@ -32,14 +33,14 @@ class OptionController extends AbstractController
         return new JsonResponse(
             [
                 'message' => "Option is deleted",
-            ], 200
+            ], Response::HTTP_OK
         );
     }
 
     #[Route(path: 'api/option/{id}', name: 'api_update_options', methods: ['PUT'])]
     public function editOption(OptionsRepository $optionsRepository, Request $request, string $id): JsonResponse
     {
-        $option = $optionsRepository->findOneBy(['id' => $id]);
+        $option = $optionsRepository->findOneById($id);;
         if ($option == null) {
             throw new \Exception('Sorry, option does not exist', Response::HTTP_NOT_FOUND);
         }
@@ -51,11 +52,40 @@ class OptionController extends AbstractController
         $name = $data["name"];
 
         if (!empty($name)) {
-            $option->setName('test');
+            $option->setName($name);
             $optionsRepository->save($option, true);
             return new JsonResponse(
                 [
                     'message' => "Option is updated",
+                ], Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse('Name of option is empty with no data',Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    #[Route(path: 'api/option', name: 'api_update_options', methods: ['POST'])]
+    public function addOption(OptionsRepository $optionsRepository, Request $request): JsonResponse
+    {
+        $option = new Options();
+
+        $data = json_decode(
+            $request->getContent(),
+            true
+        );
+        $name = $data["name"];
+
+        $checkIfOptionExists = $optionsRepository->findOneBy(['name'=>$name]);
+        if ($checkIfOptionExists) {
+            return new JsonResponse("Option already exists", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        if (!empty($name)) {
+            $option->setName($name);
+            $optionsRepository->save($option, true);
+            return new JsonResponse(
+                [
+                    'message' => "Option is added",
                 ], Response::HTTP_OK
             );
         } else {
