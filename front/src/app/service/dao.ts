@@ -11,7 +11,7 @@ export class Dao {
     constructor(private httpService: HttpService ) {
     }
     connexion(data: UserModel): Observable<any> {
-      return this.httpService.post('auth/login', data);
+      return this.httpService.post('api/login', data);
     }
   signup(data: UserRegisterModel): Observable<any> {
       return this.httpService.post('auth/register', data);
