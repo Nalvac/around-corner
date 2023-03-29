@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Desks;
 use App\Entity\Users;
 use App\Entity\StatusDesks;
+use App\Entity\Availability;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -120,12 +121,12 @@ class DeskController extends AbstractController
 
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
       
-      $desk->setPrice($data['price'] ?? null);
-      $desk->setAdress($data['address'] ?? null);
-      $desk->setCity($data['city'] ?? null);
-      $desk->setZipCode($data['zipCode'] ?? null);
-      $desk->setDescription($data['description'] ?? null);
-      $desk->setNumberPlaces($data['numberPlaces'] ?? null);
+      $desk->setPrice($data['price']);
+      $desk->setAdress($data['address']);
+      $desk->setCity($data['city']);
+      $desk->setZipCode($data['zipCode']);
+      $desk->setDescription($data['description']);
+      $desk->setNumberPlaces($data['numberPlaces']);
       $desk->setUsers($user);
       $desk->setStatusDesks($statusDesks);
       
@@ -153,6 +154,7 @@ class DeskController extends AbstractController
       *  Filter les bureaux
     */
 
+
     /**
      * Ajouter des images
      */
@@ -162,6 +164,27 @@ class DeskController extends AbstractController
     /**
     * Ajouter date de disponibilité
     */
+    #[Route('/api/desk-add-availability', name: 'app_desk_add_availability', methods: ['POST'])]
+    public function add_desk_availability(): Response
+    {
+      $availability = new Availability();
+      $data = json_decode($request->getContent(), true);
+      $desk = $this->entityManager->getRepository(Desks::class)->findOneById($data["did"]);
+      
+      $availability->setStartDate($data['startDate']);
+      $availability->setEndDate($data['endDate']);
+      $availability->setDesks($desk);
+      
+      $this->entityManager->persist($availability);
+      $this->entityManager->flush();
+
+      return new JsonResponse(
+        [
+            'message' => "Availability is added",
+        ], Response::HTTP_OK
+      );
+    }
+    
 
     // /**
     //  * Ajouter au like
