@@ -72,6 +72,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 21)]
     private ?string $phoneNumber = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
@@ -352,6 +355,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setphoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
