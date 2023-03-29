@@ -284,7 +284,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsCertified(): ?bool
+    public function getIsCertified(): ?bool
     {
         return $this->isCertified;
     }

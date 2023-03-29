@@ -43,16 +43,12 @@ class SecurityController extends AbstractController
         $gender = $data['gender'];
         $nationality = $data['nationality'];
         $birthDate = $data['birthDate'];
-        $isCertified = $data['isCertified'];
 
         if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality) || empty($isCertified)) {
             return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId, isCertified if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if (empty($password) || empty($email)) {
             return new JsonResponse("Invalid Username or Password or Email", Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        if ($isCertified == "false") {
-            return new JsonResponse("Invalid, User has to be certified", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $checkIfUserExists = $userRepository->findOneBy(['email' => $email]);
@@ -74,7 +70,7 @@ class SecurityController extends AbstractController
             ->setStatus($statusUsersId)
             ->setNationality($nationality)
             ->setGender($gender)
-            ->setIsCertified((bool) $isCertified)
+            ->setIsCertified(false)
             ->setAccess(new \DateTime())
             ->setCreated(new \DateTime());
 
@@ -98,6 +94,31 @@ class SecurityController extends AbstractController
         return new JsonResponse(
             [
                 'message' => "User is deleted",
+            ], 200
+        );
+    }
+
+    #[Route(path: 'api/user/{userId}/certified', name: 'api_user_edit_certified', methods: ['PATCH'])]
+    public function editIsCertified(UsersRepository $userRepository, Request $request, string $userId): JsonResponse
+    {
+        $isCertified = json_decode($request->getContent())->isCertified;
+        if (empty($userId)) {
+            return new JsonResponse(
+                [
+                    'message' => "Merci, de nous transmettre le user Id",
+                ], 200
+            );
+        } else {
+            if ($isCertified === "false") {
+                return new JsonResponse("Invalid, User has to be certified", Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+            $user = $userRepository->findOneById($userId);
+            $user->setIsCertified((bool) $isCertified);
+            $userRepository->save($user,true);
+        }
+        return new JsonResponse(
+            [
+                'message' => "Merci, user est maintenant certifié",
             ], 200
         );
     }

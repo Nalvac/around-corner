@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bda8992f-e6c6-4c30-a294-5d3b681c6eaa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20230327133636.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20230328093925.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20230328094752.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
     </list>
