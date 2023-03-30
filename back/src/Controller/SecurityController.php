@@ -48,6 +48,7 @@ class SecurityController extends AbstractController
         $city = $data['city'];
         $phoneNumber = $data['phoneNumber'];
         $image = $data['image'];
+        $access = $data['access'];
 
         if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality) || empty($adress) || empty($zipCode) || empty($city) || empty($phoneNumber) ||  empty($image)) {
             return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId, zipCode, city, phoneNumber, image if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -81,7 +82,7 @@ class SecurityController extends AbstractController
             ->setCity($city)
             ->setphoneNumber($phoneNumber)
             ->setImage($image)
-            ->setAccess(new \DateTime())
+            ->setAccess(new \DateTime($data['access']) ?? new \DateTime())
             ->setCreated(new \DateTime());
 
         $userRepository->save($user, true);
@@ -148,18 +149,20 @@ class SecurityController extends AbstractController
 
         $user
             ->setFirstName($data['firstName'] ?? $user->getFirstName())
-            ->setFirstName($data['lastName'] ?? $user->getLastName())
-            ->setFirstName($data['gender'] ?? $user->getGender())
-            ->setFirstName($data['email'] ?? $user->getEmail())
-            ->setFirstName($data['password'] ?? $user->getPassword())
-            ->setFirstName($data['roles'] ?? $user->getRoles())
-            ->setFirstName($data['gender'] ?? $user->getGender())
-            ->setFirstName($data['nationality'] ?? $user->getNationality())
-            ->setFirstName($data['birthDate'] ?? $user->getBirthDate())
-            ->setFirstName($data['adress'] ?? $user->getAdress())
-            ->setFirstName($data['zipCode'] ?? $user->getZipCode())
-            ->setFirstName($data['phoneNumber'] ?? $user->getPhoneNumber())
-            ->setFirstName($data['image'] ?? $user->getImage());
+            ->setLastName($data['lastName'] ?? $user->getLastName())
+            ->setGender($data['gender'] ?? $user->getGender())
+            ->setEmail($data['email'] ?? $user->getEmail())
+            ->setPassword($data['password'] ?? $user->getPassword())
+            ->setRoles($data['roles'] ?? $user->getRoles())
+            ->setNationality($data['nationality'] ?? $user->getNationality())
+            ->setBirthDate($data['birthDate'] ?? $user->getBirthDate())
+            ->setAdress($data['adress'] ?? $user->getAdress())
+            ->setCity($data['city'] ?? $user->getCity())
+            ->setZipCode($data['zipCode'] ?? $user->getZipCode())
+            ->setPhoneNumber($data['phoneNumber'] ?? $user->getPhoneNumber())
+            ->setImage($data['image'] ?? $user->getImage())
+            ->setStatus($data['statusUsersId'] ?? $user->getStatus())
+            ->setAccess(new \DateTime($data['access']) ?? new \DateTime());
 
         $usersRepository->save($user, true);
 
@@ -189,6 +192,40 @@ class SecurityController extends AbstractController
             ];
             return new JsonResponse(
                     $data
+                , Response::HTTP_OK
+            );
+        } else {
+            return new JsonResponse(
+                [
+                    'message' => 'User non trouvé',
+                ], Response::HTTP_NOT_FOUND
+            );
+        }
+    }
+
+    #[Route(path: 'api/user-connected', name: 'api_user_connected', methods: ['GET'])]
+    public function connected(): JsonResponse
+    {
+        $user = $this->getUser();
+        $data = [];
+        if ($user) {
+            $data[] = [
+                'email' => $user->getEmail(),
+                'firstName' => $user->getFirstName(),
+                'lastName' => $user->getLastName(),
+                'gender' => $user->getGender(),
+                'nationality' => $user->getNationality(),
+                'birthDate' => $user->getBirthDate(),
+                'statusUserId' => $user->getStatus()->getName(),
+                'roles' => $user->getRoles(),
+                'adress' => $user->getAdress(),
+                'city' => $user->getCity(),
+                'zipCode' => $user->getZipCode(),
+                'phoneNumber' => $user->getPhoneNumber(),
+                'image' => $user->getImage()
+            ];
+            return new JsonResponse(
+                $data
                 , Response::HTTP_OK
             );
         } else {
