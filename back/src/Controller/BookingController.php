@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class BookingController extends AbstractController
 {
     #[Route(path: 'api/booking', name: 'api_booking', methods: ['GET'])]
-    public function options(BookingsRepository $bookingsRepository): JsonResponse
+    public function bookings(BookingsRepository $bookingsRepository): JsonResponse
     {
         $models = $bookingsRepository->findAll();
         if (!empty($models)) {
@@ -77,7 +77,6 @@ class BookingController extends AbstractController
                         'opinion' => $booking->getOpinion(),
                         'startDate' => $booking->getStartDate(),
                         'endDate' => $booking->getEndDate(),
-                        'endDate' => $booking->getEndDate(),
                         'userFullName' => $booking->getUsers()->getLastName() . ' ' . $booking->getUsers()->getFirstName(),
                         'phoneNumber' => $booking->getUsers()->getPhoneNumber(),
                         'adress' => $booking->getDesks()->getAdress(),
@@ -86,11 +85,7 @@ class BookingController extends AbstractController
                     ];
                 }
             }
-            return new JsonResponse(
-                [
-                    $data
-                ], Response::HTTP_OK
-            );
+            return new JsonResponse($data, Response::HTTP_OK);
         }
 
     }
@@ -101,7 +96,6 @@ class BookingController extends AbstractController
         $desksRepository = $entityManager->getRepository(Desks::class);
         $usersRepository = $entityManager->getRepository(Users::class);
         $bookingsRepository = $entityManager->getRepository(Bookings::class);
-
         $booking = $bookingsRepository->findOneById($id);
 
         if ($booking == null) {

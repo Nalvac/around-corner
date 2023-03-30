@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import {Dao} from "../service/dao";
 
 @Component({
@@ -6,12 +8,22 @@ import {Dao} from "../service/dao";
   templateUrl: './myrent.component.html',
   styleUrls: ['./myrent.component.scss']
 })
-export class MyRentComponent {
+export class MyRentComponent  implements OnInit{
     constructor(private dao: Dao) {
+        
+    }
+
+    ngOnInit() {
+        this.getBookings();
     }
 
     getBookings () {
-        console.log(this.dao.getBooking('1'));
+        firstValueFrom(this.dao.getBooking('1')).then((data) => {
+            console.log(data);
+
+        }).catch((e: HttpErrorResponse) => {
+            console.log(e);
+        });
     }
 
 }
