@@ -142,7 +142,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/api/user/{user_id}', name: 'app_user_edit', methods: ['PATCH'])]
-    public function desk_edit(string $user_id, UsersRepository $usersRepository, Request $request): JsonResponse
+    public function user_edit(string $user_id, UsersRepository $usersRepository, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $user = $usersRepository->findOneById($user_id);
@@ -188,7 +188,8 @@ class SecurityController extends AbstractController
                 'city' => $user->getCity(),
                 'zipCode' => $user->getZipCode(),
                 'phoneNumber' => $user->getPhoneNumber(),
-                'image' => $user->getImage()
+                'image' => $user->getImage(),
+                'access' => $user->getAccess()
             ];
             return new JsonResponse(
                     $data
