@@ -29,6 +29,8 @@ import { RentDetailComponent } from './rent-detail/rent-detail.component';
 import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { AddDeskComponent } from './add-desk/add-desk.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     RegisterComponent,
     FooterComponent,
     RoomDetailComponent,
-    RentDetailComponent
+    RentDetailComponent,
+    AddDeskComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatListModule,
     MatTableModule,
     MatSnackBarModule,
+    MatCheckboxModule,
   ],
   providers: [
   ],

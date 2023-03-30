@@ -104,9 +104,7 @@
   position: relative;
   display: none;
 }
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: #DAF0F8;
-}
+
 ::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
   padding-top: 24px;
   padding-bottom: 0;
