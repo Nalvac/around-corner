@@ -167,11 +167,14 @@ class BookingController extends AbstractController
                 $startDate = new \DateTime(date('d-m-Y',$startDate));
                 $endDate = new \DateTime(date('d-m-Y',$endDate));
 
-                $checkIfReservedStartDate = $bookingsRepository->findOneBy(['start_date' => $startDate]);
-                $checkIfReservedEndDate = $bookingsRepository->findOneBy(['endDate' => $endDate]);
+                if ($bookingsRepository->findAll()) {
+                    $checkIfReservedStartDate = $bookingsRepository->findOneBy(['start_date' => $startDate]);
+                    $checkIfReservedEndDate = $bookingsRepository->findOneBy(['endDate' => $endDate]);
 
-                if ($startDate = $checkIfReservedStartDate and $endDate = $checkIfReservedEndDate)
-                    return new JsonResponse("Sorry! Ce bureau est déjà réservé", Response::HTTP_INTERNAL_SERVER_ERROR);
+                    if ($startDate = $checkIfReservedStartDate and $endDate = $checkIfReservedEndDate) {
+                        return new JsonResponse("Sorry! Ce bureau est déjà réservé", Response::HTTP_INTERNAL_SERVER_ERROR);
+                    }
+                }
 
                 $booking->setUsers($userId)
                     ->setDesks($deskId)
@@ -181,6 +184,7 @@ class BookingController extends AbstractController
                     ->setStartDate($startDate)
                     ->setEndDate($endDate)
                     ->setCreated(new \DateTime(date('d-m-Y')));
+
             }
 
             $entityManager->persist($booking);
