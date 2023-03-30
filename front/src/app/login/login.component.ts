@@ -3,7 +3,7 @@ import {firstValueFrom} from "rxjs";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserModel} from "../model/user.model";
 import {Dao} from "../service/dao";
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +18,8 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private dao: Dao
+    private dao: Dao,
+    private _snackBar: MatSnackBar
   ) {
     this.userForm = this.fb.group({
       email : new FormControl('', Validators.compose([
@@ -40,10 +41,18 @@ export class LoginComponent {
       .then((data) => {
         sessionStorage.setItem('token', data.token);
         sessionStorage.setItem('refresh_token', data.refresh_token);
-        window.location.href = '/compte';
+        setTimeout(() => {
+          this._snackBar.open('Connexion réussie')
+        },2000)
+        window.location.href = '';
+
         if (this.updateMenuLinkViaParent) {
           this.updateMenuLinkViaParent();
         }
+      }, (error) => {
+        setTimeout(() => {
+          this._snackBar.open('Mot de passe ou email érronné')
+        },2000)
       })
   }
 }

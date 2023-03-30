@@ -1,8 +1,8 @@
 <div
-  fxlayout="column"
+  fxLayout="column"
   class="rent-detail-container"
 >
-  <p>Part Dieu Tour Britania, 25 Rue Paul Bert</p>
+  <H5>Part Dieu Tour Britania, 25 Rue Paul Bert</H5>
   <span>Lyon 69003</span>
   <div
     class="image-container"
@@ -22,6 +22,7 @@
 
   <div
     fxLayout="row"
+    fxLayoutAlign="space-between"
     class="detail-info"
   >
     <div
@@ -31,22 +32,167 @@
         <mat-list-item role="listitem">Dome hosted par Dorothée</mat-list-item>
         <mat-list-item role="listitem">
           <div
-            fxlayout="row"
+            fxLayout="row"
           >
-            <mat-icon>star</mat-icon>
+            <mat-icon>star_border</mat-icon>
             <div
               fxlayout="column"
             >
               <p>Loueur expérimenter</p>
-              <span>Dorothée à 720 location à son actif</span>
+              <span style="color: #7A7A7A">Dorothée à 720 location à son actif</span>
             </div>
           </div>
         </mat-list-item>
-        <mat-list-item role="listitem">Item 3</mat-list-item>
+        <mat-list-item role="listitem">
+          <p style="color: #7A7A7A">
+            Loue mon bureau au 25eme étage,
+            Ascenseur, vestiaire, machine à café à votre disposition
+            <br>
+            Vue imprenable
+          </p>
+        </mat-list-item>
+
+        <mat-list-item role="listitem">
+          <div
+            fxLayout="column"
+            class="offre-container"
+          >
+            <h5>Cette location offre : </h5>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="space-between"
+
+            >
+              <div
+                fxLayout="column"
+              >
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>wifi</mat-icon>
+                  <p>Wifi</p>
+                </div>
+
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>tv</mat-icon>
+                  <p>Tv</p>
+                </div>
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>cast_connected</mat-icon>
+                  <p>Deuxième écran</p>
+                </div>
+              </div>
+              <div
+                fxLayout="column"
+              >
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>meeting_room</mat-icon>
+                  <p>Salle de réunion</p>
+                </div>
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>people</mat-icon>
+                  <p>Plus de 10 collaborateurs</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </mat-list-item>
       </mat-list>
     </div>
 
     <div>
+      <mat-card>
+        <mat-card-title>60€/jour</mat-card-title>
+        <mat-card-content>
+          <table class="table table-bordered">
+
+            <tbody>
+            <tr>
+              <td>
+                <div>
+                  <span>Date d'arriver</span>
+                  <p>02/05/2023</p>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <span>Date de départ</span>
+                  <p>02/07/2023</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div>
+                  <span>Collaborateur</span>
+                  <p>1 Collaborateur</p>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <p>Garantie annulation ?</p>
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <td
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+              >
+                <p>Non remboursable 0€</p>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radioOption" id="radio1" checked >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+              >
+                <div>
+                  <p>Remboursable 5€</p>
+                  <span>
+                    L’annulation de la réservation est annulable jusqu’a 24h avant l’arrivée
+                  </span>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radioOption" id="radio2">
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between"
+            class="shareInfo">
+            <label  for="myCheckbox">
+              Vous accepter que nous transmettions votre nom, numéros de téléphone, prénom
+              et email à tout personne souhaitant louer votre bien
+            </label>
+            <input type="checkbox" id="myCheckbox" checked >
+          </div>
+
+          <button type="button" class="btn btn-primary btn-sm">Réserver</button>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+          >
+            <p>Total avant taxe</p>
+            <p>60€ au total</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
     </div>
   </div>

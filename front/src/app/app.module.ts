@@ -27,6 +27,8 @@ import { FooterComponent } from './footer/footer.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { RentDetailComponent } from './rent-detail/rent-detail.component';
 import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import {MatListModule} from "@angular/material/list";
     MatOptionModule,
     MatSelectModule,
     MatListModule,
+    MatTableModule,
+    MatSnackBarModule,
   ],
   providers: [
   ],
