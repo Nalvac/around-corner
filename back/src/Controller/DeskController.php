@@ -88,13 +88,19 @@ class DeskController extends AbstractController
     #[Route('/api/desk/{id}', name: 'app_desk', methods: ['GET'])]
     public function desk($id): Response
     {
+
       $desk = $this->entityManager->getRepository(Desks::class)->findOneById($id);
-      $tabImage = [];
       $images = $this->entityManager->getRepository(Images::class)->findBy(['desks' => $desk->getId()]);
+      $tabImage = [];
+      $tabOption = [];
       foreach ($images as $image) {
           $tabImage[$image->getId()] = $image->getLink();
       }
-      
+      $options = $desk->getOptions();
+      foreach ($options as $option) {
+          $tabOption[$option->getId()] = $option->getName();
+      }
+
       // On fait la moyenne des notes pour le bureau, s'il n'y a pas de note on retourn null
       $bookings = $desk->getBookings();
       $numBookings = count($bookings);
@@ -118,6 +124,7 @@ class DeskController extends AbstractController
           'images' => $tabImage,
           'status_desks_id' => $desk->getStatusDesks()->getName(),
           'user_id' => $desk->getUsers()->getId(),
+          'options' => $tabOption
       ];
 
       return new JsonResponse($data,Response::HTTP_OK);
