@@ -167,6 +167,7 @@ class DeskController extends AbstractController
         return new JsonResponse('Sorry, you need to be certified to perform this action.', Response::HTTP_NOT_FOUND);
       }
 
+      $images = $data['images'];
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
       $calcPriceTax = ($data['tax'] / 100) * $data['price'] + $data['price'];
       $desk->setPrice($calcPriceTax);
@@ -178,7 +179,14 @@ class DeskController extends AbstractController
       $desk->setTax($data['tax']);
       $desk->setUsers($user);
       $desk->setStatusDesks($statusDesks);
-      
+
+    foreach ($images as $image){
+        $obImage = new Images();
+        $obImage->setLink($image);
+        $obImage->setDesks($desk);
+        $this->entityManager->persist($obImage);
+    }
+
       $this->entityManager->persist($desk);
       $this->entityManager->flush();
 

@@ -77,7 +77,6 @@ class BookingController extends AbstractController
 
         if ($booking == null) {
             return new JsonResponse('Sorry, Booking does not exist', Response::HTTP_NOT_FOUND);
-
         }
 
         $data = json_decode(
