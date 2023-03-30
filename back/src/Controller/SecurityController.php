@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends AbstractController
 {
+    /**
+     * Login
+     */
     #[Route(path: 'api/login', name: 'api_login', methods: ['POST'])]
     public function login(): JsonResponse
     {
@@ -26,6 +29,9 @@ class SecurityController extends AbstractController
         );
     }
 
+    /**
+     * Inscription
+     */
     #[Route(path: 'api/register', name: 'api_register', methods: ['POST'])]
     public function register(Request $request, UserPasswordHasherInterface $encoder, UsersRepository $userRepository, StatusUsersRepository $statusUsersRepository): JsonResponse
     {
@@ -90,6 +96,9 @@ class SecurityController extends AbstractController
         return new JsonResponse(sprintf('User %s successfully created', $user->getUserIdentifier()), Response::HTTP_OK);
     }
 
+    /**
+     * Supprimer un utilisateur (super_admin uniquement pour respecter les dates de conservation obligatoire)
+     */
     #[Route(path: 'api/user', name: 'api_delete', methods: ['DELETE'])]
     public function deleteUser(UsersRepository $userRepository, Request $request): JsonResponse
     {
@@ -106,6 +115,9 @@ class SecurityController extends AbstractController
         );
     }
 
+    /**
+     * Certification (attention le site de certification doit valider avant)(admin uniquement)
+     */
     #[Route(path: 'api/user/{userId}/certified', name: 'api_user_edit_certified', methods: ['PATCH'])]
     public function editIsCertified(UsersRepository $userRepository, Request $request, string $userId): JsonResponse
     {
@@ -131,6 +143,7 @@ class SecurityController extends AbstractController
         );
     }
 
+    /** Se déconnecter */
     #[Route(path: 'api/logout', name: 'api_logout', methods: ['GET'])]
     public function logout(): JsonResponse
     {
@@ -141,6 +154,9 @@ class SecurityController extends AbstractController
         );
     }
 
+    /** 
+     * Mise a jour user 
+    */
     #[Route('/api/user/{user_id}', name: 'app_user_edit', methods: ['PATCH'])]
     public function user_edit(string $user_id, UsersRepository $usersRepository, Request $request): JsonResponse
     {
@@ -169,6 +185,9 @@ class SecurityController extends AbstractController
         return new JsonResponse(['message' => 'User is updated'], Response::HTTP_OK);
     }
 
+    /**
+     * Récupération des infos d'un utilisateur
+     */
     #[Route(path: 'api/user/{user_id}', name: 'api_get_user_id', methods: ['GET'])]
     public function getUserById(UsersRepository $userRepository, string $user_id): JsonResponse
     {

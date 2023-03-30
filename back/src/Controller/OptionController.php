@@ -14,6 +14,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class OptionController extends AbstractController
 {
+    /**
+     * Afficher toutes les options
+     */
     #[Route(path: 'api/option', name: 'api_options', methods: ['GET'])]
     public function options(OptionsRepository $optionsRepository): JsonResponse
     {
@@ -37,6 +40,9 @@ class OptionController extends AbstractController
         }
     }
 
+    /**
+     * Supprimer une option (pour l'admin)
+     */
     #[Route(path: 'api/option/{id}', name: 'api_delete_options', methods: ['DELETE'])]
     public function deleteOption(OptionsRepository $optionsRepository, string $id): JsonResponse
     {
@@ -52,6 +58,9 @@ class OptionController extends AbstractController
         );
     }
 
+    /**
+     * Mettre a jour une option (pour l'admin)
+     */
     #[Route(path: 'api/option/{id}', name: 'api_update_options', methods: ['PUT'])]
     public function editOption(OptionsRepository $optionsRepository, Request $request, string $id): JsonResponse
     {
@@ -79,6 +88,9 @@ class OptionController extends AbstractController
         }
     }
 
+    /**
+     * Ajouter une option (pour l'admin)
+     */
     #[Route(path: 'api/option', name: 'api_update_options', methods: ['POST'])]
     public function addOption(OptionsRepository $optionsRepository, Request $request): JsonResponse
     {

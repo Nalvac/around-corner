@@ -105,8 +105,6 @@ class DeskController extends AbstractController
 
       $averageNote = $numBookings > 0 ? $sumNotes / $numBookings : null;
 
-      // Les data commentés sont laissé pour le futur, si jamais on a besoin de tout les bureau ainsi que leur description etc... 
-      // Il suffit juste de décomenté
       $data[] = [
           'id' => $desk->getId(),
           'price' => $desk->getPrice(),

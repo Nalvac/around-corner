@@ -12,6 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StatusDeskController extends AbstractController
 {
+    /**
+     * Récupération de tout les type de bureau
+    */
     #[Route(path: 'api/status-desk', name: 'api_status_desk', methods: ['GET'])]
     public function options(StatusDesksRepository $statusDesksRepository): JsonResponse
     {
@@ -26,6 +29,9 @@ class StatusDeskController extends AbstractController
         return new JsonResponse($data,Response::HTTP_OK);
     }
 
+    /**
+     * Récupération d'un type de bureau
+     */
     #[Route(path: 'api/status-desk/{id}', name: 'api_delete_status_desk', methods: ['DELETE'])]
     public function deleteOption(StatusDesksRepository $statusDesksRepository, string $id): JsonResponse
     {
@@ -48,6 +54,9 @@ class StatusDeskController extends AbstractController
         );
     }
 
+    /**
+     * Modification d'un type de bureau
+     */
     #[Route(path: 'api/status-desk/{id}', name: 'api_update_status_desk', methods: ['PUT'])]
     public function editOption(StatusDesksRepository $statusDesksRepository, Request $request, string $id): JsonResponse
     {
@@ -75,6 +84,9 @@ class StatusDeskController extends AbstractController
         }
     }
 
+    /**
+     * Ajout d'un type de bureau
+     */
     #[Route(path: 'api/status-desk', name: 'api_post_desk_status', methods: ['POST'])]
     public function addDeskStatut(StatusDesksRepository $statusDesksRepository, Request $request): JsonResponse
     {

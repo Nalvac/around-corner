@@ -16,6 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BookingController extends AbstractController
 {
+    /**
+     * Récupérer toutes les réservations (utile pour le crud admin)
+     */
     #[Route(path: 'api/booking', name: 'api_booking', methods: ['GET'])]
     public function options(BookingsRepository $bookingsRepository): JsonResponse
     {
@@ -41,6 +44,9 @@ class BookingController extends AbstractController
         }
     }
 
+    /**
+     * Supprimer/annuler une réservation via son id (il faut vérifier que la reservation se trouve avant 24h du début de cette dernière )
+     */
     #[Route(path: 'api/booking/{id}', name: 'api_delete_booking', methods: ['DELETE'])]
     public function deleteBooking(BookingsRepository $bookingsRepository, string $id): JsonResponse
     {
@@ -57,6 +63,9 @@ class BookingController extends AbstractController
         );
     }
 
+    /**
+     * Mettre à jour une réservation (ajoute une note et un avis)
+     */
     #[Route(path: 'api/booking/{id}', name: 'api_update_booking', methods: ['PATCH'])]
     public function editBooking(EntityManagerInterface $entityManager, Request $request, string $id): JsonResponse
     {
