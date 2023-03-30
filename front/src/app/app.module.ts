@@ -31,6 +31,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { AddDeskComponent } from './add-desk/add-desk.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatTableModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [
   ],

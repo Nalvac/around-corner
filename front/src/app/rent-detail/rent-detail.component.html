@@ -2,8 +2,8 @@
   fxLayout="column"
   class="rent-detail-container"
 >
-  <H5>Part Dieu Tour Britania, 25 Rue Paul Bert</H5>
-  <span>Lyon 69003</span>
+  <H5>{{desk?.adress}}</H5>
+  <span>{{desk?.city}} {{desk?.zipCode}}</span>
   <div
     class="image-container"
   >
@@ -29,7 +29,7 @@
       class="listing-container"
     >
       <mat-list role="list">
-        <mat-list-item role="listitem">Dome hosted par Dorothée</mat-list-item>
+        <mat-list-item role="listitem">{{lender?.firstName}} {{lender?.lastName}}</mat-list-item>
         <mat-list-item role="listitem">
           <div
             fxLayout="row"
@@ -111,7 +111,7 @@
 
     <div>
       <mat-card>
-        <mat-card-title>60€/jour</mat-card-title>
+        <mat-card-title>{{desk?.price}}€/jour</mat-card-title>
         <mat-card-content>
           <table class="table table-bordered">
 
@@ -120,13 +120,13 @@
               <td>
                 <div>
                   <span>Date d'arriver</span>
-                  <p>02/05/2023</p>
+                  <input type="date">
                 </div>
               </td>
               <td>
                 <div>
                   <span>Date de départ</span>
-                  <p>02/07/2023</p>
+                  <input type="date">
                 </div>
               </td>
             </tr>
@@ -189,7 +189,7 @@
             fxLayoutAlign="space-between center"
           >
             <p>Total avant taxe</p>
-            <p>60€ au total</p>
+            <p>{{desk?.price}}€ au total</p>
           </div>
         </mat-card-content>
       </mat-card>

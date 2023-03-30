@@ -3,6 +3,9 @@ import { Injectable } from "@angular/core";
 import {UserModel} from "../model/user.model";
 import {Observable} from "rxjs";
 import {UserRegisterModel} from "../model/userRegister.model";
+import {DeskModel} from "../model/desk.model";
+import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
+import {LenderModel} from "../model/lender.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,27 +20,30 @@ export class Dao {
       return this.httpService.post('api/register', data);
     }
 
-    getCoordinates(address: string): void {
-      this.httpService.getCoordinatesFromAddress(address).subscribe(
-      (response) => {
-        if (response && response.length > 0) {
-          const latitude = parseFloat(response[0].lat);
-          const longitude = parseFloat(response[0].lon);
-          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-        } else {
-          console.log('No coordinates found for the given address.');
-        }
-      },
-      (error) => {
-        console.log('Error:', error);
-      }
-    );
-  }
-
-  getAllDesk(): Observable<any> {
+    getCoordinates(address: string): Observable<any> {
+      return this.httpService.getCoordinatesFromAddress(address)
+    }
+  getAllDesk(): Observable<Array<DeskModel>> {
       return this.httpService.get('api/desk-all')
   }
 
-    getDate() {}
+  getOption(): Observable<Array<any>> {
+      return this.httpService.get('api/status-desk')
+  }
+  getUserConnected(): Observable<UserConnectedInfoModel> {
+      return this.httpService.get('api/user-connected')
+  }
+
+  addDesk(payload: DeskModel): Observable<any> {
+      return this.httpService.post('api/desk-add', payload)
+  }
+
+  getUserById(id: string): Observable<Array<LenderModel>> {
+      return this.httpService.get('api/user/'+ id)
+  }
+
+  getDeskById(deskId: string): Observable<Array<DeskModel>> {
+      return this.httpService.get('api/desk/'+deskId);
+  }
 
 }

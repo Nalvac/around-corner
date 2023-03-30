@@ -9,11 +9,12 @@
   <p class="sous-titre">Nos recommandations</p>
 </div>
 <div
-  fxLayout="row"
+  fxLayout="row wrap"
 >
   <app-room-card
+    *ngFor="let desk of allDesk"
+    [desk]="desk"
+    [routerLink]="desk.id+'/detail'"
   >
-  </app-room-card>
-  <app-room-card>
   </app-room-card>
 </div>

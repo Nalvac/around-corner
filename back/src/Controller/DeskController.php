@@ -169,7 +169,7 @@ class DeskController extends AbstractController
       }
 
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
-      $calcPriceTax = ($data['tax'] / 100) * $data['tax'];
+      $calcPriceTax = ($data['tax'] / 100) * $data['price'] + $data['price'];
       $desk->setPrice($calcPriceTax);
       $desk->setAdress($data['address']);
       $desk->setCity($data['city']);
