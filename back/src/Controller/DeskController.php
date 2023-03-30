@@ -71,6 +71,7 @@ class DeskController extends AbstractController
             // 'description' => $desk->getDescription(),
             'numberPlaces' => $desk->getNumberPlaces(),
             'images' => $tabImage,
+            'status_desks_id' => $desk->getStatusDesks()->getName(),
             // 'status_desks_id' => $desk->getStatusDesks()->getName(),
             // 'user_id' => $desk->getUsers()->getId(),
 
