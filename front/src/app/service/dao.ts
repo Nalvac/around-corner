@@ -38,6 +38,12 @@ export class Dao {
       return this.httpService.get('api/desk-all')
   }
 
-    getDate() {}
+  getBooking(userId: string): Observable<any> {
+    return this.httpService.get('api/booking/user/${userId}')
+  }
+
+  getDate() {}
+
+
 
 }

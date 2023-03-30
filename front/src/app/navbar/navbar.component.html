@@ -28,14 +28,6 @@
       <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
       <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
     </div>
-    <div class="input-group input-group-sm  input-container">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
     <div
       fxLayout="row"
       fxLayoutAlign="space-between"
@@ -47,7 +39,14 @@
           </mat-option>
         </mat-select>
     </div>
-
+    <div class="input-group input-group-sm  input-container">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>    
     <div
       style="background-color: #FF2768; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer;"
     >

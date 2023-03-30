@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class BookingController extends AbstractController
 {
@@ -55,6 +57,42 @@ class BookingController extends AbstractController
                 'message' => "Booking is deleted",
             ], Response::HTTP_OK
         );
+    }
+
+    #[Route(path: 'api/booking/user/{user_id}', name: 'api_get_booking_user', methods: ['GET'])]
+    public function getUserBooking(BookingsRepository $bookingsRepository, string $user_id, SerializerInterface $serializer): JsonResponse
+    {
+        $bookings = $bookingsRepository->findBy(["users" => $user_id]);
+
+        if (!$bookings) {
+            return new JsonResponse('Sorry, booking does not exist', Response::HTTP_NOT_FOUND);
+        } else {
+            $data = [];
+            if (count($bookings) > 0) {
+                foreach ($bookings as $booking) {
+                    $data[] = [
+                        'id' => $booking->getId(),
+                        'note' => $booking->getNote(),
+                        'price' => $booking->getPrice(),
+                        'opinion' => $booking->getOpinion(),
+                        'startDate' => $booking->getStartDate(),
+                        'endDate' => $booking->getEndDate(),
+                        'endDate' => $booking->getEndDate(),
+                        'userFullName' => $booking->getUsers()->getLastName() . ' ' . $booking->getUsers()->getFirstName(),
+                        'phoneNumber' => $booking->getUsers()->getPhoneNumber(),
+                        'adress' => $booking->getDesks()->getAdress(),
+                        'city' => $booking->getDesks()->getCity(),
+                        'zipCode' => $booking->getDesks()->getZipCode()
+                    ];
+                }
+            }
+            return new JsonResponse(
+                [
+                    $data
+                ], Response::HTTP_OK
+            );
+        }
+
     }
 
     #[Route(path: 'api/booking/{id}', name: 'api_update_booking', methods: ['PATCH'])]
@@ -171,7 +209,7 @@ class BookingController extends AbstractController
                     $checkIfReservedStartDate = $bookingsRepository->findOneBy(['start_date' => $startDate]);
                     $checkIfReservedEndDate = $bookingsRepository->findOneBy(['endDate' => $endDate]);
 
-                    if ($startDate = $checkIfReservedStartDate and $endDate = $checkIfReservedEndDate) {
+                    if ($startDate == $checkIfReservedStartDate and $endDate == $checkIfReservedEndDate) {
                         return new JsonResponse("Sorry! Ce bureau est déjà réservé", Response::HTTP_INTERNAL_SERVER_ERROR);
                     }
                 }
@@ -196,6 +234,5 @@ class BookingController extends AbstractController
                 ], Response::HTTP_OK
             );
         }
-
     }
 }
