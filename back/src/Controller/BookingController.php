@@ -63,6 +63,32 @@ class BookingController extends AbstractController
         );
     }
 
+    #[Route(path: 'api/booking/user/{user_id}', name: 'api_user_booking', methods: ['GET'])]
+    public function getBookingByUser(BookingsRepository $bookingsRepository, string $user_id): JsonResponse
+    {
+        $models = $bookingsRepository->findby(["users" => $user_id]);
+
+        if (!$models) {
+            return new JsonResponse('Sorry, User has not booked anything', Response::HTTP_NOT_FOUND);
+        } else {
+            foreach ($models as $booking) {
+                $data[] = [
+                    'id' => $booking->getId(),
+                    'user' => $booking->getUsers()->getId(),
+                    'desk' => $booking->getDesks()->getId(),
+                    'note' => $booking->getNote(),
+                    'price' => $booking->getPrice(),
+                    'opinion' => $booking->getOpinion(),
+                    'startDate' => $booking->getStartDate(),
+                    'endDate' => $booking->getEndDate(),
+                    'created' => $booking->getCreated()
+                ];
+            }
+
+            return new JsonResponse($data,Response::HTTP_OK);
+        }
+    }
+
     /**
      * Mettre à jour une réservation (ajoute une note et un avis)
      */
