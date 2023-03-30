@@ -227,8 +227,7 @@ class SecurityController extends AbstractController
                 'image' => $user->getImage()
             ];
             return new JsonResponse(
-                $data
-                , Response::HTTP_OK
+                $data, Response::HTTP_OK
             );
         } else {
             return new JsonResponse(

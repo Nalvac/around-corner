@@ -5,6 +5,7 @@ import {HomeComponent} from "./home/home.component";
 import {RegisterComponent} from "./register/register.component";
 import {RentDetailComponent} from "./rent-detail/rent-detail.component";
 import {AddDeskComponent} from "./add-desk/add-desk.component";
+import { MyRentComponent } from "./myrent/myrent.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'nouveau-bureau',
     component: AddDeskComponent,
+  },
+  {
+    path: 'myrent',
+    component: MyRentComponent,
   }
 ];
 
