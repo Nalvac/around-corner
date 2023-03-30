@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Dao} from "../service/dao";
 import {firstValueFrom} from "rxjs";
 import {DeskModel} from "../model/desk.model";
@@ -21,7 +21,7 @@ export class RentDetailComponent implements OnInit{
 
   lender: LenderModel;
 
-  constructor(public param: ActivatedRoute, public dao: Dao) {
+  constructor(public param: ActivatedRoute, public dao: Dao, public route: Router) {
   }
 
   ngOnInit() {

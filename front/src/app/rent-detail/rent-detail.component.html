@@ -1,3 +1,4 @@
+
 <div
   fxLayout="column"
   class="rent-detail-container"
@@ -7,16 +8,22 @@
   <div
     class="image-container"
   >
-    <div
+    <carousel
+      [interval]="0"
       class="big-display"
     >
-      <img src="assets/big-image.png">
-    </div>
+      <slide
+        *ngFor="let imag of desk?.images | keyvalue"
+      >
+        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
+      </slide>
+    </carousel>
     <div
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between"
       class="small-display"
     >
-      <img src="assets/smal-image.png">
-      <img src="assets/smal-image.png">
+      <img  *ngFor="let imag of desk?.images | keyvalue" [src]="'assets/'+imag.value" class="card-img-top" alt="...">
     </div>
   </div>
 
@@ -36,7 +43,7 @@
           >
             <mat-icon>star_border</mat-icon>
             <div
-              fxlayout="column"
+              fxLayout="column"
             >
               <p>Loueur expérimenter</p>
               <span style="color: #7A7A7A">Dorothée à 720 location à son actif</span>
@@ -45,10 +52,7 @@
         </mat-list-item>
         <mat-list-item role="listitem">
           <p style="color: #7A7A7A">
-            Loue mon bureau au 25eme étage,
-            Ascenseur, vestiaire, machine à café à votre disposition
-            <br>
-            Vue imprenable
+           {{desk?.description}}
           </p>
         </mat-list-item>
 
@@ -196,4 +200,6 @@
 
     </div>
   </div>
+
+  <app-rating></app-rating>
 </div>

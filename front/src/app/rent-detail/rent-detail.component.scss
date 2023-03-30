@@ -18,14 +18,15 @@
       }
     }
     .small-display {
-      width: 250px;
+      width: 419px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      max-height: 356.03px;
+      max-height: 500px;
       border-radius: 10px;
       img {
-        width: 100%;
+        width: 48%;
+        height: 48%;
         border-radius: 10px;
       }
     }

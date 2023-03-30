@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {DeskModel} from "../model/desk.model";
 import {Dao} from "../service/dao";
 import {firstValueFrom} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-room-card',
@@ -16,7 +17,7 @@ export class RoomCardComponent implements OnInit{
 
   distance: string = '';
 
-  constructor(private dao: Dao) {
+  constructor(private dao: Dao, public route: Router) {
   }
 
   ngOnInit() {

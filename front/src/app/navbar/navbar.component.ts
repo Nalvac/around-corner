@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -15,4 +16,7 @@ export class NavbarComponent {
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+
+  constructor(public route: Router) {
+  }
 }

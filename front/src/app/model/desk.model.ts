@@ -15,4 +15,6 @@ export interface DeskModel {
   id?: number;
   user_id?: string;
 
+  images?: Array<any>;
+
 }

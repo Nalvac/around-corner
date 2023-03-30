@@ -26,6 +26,8 @@ export class AddDeskComponent implements OnInit{
     sdid:  new FormControl('', [Validators.required]),
   });
 
+  images: Array<string> = [];
+
   constructor(private dao: Dao) {}
 
   ngOnInit() {
@@ -35,6 +37,8 @@ export class AddDeskComponent implements OnInit{
   }
 
   onSubmit() {
+
+    console.log(this.images);
     if (this.addDeskForm.valid) {
       const deskData: DeskModel = {
         numberPlaces: parseInt(this.addDeskForm.get('numberPlaces').value),
@@ -45,12 +49,13 @@ export class AddDeskComponent implements OnInit{
         description:  this.addDeskForm.get('description').value,
         uid:  this.userConnected.id,
         sdid:  parseInt(this.addDeskForm.get('sdid').value),
-        tax: 0
+        tax: 0,
+        images: this.images,
       };
-      console.log(deskData);
       firstValueFrom(this.dao.addDesk(deskData)).then(
         (addDesk) => {
           console.log(addDesk);
+          this.images = [];
         }
       )
     }
@@ -64,6 +69,7 @@ export class AddDeskComponent implements OnInit{
     const file = (event.target as HTMLInputElement).files![0];
 
     if (file) {
+      this.images.push(file.name)
       const reader = new FileReader();
       reader.onload = (e) => {
         this.imageSrc1 = e.target?.result;
@@ -75,6 +81,7 @@ export class AddDeskComponent implements OnInit{
     const file = (event.target as HTMLInputElement).files![0];
 
     if (file) {
+      this.images.push(file.name)
       const reader = new FileReader();
       reader.onload = (e) => {
         this.imageSrc2 = e.target?.result;
@@ -86,6 +93,7 @@ export class AddDeskComponent implements OnInit{
     const file = (event.target as HTMLInputElement).files![0];
 
     if (file) {
+      this.images.push(file.name)
       const reader = new FileReader();
       reader.onload = (e) => {
         this.imageSrc3 = e.target?.result;

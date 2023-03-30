@@ -15,19 +15,16 @@
       [interval]="0"
       class="image-container"
     >
-      <slide>
-        <img src="assets/room.jpg" class="card-img-top" alt="...">
-      </slide>
-      <slide>
-        <img src="assets/room.jpg" class="card-img-top" alt="...">
-      </slide>
-      <slide>
-        <img src="assets/room.jpg" class="card-img-top" alt="...">
+      <slide
+        *ngFor="let imag of desk?.images | keyvalue"
+      >
+        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
       </slide>
     </carousel>
     <div
       fxLayout="column"
       class="info-container"
+      [routerLink]="desk.id+'/detail'"
     >
       <p class="address">{{desk.adress}}</p>
       <p class="address">{{desk.city}},{{desk.zipCode}}</p>
