@@ -34,6 +34,10 @@ export class Dao {
     );
   }
 
+  getAllDesk(): Observable<any> {
+      return this.httpService.get('api/desk-all')
+  }
+
     getDate() {}
 
 }

@@ -9,13 +9,14 @@ import { map } from 'rxjs/operators'
 })
 export class AppComponent implements OnInit{
   title = 'around-corner';
-
+  token: string = '';
   constructor(private router: Router, private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
     this.getCurrentRoute().subscribe(value => console.log(value));
+    this.token = sessionStorage.getItem('token');
   }
 
   getCurrentRoute(): Observable<string> {

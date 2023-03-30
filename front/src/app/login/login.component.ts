@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {firstValueFrom} from "rxjs";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserModel} from "../model/user.model";
@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   private user: UserModel = null;
   public userForm:FormGroup; // variable is created of type FormGroup is created
@@ -32,6 +32,10 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit() {
+    sessionStorage.removeItem('token');
+  }
+
   submit() {
       console.log(this.userForm.value)
 
@@ -40,7 +44,6 @@ export class LoginComponent {
     firstValueFrom(this.dao.connexion(this.user))
       .then((data) => {
         sessionStorage.setItem('token', data.token);
-        sessionStorage.setItem('refresh_token', data.refresh_token);
         setTimeout(() => {
           this._snackBar.open('Connexion réussie')
         },2000)

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Dao} from "../service/dao";
+import {firstValueFrom, Observable} from "rxjs";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -52,6 +53,11 @@ export class HomeComponent implements OnInit{
 
    deg2rad(deg: number) {
     return deg * (Math.PI / 180);
+  }
+  getAllDesk() {
+    firstValueFrom(this.dao.getAllDesk()).then(
+
+    )
   }
 
 }
