@@ -42,7 +42,7 @@ Nadia Schwaller
 
 ### Autre membre de l'équipe
 
-Robin Coblentz
-Amine Fajry
-Nalvac Atinhounon
-Mohamed Djabi
+- Robin Coblentz
+- Amine Fajry
+- Nalvac Atinhounon
+- Mohamed Djabi
