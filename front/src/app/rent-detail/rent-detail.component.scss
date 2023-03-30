@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+.rent-detail-container {
+  padding: 90px 30px;
+
+  .image-container {
+    display: flex;
+    .big-display {
+      width: 500px;
+      height: 356.03px;
+      margin-right: 10px;
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+    .small-display {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-height: 356.03px;
+      border-radius: 10px;
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .detail-info {
+    .listing-container {
+      width: 70%;
+      mat-list-item {
+        border-bottom: 1px solid #7A7A7A;
+        padding: 30px 0;
+      }
+      ::ng-deep .mdc-list-item.mdc-list-item--with-one-line {
+        height: auto;
+      }
+    }
+  }
+}

@@ -26,6 +26,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { FooterComponent } from './footer/footer.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { RentDetailComponent } from './rent-detail/rent-detail.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { RentDetailComponent } from './rent-detail/rent-detail.component';
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
+    MatListModule,
   ],
   providers: [
   ],
