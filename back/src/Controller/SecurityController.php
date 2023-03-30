@@ -211,6 +211,7 @@ class SecurityController extends AbstractController
         $data = [];
         if ($user) {
             $data[] = [
+                'id' => $user->getId(),
                 'email' => $user->getEmail(),
                 'firstName' => $user->getFirstName(),
                 'lastName' => $user->getLastName(),
