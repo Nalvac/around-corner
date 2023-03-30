@@ -14,7 +14,6 @@ use App\Entity\StatusDesks;
 use App\Entity\Availability;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\Request;
 
 class DeskController extends AbstractController
@@ -68,13 +67,9 @@ class DeskController extends AbstractController
             'city' => $desk->getCity(),
             'zipCode' => $desk->getZipCode(),
             'averageNote' => $averageNote,
-            // 'description' => $desk->getDescription(),
             'numberPlaces' => $desk->getNumberPlaces(),
             'images' => $tabImage,
             'status_desks_id' => $desk->getStatusDesks()->getName(),
-            // 'status_desks_id' => $desk->getStatusDesks()->getName(),
-            // 'user_id' => $desk->getUsers()->getId(),
-
         ];
       }
 
