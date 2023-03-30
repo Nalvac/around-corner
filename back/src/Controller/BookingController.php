@@ -77,7 +77,6 @@ class BookingController extends AbstractController
 
         if ($booking == null) {
             return new JsonResponse('Sorry, Booking does not exist', Response::HTTP_NOT_FOUND);
-
         }
 
         $data = json_decode(
@@ -143,14 +142,12 @@ class BookingController extends AbstractController
 
         $userId = $data['userId'];
         $deskId = $data['deskId'];
-        $note = $data['note'];
         $price = $data['price'];
-        $opinion = $data['opinion'];
         $startDate = $data['startDate'];
         $endDate = $data['endDate'];
 
-        if (empty($userId) || empty($deskId) || empty($note) || empty($price) || empty($opinion) || empty($startDate) || empty($endDate)) {
-            return new JsonResponse("Some data are empty! Check userId, deskId, note, price, opinion, startDate and endDate if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (empty($userId) || empty($deskId) || empty($price) || empty($startDate) || empty($endDate)) {
+            return new JsonResponse("Some data are empty! Check userId, deskId, price, startDate and endDate if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $userId = $usersRepository->findOneById($userId);
@@ -180,16 +177,14 @@ class BookingController extends AbstractController
                     $checkIfReservedStartDate = $bookingsRepository->findOneBy(['start_date' => $startDate]);
                     $checkIfReservedEndDate = $bookingsRepository->findOneBy(['endDate' => $endDate]);
 
-                    if ($startDate = $checkIfReservedStartDate and $endDate = $checkIfReservedEndDate) {
+                    if ($startDate == $checkIfReservedStartDate and $endDate == $checkIfReservedEndDate) {
                         return new JsonResponse("Sorry! Ce bureau est déjà réservé", Response::HTTP_INTERNAL_SERVER_ERROR);
                     }
                 }
 
                 $booking->setUsers($userId)
                     ->setDesks($deskId)
-                    ->setNote($note)
                     ->setPrice($price)
-                    ->setOpinion($opinion)
                     ->setStartDate($startDate)
                     ->setEndDate($endDate)
                     ->setCreated(new \DateTime(date('d-m-Y')));

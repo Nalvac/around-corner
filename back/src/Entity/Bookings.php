@@ -14,13 +14,13 @@ class Bookings
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $note = null;
 
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $opinion = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

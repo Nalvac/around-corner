@@ -14,7 +14,6 @@ use App\Entity\StatusDesks;
 use App\Entity\Availability;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\Request;
 
 class DeskController extends AbstractController
@@ -68,13 +67,9 @@ class DeskController extends AbstractController
             'city' => $desk->getCity(),
             'zipCode' => $desk->getZipCode(),
             'averageNote' => $averageNote,
-            // 'description' => $desk->getDescription(),
             'numberPlaces' => $desk->getNumberPlaces(),
             'images' => $tabImage,
             'status_desks_id' => $desk->getStatusDesks()->getName(),
-            // 'status_desks_id' => $desk->getStatusDesks()->getName(),
-            // 'user_id' => $desk->getUsers()->getId(),
-
         ];
       }
 
@@ -167,6 +162,7 @@ class DeskController extends AbstractController
         return new JsonResponse('Sorry, you need to be certified to perform this action.', Response::HTTP_NOT_FOUND);
       }
 
+      $images = $data['images'];
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
       $calcPriceTax = ($data['tax'] / 100) * $data['price'] + $data['price'];
       $desk->setPrice($calcPriceTax);
@@ -178,7 +174,14 @@ class DeskController extends AbstractController
       $desk->setTax($data['tax']);
       $desk->setUsers($user);
       $desk->setStatusDesks($statusDesks);
-      
+
+    foreach ($images as $image){
+        $obImage = new Images();
+        $obImage->setLink($image);
+        $obImage->setDesks($desk);
+        $this->entityManager->persist($obImage);
+    }
+
       $this->entityManager->persist($desk);
       $this->entityManager->flush();
 
