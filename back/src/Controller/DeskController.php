@@ -63,6 +63,7 @@ class DeskController extends AbstractController
         $data[] = [
             'id' => $desk->getId(),
             'price' => $desk->getPrice(),
+            'tax' => $desk->getTax(),
             'adress' => $desk->getAdress(),
             'city' => $desk->getCity(),
             'zipCode' => $desk->getZipCode(),
@@ -168,8 +169,8 @@ class DeskController extends AbstractController
       }
 
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
-      
-      $desk->setPrice($data['price']);
+      $calcPriceTax = ($data['tax'] / 100) * $data['tax'];
+      $desk->setPrice($calcPriceTax);
       $desk->setAdress($data['address']);
       $desk->setCity($data['city']);
       $desk->setZipCode($data['zipCode']);
@@ -396,11 +397,10 @@ class DeskController extends AbstractController
     {
 
       $desks =  $this->entityManager->getRepository(Desks::class)->findBy(['owners' => $id]);
-
       $data = [];
-      
-      foreach ($desks as $desk) {
+      $tabImage = [];
 
+      foreach ($desks as $desk) {
           $images = $this->entityManager->getRepository(Images::class)->findBy(['desks' => $desk->getId()]);
           foreach ($images as $image) {
               $tabImage[$image->getId()] = $image->getLink();
