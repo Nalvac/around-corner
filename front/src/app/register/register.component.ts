@@ -10,6 +10,8 @@ import {firstValueFrom} from "rxjs";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  hidePassword = true;
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),

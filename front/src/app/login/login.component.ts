@@ -44,10 +44,11 @@ export class LoginComponent implements OnInit{
     firstValueFrom(this.dao.connexion(this.user))
       .then((data) => {
         sessionStorage.setItem('token', data.token);
+
+        this._snackBar.open('Connexion réussie')
         setTimeout(() => {
-          this._snackBar.open('Connexion réussie')
+          window.location.href = '';
         },2000)
-        window.location.href = '';
 
         if (this.updateMenuLinkViaParent) {
           this.updateMenuLinkViaParent();

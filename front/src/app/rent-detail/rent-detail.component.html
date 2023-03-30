@@ -113,7 +113,9 @@
       </mat-list>
     </div>
 
-    <div>
+    <div
+      [formGroup]="dateForm"
+    >
       <mat-card>
         <mat-card-title>{{desk?.price}}€/jour</mat-card-title>
         <mat-card-content>
@@ -124,13 +126,13 @@
               <td>
                 <div>
                   <span>Date d'arriver</span>
-                  <input type="date">
+                  <input type="date" formControlName="start">
                 </div>
               </td>
               <td>
                 <div>
-                  <span>Date de départ</span>
-                  <input type="date">
+                  <span >Date de départ</span>
+                  <input type="date" formControlName="end">
                 </div>
               </td>
             </tr>
@@ -187,7 +189,7 @@
             <input type="checkbox" id="myCheckbox" checked >
           </div>
 
-          <button type="button" class="btn btn-primary btn-sm">Réserver</button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="booking()">Réserver</button>
           <div
             fxLayout="row"
             fxLayoutAlign="space-between center"
