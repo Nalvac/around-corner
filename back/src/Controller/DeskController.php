@@ -39,12 +39,17 @@ class DeskController extends AbstractController
       
       foreach ($desks as $desk) {
         $tabImage = [];
+        $tabOption = [];
         $images = $this->entityManager->getRepository(Images::class)->findBy(['desks' => $desk->getId()]);
 
         foreach ($images as $image) {
             $tabImage[$image->getId()] = $image->getLink();
         }
 
+        $options = $desk->getOptions();
+        foreach ($options as $option) {
+             $tabOption[$option->getId()] = $option->getName();
+        }
 
         // On fait la moyenne des notes pour chaque bureau, s'il n'y a pas de note on retourn null
         $bookings = $desk->getBookings();
@@ -70,6 +75,7 @@ class DeskController extends AbstractController
             'numberPlaces' => $desk->getNumberPlaces(),
             'images' => $tabImage,
             'status_desks_id' => $desk->getStatusDesks()->getName(),
+            'options' => $tabOption
         ];
       }
 
@@ -163,6 +169,7 @@ class DeskController extends AbstractController
       }
 
       $images = $data['images'];
+      $options = $data['options'];
       $statusDesks = $this->entityManager->getRepository(StatusDesks::class)->findOneById($data["sdid"]);
       $calcPriceTax = ($data['tax'] / 100) * $data['price'] + $data['price'];
       $desk->setPrice($calcPriceTax);
@@ -175,12 +182,17 @@ class DeskController extends AbstractController
       $desk->setUsers($user);
       $desk->setStatusDesks($statusDesks);
 
-    foreach ($images as $image){
-        $obImage = new Images();
-        $obImage->setLink($image);
-        $obImage->setDesks($desk);
-        $this->entityManager->persist($obImage);
-    }
+      foreach ($images as $image){
+         $obImage = new Images();
+         $obImage->setLink($image);
+         $obImage->setDesks($desk);
+         $this->entityManager->persist($obImage);
+      }
+
+      foreach ($options as $option){
+         $option = $this->entityManager->getRepository(Options::class)->findOneById($option);
+         $desk->addOption($option);
+      }
 
       $this->entityManager->persist($desk);
       $this->entityManager->flush();
