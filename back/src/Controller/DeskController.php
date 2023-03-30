@@ -175,6 +175,7 @@ class DeskController extends AbstractController
       $desk->setZipCode($data['zipCode']);
       $desk->setDescription($data['description']);
       $desk->setNumberPlaces($data['numberPlaces']);
+      $desk->setTax($data['tax']);
       $desk->setUsers($user);
       $desk->setStatusDesks($statusDesks);
       
