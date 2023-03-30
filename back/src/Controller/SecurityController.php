@@ -43,9 +43,14 @@ class SecurityController extends AbstractController
         $gender = $data['gender'];
         $nationality = $data['nationality'];
         $birthDate = $data['birthDate'];
+        $adress = $data['adress'];
+        $zipCode = $data['zipCode'];
+        $city = $data['city'];
+        $phoneNumber = $data['phoneNumber'];
+        $image = $data['image'];
 
-        if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality)) {
-            return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (empty($firstName) || empty($lastName) || empty($gender) || empty($nationality) || empty($adress) || empty($zipCode) || empty($city) || empty($phoneNumber) ||  empty($image)) {
+            return new JsonResponse("Some data are empty! Check firstName, lastName, gender, nationality, statusUsersId, zipCode, city, phoneNumber, image if empty", Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if (empty($password) || empty($email)) {
             return new JsonResponse("Invalid Username or Password or Email", Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -71,6 +76,11 @@ class SecurityController extends AbstractController
             ->setNationality($nationality)
             ->setGender($gender)
             ->setIsCertified(false)
+            ->setAdress($adress)
+            ->setZipCode($zipCode)
+            ->setCity($city)
+            ->setphoneNumber($phoneNumber)
+            ->setImage($image)
             ->setAccess(new \DateTime())
             ->setCreated(new \DateTime());
 
@@ -128,6 +138,31 @@ class SecurityController extends AbstractController
                 'message' => "Merci, à bientôt",
             ], 200
         );
+    }
+
+    #[Route('/api/user/{user_id}', name: 'app_user_edit', methods: ['PATCH'])]
+    public function desk_edit(string $user_id, UsersRepository $usersRepository, Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $user = $usersRepository->findOneById($user_id);
+
+        $user->setFirstName($data['firstName'] ?? $user->getFirstName());
+        $user->setFirstName($data['lastName'] ?? $user->getLastName());
+        $user->setFirstName($data['gender'] ?? $user->getGender());
+        $user->setFirstName($data['email'] ?? $user->getEmail());
+        $user->setFirstName($data['password'] ?? $user->getPassword());
+        $user->setFirstName($data['roles'] ?? $user->getRoles());
+        $user->setFirstName($data['gender'] ?? $user->getGender());
+        $user->setFirstName($data['nationality'] ?? $user->getNationality());
+        $user->setFirstName($data['birthDate'] ?? $user->getBirthDate());
+        $user->setFirstName($data['adress'] ?? $user->getAdress());
+        $user->setFirstName($data['zipCode'] ?? $user->getZipCode());
+        $user->setFirstName($data['phoneNumber'] ?? $user->getPhoneNumber());
+        $user->setFirstName($data['image'] ?? $user->getImage());
+
+        $usersRepository->save($user, true);
+
+        return new JsonResponse(['message' => 'User is updated'], Response::HTTP_OK);
     }
 
 }
