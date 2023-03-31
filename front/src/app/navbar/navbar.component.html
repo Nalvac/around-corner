@@ -24,14 +24,6 @@
       <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
       <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
     </div>
-    <div class="input-group input-group-sm  input-container">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
     <div fxLayout="row" fxLayoutAlign="space-between" class="dropdown">
       <mat-label>Types</mat-label>
       <mat-select [formControl]="selectedTypes" multiple>
@@ -39,6 +31,14 @@
           {{type}}
         </mat-option>
       </mat-select>
+    </div>
+    <div class="input-group input-group-sm  input-container">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
     </div>
 
     <div style="background-color: #FF2768; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer;">
@@ -49,10 +49,10 @@
 
   <div fxLayout="row" fxLayoutAlign="none center">
     <div fxLayoutAlign="none center" fxLayout="row">
-      <a *ngIf="token != null"  style="color: #FF2768">Mettre en location</a>
+      <a *ngIf="token != null"  style="color: #FF2768" href="/nouveau-bureau"  >Mettre en location</a>
       <a *ngIf="token == null" style="color: #FF2768" href="/connexion">Se connecter</a>
       <a *ngIf="token != null" style="color: #FF2768" href="/deconnexion">Déconnexion</a>
-      <img *ngIf="token != null" style="height: 40px; width: 40px; margin: 0 10px" src="assets/user-profil.png">
+      <a href="/profil"><img *ngIf="token != null" style="height: 40px; width: 40px; margin: 0 10px" src="assets/user-profil.png"></a>
     </div>
 
   </div>

@@ -101,12 +101,17 @@
         </div>
 
         <div>
-          <span>Option</span>
+          <span>Types: </span>
           <mat-radio-group aria-label="Select an option" formControlName="sdid" [(ngModel)]="selectedOption">
-            <mat-radio-button *ngFor="let option of options" [value]="option.id">{{option.name}}</mat-radio-button>
+            <mat-radio-button *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-radio-button>
           </mat-radio-group>
-
         </div>
+
+        <div>
+          <span>Option: </span>
+          <mat-checkbox *ngFor="let option of options" >{{option.name}}</mat-checkbox>
+        </div>
+
         <button class="btn btn-primary" type="submit" (click)="onSubmit()">Ajouter le bureau</button>
     </div>
   </div>

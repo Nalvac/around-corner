@@ -31,6 +31,22 @@
           </button>
         </mat-form-field>
       </div>
+
+      <mat-form-field>
+        <input matInput formControlName="adress" placeholder="Adresse">
+      </mat-form-field>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+      >
+        <mat-form-field>
+          <input matInput formControlName="zipCode" placeholder="Code postal">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="city" placeholder="Ville">
+        </mat-form-field>
+      </div>
+
       <div
         fxLayout="row"
         fxLayoutAlign="space-between"
@@ -76,9 +92,6 @@
             <mat-option value="6">Option 6</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="roles" placeholder="Rôles">
-        </mat-form-field>
       </div>
       <div
         fxLayout="row"
@@ -86,7 +99,7 @@
         class="register">
         <a class="register-page" style="color: #FF2768" href="/connexion">J'ai un compte</a>
       </div>
-      <button class="btn btn-primary register-button" type="submit">S'inscrire</button>
+      <button class="btn btn-primary register-button" type="submit" (click)="onSubmit()">S'inscrire</button>
     </form>
   </mat-card>
 

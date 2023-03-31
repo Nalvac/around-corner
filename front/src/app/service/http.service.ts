@@ -16,6 +16,7 @@ export class HttpService {
 
     get(
       url: string,
+      option: boolean = true,
       input?: any,
       txtResponse: boolean = false,
       headers: { [headerKey: string]: string } = {},
@@ -24,7 +25,7 @@ export class HttpService {
       let params: HttpParams = this.getHttpParams(input, false);
       let baseHeaders: HttpHeaders = this.getHeaders();
       let allHeaders: HttpHeaders = this.setAdditionalHeaders(baseHeaders, headers || {});
-      let options = {headers: allHeaders, params: params};
+      let options = option ? {headers: allHeaders, params: params} : {};
 
       if (txtResponse) {
       }
@@ -37,10 +38,11 @@ export class HttpService {
     post(
       url: string,
       input?: any,
+      header: boolean = true,
       txtResponse: boolean = false,
     ): Observable<any> {
       let headers: HttpHeaders = this.getHeaders();
-      let options = { headers };
+      let options = header ?  { headers } : {};
 
       if (txtResponse) {
       }
