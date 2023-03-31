@@ -35,6 +35,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { RatingComponent } from './rating/rating.component';
 import { ListBookComponent } from './list-book/list-book.component';
 import { BookItemComponent } from './list-book/book-item/book-item.component';
+import {TooltipModule} from "ngx-bootstrap/tooltip";
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { BookItemComponent } from './list-book/book-item/book-item.component';
     MatSnackBarModule,
     MatCheckboxModule,
     MatRadioModule,
+    TooltipModule,
   ],
   providers: [
   ],

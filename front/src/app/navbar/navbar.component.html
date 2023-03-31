@@ -2,10 +2,11 @@
   fxLayout="row"
   fxLayoutAlign="space-between center"
   class="nav-bar-container"
-  routerLink="/"
   *ngIf="route.url != '/connexion' && route.url != '/inscription'"
 >
-  <div>
+  <div
+    routerLink="/"
+  >
     <img src="assets/Logo-around-corner.png">
   </div>
 
@@ -29,14 +30,6 @@
 
       <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
       <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-    </div>
-    <div class="input-group input-group-sm  input-container">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
     </div>
     <div
       fxLayout="row"
@@ -66,8 +59,9 @@
       fxLayoutAlign="none center"
       fxLayout="row"
     >
+      <a href="/map" style="color: #FF2768; margin-right: 10px">Map</a>
       <a href="/nouveau-bureau" style="color: #FF2768">Mettre en location</a>
-      <img style="height: 40px; width: 40px; margin: 0 30px" src="assets/user-profil.png">
+      <img  text="Mon Compte" style="height: 40px; width: 40px; margin: 0 30px" src="assets/user-profil.png">
     </div>
 
   </div>
