@@ -82,7 +82,7 @@ class SecurityController extends AbstractController
             ->setStatus($statusUsersId)
             ->setNationality($nationality)
             ->setGender($gender)
-            ->setIsCertified(false)
+            ->setIsCertified(true)
             ->setAdress($adress)
             ->setZipCode($zipCode)
             ->setCity($city)

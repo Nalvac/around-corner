@@ -54,6 +54,7 @@ security:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/desk-all, roles: PUBLIC_ACCESS }
+        - { path: ^/api/status-desk, roles: PUBLIC_ACCESS }
         - { path: ^/api/desk, roles: PUBLIC_ACCESS }
         - { path: ^/api/user, roles: PUBLIC_ACCESS }
         - { path: ^/api/option, roles: PUBLIC_ACCESS }

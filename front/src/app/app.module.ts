@@ -51,6 +51,7 @@ import { BookingComingComponent } from './booking-coming/booking-coming.componen
 import { BookingComingCardComponent } from './booking-coming-card/booking-coming-card.component';
 import { BookingHistoryComponent } from './booking-history/booking-history.component';
 import { BookingHistoryCardComponent } from './booking-history-card/booking-history-card.component';
+import {TooltipModule} from "ngx-bootstrap/tooltip";
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { BookingHistoryCardComponent } from './booking-history-card/booking-hist
     MatSnackBarModule,
     MatCheckboxModule,
     MatRadioModule,
+    TooltipModule,
   ],
   providers: [
   ],

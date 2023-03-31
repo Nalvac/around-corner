@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Dao} from "../service/dao";
 import {DeskModel} from "../model/desk.model";
 import {firstValueFrom} from "rxjs";
@@ -12,7 +12,9 @@ import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
 })
 export class AddDeskComponent implements OnInit{
 
-  options: Array<any>;
+  options: Array<any> = [];
+
+  types: Array<any>;
   selectedOption: number | null = null;
   userConnected: UserConnectedInfoModel = null;
   addDeskForm = new FormGroup({
@@ -24,22 +26,26 @@ export class AddDeskComponent implements OnInit{
     description:  new FormControl('', [Validators.required]),
     uid:  new FormControl(''),
     sdid:  new FormControl('', [Validators.required]),
+    options: this.formBuilder.group(
+      this.options.reduce((acc, option) => {
+        acc[option.id] = new FormControl(false);
+        return acc;
+      }, {})
+    ),
   });
 
   images: Array<string> = [];
 
-  constructor(private dao: Dao) {}
+  constructor(private dao: Dao, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.getOption();
+    this.getTypes();
     this.userConnected = JSON.parse(localStorage.getItem('userConnected'))[0];
     console.log(this.userConnected);
   }
 
   onSubmit() {
-
-    console.log(this.images);
-    if (this.addDeskForm.valid) {
       const deskData: DeskModel = {
         numberPlaces: parseInt(this.addDeskForm.get('numberPlaces').value),
         address: this.addDeskForm.get('address').value,
@@ -51,14 +57,16 @@ export class AddDeskComponent implements OnInit{
         sdid:  parseInt(this.addDeskForm.get('sdid').value),
         tax: 0,
         images: this.images,
+        options: [1,2]
       };
       firstValueFrom(this.dao.addDesk(deskData)).then(
         (addDesk) => {
           console.log(addDesk);
           this.images = [];
+          window.location.href=''
         }
       )
-    }
+
   }
   imageSrc1: string | ArrayBuffer | null = null;
   imageSrc2: string | ArrayBuffer | null = null;
@@ -103,11 +111,22 @@ export class AddDeskComponent implements OnInit{
   }
 
   getOption() {
-    this.dao.getOption()
     firstValueFrom(this.dao.getOption()).then(
       (option) =>{
-        this.options = option
+        this.options = option;
       }
     )
+  }
+  getTypes() {
+    firstValueFrom(this.dao.getTypes()).then(
+      (types) =>{
+        this.types = types;
+      }
+    )
+  }
+
+  setCheckBoxValues(checkboxValues: any) {
+    const checkboxes = this.addDeskForm.get('options') as FormGroup;
+    checkboxes.patchValue(checkboxValues);
   }
 }

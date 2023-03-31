@@ -17,4 +17,6 @@ export interface DeskModel {
 
   images?: Array<any>;
 
+  options: Array<number>
+
 }

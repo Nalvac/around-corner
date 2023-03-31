@@ -2,10 +2,11 @@
   fxLayout="row"
   fxLayoutAlign="space-between center"
   class="nav-bar-container"
-  routerLink="/"
   *ngIf="route.url != '/connexion' && route.url != '/inscription'"
 >
-  <div>
+  <div
+    routerLink="/"
+  >
     <img src="assets/Logo-around-corner.png">
   </div>
 
@@ -50,18 +51,24 @@
         </mat-select>
     </div>
 
-    <div style="background-color: #FF2768; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer;">
+    <div
+      style="background-color: #FF2768; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer;"
+    >
       Chercher
     </div>
 
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="none center">
-    <div fxLayoutAlign="none center" fxLayout="row">
-      <a href="/nouveau-bureau" *ngIf="token != null"  style="color: #FF2768">Mettre en location</a>
-      <a *ngIf="token == null" style="color: #FF2768" href="/connexion">Se connecter</a>
-      <a *ngIf="token != null" style="color: #FF2768" href="/deconnexion">Déconnexion</a>
-      <img *ngIf="token != null" style="height: 40px; width: 40px; margin: 0 10px" src="assets/user-profil.png">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="none center"
+  >
+    <div
+      fxLayoutAlign="none center"
+      fxLayout="row"
+    >
+      <a href="/nouveau-bureau" style="color: #FF2768">Mettre en location</a>
+      <img style="height: 40px; width: 40px; margin: 0 30px" src="assets/user-profil.png">
     </div>
 
   </div>
