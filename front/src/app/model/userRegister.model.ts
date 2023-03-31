@@ -14,19 +14,7 @@ export interface UserRegisterModel {
   birthDate: string;
 
   statusUsersId: string;
-  roles?: string;
+  roles: string;
 
   adress: string;
-
-  isCertified?: string;
-
-
-  zipCode: string;
-  city: string;
-
-  phoneNumber: string;
-
-  image: string;
-  access: string;
-
 }

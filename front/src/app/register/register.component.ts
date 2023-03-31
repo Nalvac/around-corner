@@ -20,16 +20,20 @@ export class RegisterComponent {
     gender: new FormControl('', [Validators.required]),
     nationality: new FormControl('', [Validators.required]),
     birthDate: new FormControl('', [Validators.required]),
+    statusUsersId: new FormControl('', [Validators.required]),
     zipCode: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     adress: new FormControl('', [Validators.required]),
+    roles: new FormControl('', [Validators.required])
   });
 
   constructor(private signupService: Dao) {}
 
   onSubmit() {
+    console.log(this.signupForm.value);
     if (this.signupForm.valid) {
       const signupData: UserRegisterModel = {
+        adress: this.signupForm.get('adress').value,
         email: this.signupForm.get('email').value,
         password: this.signupForm.get('password').value,
         firstName: this.signupForm.get('firstName').value,
@@ -37,24 +41,13 @@ export class RegisterComponent {
         gender: this.signupForm.get('gender').value,
         nationality: this.signupForm.get('nationality').value,
         birthDate: this.signupForm.get('birthDate').value,
-        statusUsersId: '1',
-        isCertified: 'true',
-        adress: this.signupForm.get('adress').value,
-        zipCode: this.signupForm.get('zipCode').value,
-        city: this.signupForm.get('city').value ,
-        phoneNumber: '0000000',
-        image: 'user-profil',
-        access: new Date().toDateString(),
-        roles: 'ROLE_USER',
-
+        statusUsersId: this.signupForm.get('statusUsersId').value,
+        roles: this.signupForm.get('roles').value
       };
       firstValueFrom(this.signupService.signup(signupData))
         .then((data) => {
-
-          window.location.href = 'connexion';
+          console.log(data);
         })
     }
-
-
   }
 }
