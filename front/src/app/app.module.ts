@@ -26,6 +26,21 @@ import {MatSelectModule} from "@angular/material/select";
 import { FooterComponent } from './footer/footer.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { ProfilUserComponent } from './profil-user/profil-user.component';
+import { ProfilBannerComponent } from './profil-banner/profil-banner.component';
+import { ProfilPasswordUpdateComponent } from './profil-password-update/profil-password-update.component';
+import { ProfilCertifComponent } from './profil-certif/profil-certif.component';
+import { ProfilNavbarComponent } from './profil-navbar/profil-navbar.component';
+import { ProfilInfoComponent } from './profil-info/profil-info.component';
+import { ProfilPicturesComponent } from './profil-pictures/profil-pictures.component';
+import { OfficeComponent } from './office/office.component';
+import { OfficeAddComponent } from './office-add/office-add.component';
+import { OfficeCardComponent } from './office-card/office-card.component';
+import { OfficeCardHistoryComponent } from './office-card-history/office-card-history.component';
+import { BookingComponent } from './booking/booking.component';
+import { BookingComingComponent } from './booking-coming/booking-coming.component';
+import { BookingComingCardComponent } from './booking-coming-card/booking-coming-card.component';
+import { BookingHistoryComponent } from './booking-history/booking-history.component';
+import { BookingHistoryCardComponent } from './booking-history-card/booking-history-card.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +54,23 @@ import { ProfilUserComponent } from './profil-user/profil-user.component';
     HomeComponent,
     RegisterComponent,
     FooterComponent,
-    RoomDetailComponent
-   
-    ProfilUserComponent
+    RoomDetailComponent,
+    ProfilUserComponent,
+    ProfilBannerComponent,
+    ProfilPasswordUpdateComponent,
+    ProfilCertifComponent,
+    ProfilNavbarComponent,
+    ProfilInfoComponent,
+    ProfilPicturesComponent,
+    OfficeComponent,
+    OfficeAddComponent,
+    OfficeCardComponent,
+    OfficeCardHistoryComponent,
+    BookingComponent,
+    BookingComingComponent,
+    BookingComingCardComponent,
+    BookingHistoryComponent,
+    BookingHistoryCardComponent
   ],
   imports: [
     BrowserModule,

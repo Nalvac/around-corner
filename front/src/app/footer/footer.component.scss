@@ -1,15 +1,27 @@
 footer {
+  position: fixed;
+  bottom: 0;
   background-color: white;
-  padding: 20px 0;
+  padding: 15px 0;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+  width: 100%;
+
 
   .container {
 
     p {
       font-size: 14px;
       margin: 0;
+      padding-right: 10px;
+    }
+    a {
+    color: black !important;;
+    text-decoration: none; /* no underline */ 
+    font-size: 14px;
     }
   }
 }
+
+
 

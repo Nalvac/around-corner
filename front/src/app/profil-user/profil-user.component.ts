@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Dao} from "../service/dao";
+import {UserRegisterModel} from "../model/userRegister.model";
+
 
 @Component({
   selector: 'app-profil-user',
@@ -7,4 +11,4 @@ import { Component } from '@angular/core';
 })
 export class ProfilUserComponent {
 
-}
+  };

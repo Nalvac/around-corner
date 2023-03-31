@@ -1,5 +1,5 @@
-h1 {
-
+h2 {
+    padding-top : 50px; 
     padding-bottom: 50px;
     padding-left: 100px;
 }
@@ -39,22 +39,4 @@ section {
     height: 300px;
     width: 300px;
     }
-    
-    input {
-         margin-right: 10px;
-     
-    }
-
-    input:read-only {
-        background-color: #EDECEC;
-        border-radius: 10px;
-        margin-bottom: 20px;
-    }
-    
-    mat-form-field{
-        margin-top : 10px;
-        margin-bottom: 10px;
-    }
-   
 }
-
