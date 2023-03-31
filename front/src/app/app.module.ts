@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { RoomCardComponent } from './room-card/room-card.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProfilUserComponent } from './profil-user/profil-user.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
@@ -40,6 +41,8 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    ProfilUserComponent,
     MapComponent,
     RoomCardComponent,
     NavbarComponent,
@@ -57,6 +60,8 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     BookItemComponent
   ],
   imports: [
+    BrowserModule,
+    FlexLayoutModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -81,8 +86,7 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     MatRadioModule,
     TooltipModule,
   ],
-  providers: [
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
