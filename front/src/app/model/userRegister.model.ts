@@ -15,4 +15,6 @@ export interface UserRegisterModel {
 
   statusUsersId: string;
   roles: string;
+
+  adress: string;
 }

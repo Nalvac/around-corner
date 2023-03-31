@@ -14,21 +14,26 @@ export class RegisterComponent {
   hidePassword = true;
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(3)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
     nationality: new FormControl('', [Validators.required]),
     birthDate: new FormControl('', [Validators.required]),
     statusUsersId: new FormControl('', [Validators.required]),
+    zipCode: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    adress: new FormControl('', [Validators.required]),
     roles: new FormControl('', [Validators.required])
   });
 
   constructor(private signupService: Dao) {}
 
   onSubmit() {
+    console.log(this.signupForm.value);
     if (this.signupForm.valid) {
       const signupData: UserRegisterModel = {
+        adress: this.signupForm.get('adress').value,
         email: this.signupForm.get('email').value,
         password: this.signupForm.get('password').value,
         firstName: this.signupForm.get('firstName').value,

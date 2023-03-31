@@ -18,10 +18,18 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   customIcon = L.icon({
     iconUrl: 'assets/marker-icon-2x.png',
-    iconSize: [18, 55], // Taille de l'icône personnalisée
+    iconSize: [38, 55], // Taille de l'icône personnalisée
     iconAnchor: [22, 94], // Point d'ancrage de l'icône
     popupAnchor: [-3, -76] // Point d'ancrage du popup par rapport à l'icône
   });
+
+  homeIcon = L.icon({
+                    iconUrl: 'assets/hom-maker.png',
+                    iconSize: [38, 55], // Taille de l'icône personnalisée
+                    iconAnchor: [22, 94], // Point d'ancrage de l'icône
+                    popupAnchor: [-3, -76] // Point d'ancrage du popup par rapport à l'icône
+                  });
+
   private initMap(): void {
     this.getLocation();
     this.map = L.map('map', {
@@ -57,7 +65,7 @@ export class MapComponent implements AfterViewInit, OnInit {
           this.lng = position.coords.longitude;
           const marker = L.marker([this.lat, this.lng], {icon: this.customIcon})
             .addTo(this.map)
-            .bindPopup('Vous êtes Ici.<br> Easily customizable.');
+            .bindPopup('Vous êtes Ici.<br>');
           marker.openPopup()
         },
         (error) => {
@@ -71,16 +79,15 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   addMarker() {
     for (let desk of this.allDesk) {
-      debugger;
       firstValueFrom(this.dao.getCoordinates(desk.adress +' '+desk.city+' '+desk.zipCode)).then(
         (response) => {
           if (response && response.length > 0) {
             const latitude = parseFloat(response[0].lat);
             const longitude = parseFloat(response[0].lon);
 
-            const marker = L.marker([latitude, longitude], {icon: this.customIcon})
+            const marker = L.marker([latitude, longitude], {icon: this.homeIcon})
               .addTo(this.map)
-              .bindPopup('Vous êtes Ici.<br> Easily customizable.');
+              .bindPopup(desk.adress + ' '  +desk.city+ '<br> ' +desk.price + ' €/jour ' + '<a href=' +desk.id+'/detail>Ici</a>');
             marker.openPopup();
           } else {
             console.log('No coordinates found for the given address.');
