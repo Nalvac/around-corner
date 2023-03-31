@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { RoomCardComponent } from './room-card/room-card.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ProfilUserComponent } from './profil-user/profil-user.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
@@ -36,13 +35,27 @@ import {MatRadioModule} from "@angular/material/radio";
 import { RatingComponent } from './rating/rating.component';
 import { ListBookComponent } from './list-book/list-book.component';
 import { BookItemComponent } from './list-book/book-item/book-item.component';
+import { ProfilUserComponent } from './profil-user/profil-user.component';
+import { ProfilBannerComponent } from './profil-banner/profil-banner.component';
+import { ProfilPasswordUpdateComponent } from './profil-password-update/profil-password-update.component';
+import { ProfilCertifComponent } from './profil-certif/profil-certif.component';
+import { ProfilNavbarComponent } from './profil-navbar/profil-navbar.component';
+import { ProfilInfoComponent } from './profil-info/profil-info.component';
+import { ProfilPicturesComponent } from './profil-pictures/profil-pictures.component';
+import { OfficeComponent } from './office/office.component';
+import { OfficeAddComponent } from './office-add/office-add.component';
+import { OfficeCardComponent } from './office-card/office-card.component';
+import { OfficeCardHistoryComponent } from './office-card-history/office-card-history.component';
+import { BookingComponent } from './booking/booking.component';
+import { BookingComingComponent } from './booking-coming/booking-coming.component';
+import { BookingComingCardComponent } from './booking-coming-card/booking-coming-card.component';
+import { BookingHistoryComponent } from './booking-history/booking-history.component';
+import { BookingHistoryCardComponent } from './booking-history-card/booking-history-card.component';
 import {TooltipModule} from "ngx-bootstrap/tooltip";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    ProfilUserComponent,
     MapComponent,
     RoomCardComponent,
     NavbarComponent,
@@ -53,6 +66,22 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     RegisterComponent,
     FooterComponent,
     RoomDetailComponent,
+    ProfilUserComponent,
+    ProfilBannerComponent,
+    ProfilPasswordUpdateComponent,
+    ProfilCertifComponent,
+    ProfilNavbarComponent,
+    ProfilInfoComponent,
+    ProfilPicturesComponent,
+    OfficeComponent,
+    OfficeAddComponent,
+    OfficeCardComponent,
+    OfficeCardHistoryComponent,
+    BookingComponent,
+    BookingComingComponent,
+    BookingComingCardComponent,
+    BookingHistoryComponent,
+    BookingHistoryCardComponent,
     RentDetailComponent,
     AddDeskComponent,
     RatingComponent,
@@ -60,8 +89,6 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     BookItemComponent
   ],
   imports: [
-    BrowserModule,
-    FlexLayoutModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -86,7 +113,8 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     MatRadioModule,
     TooltipModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
