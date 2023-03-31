@@ -7,6 +7,7 @@ import {RentDetailComponent} from "./rent-detail/rent-detail.component";
 import {AddDeskComponent} from "./add-desk/add-desk.component";
 import {ListBookComponent} from "./list-book/list-book.component";
 import {MapComponent} from "./map/map.component";
+import { LogoutComponent } from "./logout/logout.component";
 
 const routes: Routes = [
   {
@@ -36,11 +37,19 @@ const routes: Routes = [
   {
     path: 'map',
     component: MapComponent,
+  },
+  {
+    path: 'deconnexion',
+    component: LogoutComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
-})
+}) 
 export class AppRoutingModule { }
