@@ -1,5 +1,7 @@
-<footer>
-  <div 
+<footer
+  *ngIf="route.url != '/map'"
+>
+  <div
     fxLayout="row"
     fxLayoutAlign="space-between center"
     class="container">
@@ -8,11 +10,10 @@
       fxLayoutAlign="center center"
       class="footer-link"
     >
-      <p>© {{ currentYear }} Around Corner  </p>
-      <a href="#"> RGPD </a>
-      <p> </p>
-      <a href="mailto"> contact@corner.fr </a>
-      </div>
+      <p style="margin-right: 5px">© {{ currentYear }} Around Corner. </p>
+      <a href="#" style="margin-right: 5px"> RGPD </a>
+      <a href="#"> Contact </a>
+    </div>
     <div
       style="display: flex; align-items: center"
     >
