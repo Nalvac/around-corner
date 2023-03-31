@@ -7,8 +7,9 @@ import {RentDetailComponent} from "./rent-detail/rent-detail.component";
 import {AddDeskComponent} from "./add-desk/add-desk.component";
 import {ListBookComponent} from "./list-book/list-book.component";
 import {MapComponent} from "./map/map.component";
-import { LogoutComponent } from "./logout/logout.component";
 import {ProfilUserComponent} from "./profil-user/profil-user.component";
+
+import { LogoutComponent } from "./logout/logout.component";
 
 const routes: Routes = [
   {
@@ -22,10 +23,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
-  },
-  {
-    path: 'profil',
-    component: ProfilUserComponent
   },
   {
     path: ':id/detail',
@@ -44,13 +41,9 @@ const routes: Routes = [
     component: MapComponent,
   },
   {
-    path: 'deconnexion',
-    component: LogoutComponent
+    path: 'profil',
+    component: ProfilUserComponent
   },
-  {
-    path: '**',
-    component: HomeComponent
-  }
 ];
 
 @NgModule({

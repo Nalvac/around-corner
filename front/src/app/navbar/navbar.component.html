@@ -40,8 +40,21 @@
         <option value="3">Three</option>
       </select>
     </div>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+      class="dropdown">
+        <mat-label>Types</mat-label>
+        <mat-select [formControl]="selectedTypes" multiple>
+          <mat-option *ngFor="let type of types" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+    </div>
 
-    <div style="background-color: #FF2768; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer;">
+    <div
+      style="background-color: #FF2768; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer;"
+    >
       Chercher
     </div>
 
