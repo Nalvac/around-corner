@@ -11,7 +11,6 @@ export class AppComponent implements OnInit{
   title = 'around-corner';
   token: string = '';
   constructor(private router: Router, private route: ActivatedRoute) {
-
   }
 
   ngOnInit() {

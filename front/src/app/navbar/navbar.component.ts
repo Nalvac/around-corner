@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent {
   model: any;
+  token = sessionStorage.getItem('token');
 
   selectedTypes = new FormControl();
   types = ['Type 1', 'Type 2', 'Type 3', 'Type 4'];
