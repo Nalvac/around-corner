@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-class Users implements UserInterface
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,10 +33,10 @@ class Users implements UserInterface
     #[ORM\Column(length: 30)]
     private ?string $birthDate = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -55,6 +56,24 @@ class Users implements UserInterface
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Desks::class)]
     private Collection $desks;
+
+    #[ORM\Column]
+    private ?bool $isCertified = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adress = null;
+
+    #[ORM\Column(length: 6)]
+    private ?string $zipCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 21)]
+    private ?string $phoneNumber = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -180,6 +199,7 @@ class Users implements UserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
@@ -196,10 +216,18 @@ class Users implements UserInterface
 
     public function getUserIdentifier(): string
     {
-        // TODO: Implement getUserIdentifier() method.
+        return (string) $this->email;
     }
 
-    public function getStatusUsers(): ?StatusUsers
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function getStatus(): ?StatusUsers
     {
         return $this->statusUsers;
     }
@@ -267,6 +295,78 @@ class Users implements UserInterface
                 $desk->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsCertified(): ?bool
+    {
+        return $this->isCertified;
+    }
+
+    public function setIsCertified(bool $isCertified): self
+    {
+        $this->isCertified = $isCertified;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): self
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getphoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setphoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

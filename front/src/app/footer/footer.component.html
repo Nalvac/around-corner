@@ -1,0 +1,29 @@
+<footer
+  *ngIf="route.url != '/map'"
+>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    class="container">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      class="footer-link"
+    >
+      <p style="margin-right: 5px">© {{ currentYear }} Around Corner. </p>
+      <a href="#" style="margin-right: 5px"> RGPD </a>
+      <a href="#"> Contact </a>
+    </div>
+    <div
+      style="display: flex; align-items: center"
+    >
+      <div
+        style="display: flex; align-items: center; margin-right: 10px"
+      >
+        <mat-icon>language</mat-icon>
+        <p>Fr</p>
+      </div>
+      <a>Support & service</a>
+    </div>
+  </div>
+</footer>

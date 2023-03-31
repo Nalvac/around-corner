@@ -1,2 +1,27 @@
+@use '@angular/material' as mat;
+@include mat.core();
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "assets/variables";
+
+$primary: mat.define-palette($primary-palette, 900);
+$accent: mat.define-palette($secondary-palette, 200);
+$warn: mat.define-palette($warn-palette, 500);
+
+$theme-track-n-fit: mat.define-light-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn
+  ),
+  density: 0,
+));
+
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme($theme-track-n-fit);
+
+@include mat.all-component-themes($theme-track-n-fit);
+p {
+  margin-bottom: 5px;
+}

@@ -1,0 +1,207 @@
+
+<div
+  fxLayout="column"
+  class="rent-detail-container"
+>
+  <H5>{{desk?.adress}}</H5>
+  <span>{{desk?.city}} {{desk?.zipCode}}</span>
+  <div
+    class="image-container"
+  >
+    <carousel
+      [interval]="0"
+      class="big-display"
+    >
+      <slide
+        *ngFor="let imag of desk?.images | keyvalue"
+      >
+        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
+      </slide>
+    </carousel>
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between"
+      class="small-display"
+    >
+      <img  *ngFor="let imag of desk?.images | keyvalue" [src]="'assets/'+imag.value" class="card-img-top" alt="...">
+    </div>
+  </div>
+
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between"
+    class="detail-info"
+  >
+    <div
+      class="listing-container"
+    >
+      <mat-list role="list">
+        <mat-list-item role="listitem">{{lender?.firstName}} {{lender?.lastName}}</mat-list-item>
+        <mat-list-item role="listitem">
+          <div
+            fxLayout="row"
+          >
+            <mat-icon>star_border</mat-icon>
+            <div
+              fxLayout="column"
+            >
+              <p>Loueur expérimenter</p>
+              <span style="color: #7A7A7A">Dorothée à 720 location à son actif</span>
+            </div>
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem">
+          <p style="color: #7A7A7A">
+           {{desk?.description}}
+          </p>
+        </mat-list-item>
+
+        <mat-list-item role="listitem">
+          <div
+            fxLayout="column"
+            class="offre-container"
+          >
+            <h5>Cette location offre : </h5>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="space-between"
+
+            >
+              <div
+                fxLayout="column"
+              >
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>wifi</mat-icon>
+                  <p>Wifi</p>
+                </div>
+
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>tv</mat-icon>
+                  <p>Tv</p>
+                </div>
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>cast_connected</mat-icon>
+                  <p>Deuxième écran</p>
+                </div>
+              </div>
+              <div
+                fxLayout="column"
+              >
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>meeting_room</mat-icon>
+                  <p>Salle de réunion</p>
+                </div>
+                <div
+                  fxLayout="row"
+                >
+                  <mat-icon>people</mat-icon>
+                  <p>Plus de 10 collaborateurs</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div
+      [formGroup]="dateForm"
+    >
+      <mat-card>
+        <mat-card-title>{{desk?.price}}€/jour</mat-card-title>
+        <mat-card-content>
+          <table class="table table-bordered">
+
+            <tbody>
+            <tr>
+              <td>
+                <div>
+                  <span>Date d'arriver</span>
+                  <input type="date" formControlName="start">
+                </div>
+              </td>
+              <td>
+                <div>
+                  <span >Date de départ</span>
+                  <input type="date" formControlName="end">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <div>
+                  <span>Collaborateur</span>
+                  <p>1 Collaborateur</p>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <p>Garantie annulation ?</p>
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <td
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+              >
+                <p>Non remboursable 0€</p>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radioOption" id="radio1" checked >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+              >
+                <div>
+                  <p>Remboursable 5€</p>
+                  <span>
+                    L’annulation de la réservation est annulable jusqu’a 24h avant l’arrivée
+                  </span>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="radioOption" id="radio2">
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between"
+            class="shareInfo">
+            <label  for="myCheckbox">
+              Vous accepter que nous transmettions votre nom, numéros de téléphone, prénom
+              et email à tout personne souhaitant louer votre bien
+            </label>
+            <input type="checkbox" id="myCheckbox" checked >
+          </div>
+
+          <button type="button" class="btn btn-primary btn-sm" (click)="booking()">Réserver</button>
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+          >
+            <p>Total avant taxe</p>
+            <p>{{desk?.price}}€ au total</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+
+  <app-rating></app-rating>
+</div>

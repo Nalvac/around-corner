@@ -18,7 +18,7 @@ class StatusUsers
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'status', targetEntity: Users::class)]
+    #[ORM\OneToMany(mappedBy: 'statusUsers', targetEntity: Users::class)]
     private Collection $users;
 
     public function __construct()

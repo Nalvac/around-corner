@@ -37,7 +37,7 @@ class Desks
     private Collection $bookings;
 
     #[ORM\ManyToOne(inversedBy: 'desks')]
-    private ?Users $users = null;
+    private ?Users $owners = null;
 
     #[ORM\ManyToOne(inversedBy: 'desks')]
     private ?StatusDesks $statusDesks = null;
@@ -50,6 +50,9 @@ class Desks
 
     #[ORM\ManyToMany(targetEntity: Options::class, inversedBy: 'desks')]
     private Collection $options;
+
+    #[ORM\Column]
+    private ?int $Tax = null;
 
     public function __construct()
     {
@@ -168,12 +171,12 @@ class Desks
 
     public function getUsers(): ?Users
     {
-        return $this->users;
+        return $this->owners;
     }
 
     public function setUsers(?Users $users): self
     {
-        $this->users = $users;
+        $this->owners = $users;
 
         return $this;
     }
@@ -270,6 +273,18 @@ class Desks
     public function removeOption(Options $option): self
     {
         $this->options->removeElement($option);
+
+        return $this;
+    }
+
+    public function getTax(): ?int
+    {
+        return $this->Tax;
+    }
+
+    public function setTax(int $Tax): self
+    {
+        $this->Tax = $Tax;
 
         return $this;
     }

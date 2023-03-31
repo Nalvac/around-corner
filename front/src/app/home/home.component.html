@@ -1,0 +1,19 @@
+
+<app-banner></app-banner>
+<app-how-it-works></app-how-it-works>
+
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
+  <p class="sous-titre">Nos recommandations</p>
+</div>
+<div
+  fxLayout="row wrap"
+>
+  <app-room-card
+    *ngFor="let desk of allDesk"
+    [desk]="desk"
+  >
+  </app-room-card>
+</div>

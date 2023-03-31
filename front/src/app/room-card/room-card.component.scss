@@ -1,0 +1,70 @@
+@import "src/assets/variables";
+:host {
+  display: block;
+  font-family: $font-outfit;
+}
+
+.room-card-container {
+  transition: 1s;
+  padding: 20px;
+  font-size: 12px;
+  position: relative;
+  cursor: pointer;
+  .room-card {
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    border-radius: 10px;
+    width: 250px;
+    margin: 0 5px;
+    position: relative;
+    z-index: 0;
+    .image-container {
+      img {
+        border-radius: 10px 10px 0 0 ;
+        filter: brightness(70%);
+      }
+    }
+    .info-container  {
+      padding: 10px;
+      .rent-type {
+
+      }
+      .address {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .rent-price {
+        font-size: 14px;
+        font-weight: bold;
+        color: #FF2768;
+      }
+    }
+
+    .pico {
+      text-align: center;
+      .middle {
+        border-left: 1px solid #E4E4E4;
+        border-right: 1px solid #E4E4E4;
+      }
+    }
+
+    .favorite-icon {
+      cursor: pointer;
+      z-index: 1;
+      color: white;
+      right: 30px;
+      top: 13px;
+      &:hover {
+        color: #FF2768;
+      }
+    }
+  }
+
+  .favorite-icon {
+    position: absolute;
+    top: 0;
+  }
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}

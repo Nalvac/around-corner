@@ -1,0 +1,16 @@
+<div class="rating-container">
+  <div class="stars">
+    <mat-icon
+      *ngFor="let star of stars"
+      [color]="star <= selectedRating ? 'primary' : ''"
+      (click)="setRating(star)"
+    >
+      star
+    </mat-icon>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>Commentaire</mat-label>
+    <input matInput [(ngModel)]="comment" placeholder="Entrez votre commentaire ici">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="submitReview()">Soumettre l'avis</button>
+</div>
