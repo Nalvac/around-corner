@@ -33,6 +33,8 @@ import { AddDeskComponent } from './add-desk/add-desk.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatRadioModule} from "@angular/material/radio";
 import { RatingComponent } from './rating/rating.component';
+import { ListBookComponent } from './list-book/list-book.component';
+import { BookItemComponent } from './list-book/book-item/book-item.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { RatingComponent } from './rating/rating.component';
     RoomDetailComponent,
     RentDetailComponent,
     AddDeskComponent,
-    RatingComponent
+    RatingComponent,
+    ListBookComponent,
+    BookItemComponent
   ],
   imports: [
     BrowserModule,

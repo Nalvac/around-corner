@@ -7,6 +7,7 @@ import {DeskModel} from "../model/desk.model";
 import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
 import {LenderModel} from "../model/lender.model";
 import {BookingRequestModel} from "../model/booking.request.model";
+import {BookModel} from "../model/book.model";
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,9 @@ export class Dao {
 
   booking(bookingData: BookingRequestModel): Observable<any> {
       return this.httpService.post('api/booking', bookingData)
+  }
+  getUserBook(userId: string): Observable<Array<BookModel>> {
+      return this.httpService.get('api/booking/user/'+userId)
   }
 
 }

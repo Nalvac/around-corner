@@ -1,3 +1,10 @@
+@import "src/assets/variables";
+:host {
+  display: block;
+  font-family: $font-outfit;
+  padding: 90px 70px;
+
+}
 .map-container {
     position: absolute;
     top: 0;
@@ -6,12 +13,12 @@
     bottom: 0;
     margin: 30px;
   }
-  
+
   .map-frame {
     border: 2px solid black;
     height: 100%;
   }
-  
+
   #map {
     height: 100%;
   }
