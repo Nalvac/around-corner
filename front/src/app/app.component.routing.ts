@@ -9,6 +9,7 @@ import {ListBookComponent} from "./list-book/list-book.component";
 import {MapComponent} from "./map/map.component";
 import {ProfilUserComponent} from "./profil-user/profil-user.component";
 
+import { LogoutComponent } from "./logout/logout.component";
 
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
   {
     path: 'map',
     component: MapComponent,
+  },
+  {
+    path: 'deconnexion',
+    component: LogoutComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
   },
   {
     path: 'profil',
