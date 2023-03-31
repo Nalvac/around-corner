@@ -25,6 +25,16 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatSelectModule} from "@angular/material/select";
 import { FooterComponent } from './footer/footer.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
+import { RentDetailComponent } from './rent-detail/rent-detail.component';
+import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { AddDeskComponent } from './add-desk/add-desk.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatRadioModule} from "@angular/material/radio";
+import { RatingComponent } from './rating/rating.component';
+import { ListBookComponent } from './list-book/list-book.component';
+import { BookItemComponent } from './list-book/book-item/book-item.component';
 import { ProfilUserComponent } from './profil-user/profil-user.component';
 import { ProfilBannerComponent } from './profil-banner/profil-banner.component';
 import { ProfilPasswordUpdateComponent } from './profil-password-update/profil-password-update.component';
@@ -70,7 +80,12 @@ import { BookingHistoryCardComponent } from './booking-history-card/booking-hist
     BookingComingComponent,
     BookingComingCardComponent,
     BookingHistoryComponent,
-    BookingHistoryCardComponent
+    BookingHistoryCardComponent,
+    RentDetailComponent,
+    AddDeskComponent,
+    RatingComponent,
+    ListBookComponent,
+    BookItemComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +105,11 @@ import { BookingHistoryCardComponent } from './booking-history-card/booking-hist
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
+    MatListModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [
   ],

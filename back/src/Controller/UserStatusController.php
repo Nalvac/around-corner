@@ -12,6 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserStatusController  extends AbstractController
 {
+    /**
+     * Récupération de tout les statut utilisateurs
+     */
     #[Route(path: 'api/status-user', name: 'api_status', methods: ['GET'])]
     public function options(StatusUsersRepository $statusUsersRepository): JsonResponse
     {
@@ -26,12 +29,15 @@ class UserStatusController  extends AbstractController
         return new JsonResponse($data,Response::HTTP_OK);
     }
 
+    /**
+     * Supression d'un statut utilsateur
+     */
     #[Route(path: 'api/status-user/{id}', name: 'api_delete_status', methods: ['DELETE'])]
     public function deleteOption(StatusUsersRepository $statusUsersRepository, string $id): JsonResponse
     {
         $status = $statusUsersRepository->findOneById($id);
         if (!$status) {
-            throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
 
         // Supprimer la référence de statut dans tous les utilisateurs associés
@@ -48,12 +54,15 @@ class UserStatusController  extends AbstractController
         );
     }
 
+    /**
+     * Modification d'un satut utilisateur
+     */
     #[Route(path: 'api/status-user/{id}', name: 'api_update_status', methods: ['PUT'])]
     public function editOption(StatusUsersRepository $statusUsersRepository, Request $request, string $id): JsonResponse
     {
         $status = $statusUsersRepository->findOneById($id);
         if ($status == null) {
-            throw new \Exception('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
+            return new JsonResponse('Sorry, status does not exist', Response::HTTP_NOT_FOUND);
         }
 
         $data = json_decode(
@@ -75,6 +84,9 @@ class UserStatusController  extends AbstractController
         }
     }
 
+    /**
+     * Ajout d'un statut utilisateur
+     */
     #[Route(path: 'api/status-user', name: 'api_post_user_status', methods: ['POST'])]
     public function addUserStatut(StatusUsersRepository $statusUsersRepository, Request $request): JsonResponse
     {

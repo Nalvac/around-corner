@@ -1,26 +1,27 @@
-
+@import "src/assets/variables";
 
 :host {
   display: block;
 }
 
 .nav-bar-container {
+  cursor: pointer;
   z-index: 999;
   overflow: hidden;
   background-color: white;
   position: fixed;
   top: 0;
   width: 100%;
-
+  z-index: 2000;
   height: 80px;
   .input-container {
     width: 95px;
     margin-right: 10px;
 
-    input {
+    input, select {
       background-color: #DAF0F8;
     }
-    ::ng-deep .form-control:focus {
+    ::ng-deep .form-control:focus, ::ng-deep .form-select:focus {
       border-color: #7A7A7A!important;
       box-shadow: none;
     }
@@ -32,8 +33,9 @@
     background-color: #DAF0F8;
     padding: 0.25rem 0.5rem;
     border-radius: 5px;
-
     margin-right: 10px;
+
+    border: 1px solid #ccc;
   }
 
   .dropdown-input {
@@ -79,7 +81,18 @@
     margin-right: 5px;
   }
 
+  .date-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DAF0F8;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    height: 32px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
 
+  }
 }
 
 
@@ -93,9 +106,7 @@
   position: relative;
   display: none;
 }
-::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: #DAF0F8;
-}
+
 ::ng-deep .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
   padding-top: 24px;
   padding-bottom: 0;

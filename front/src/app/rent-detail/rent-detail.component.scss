@@ -1,0 +1,101 @@
+@import "src/assets/variables";
+:host {
+  display: block;
+  font-family: $font-outfit;
+}
+.rent-detail-container {
+  padding: 90px 30px;
+
+  .image-container {
+    display: flex;
+    .big-display {
+      width: 500px;
+      height: 356.03px;
+      margin-right: 10px;
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+    .small-display {
+      width: 419px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-height: 500px;
+      border-radius: 10px;
+      img {
+        width: 48%;
+        height: 48%;
+        border-radius: 10px;
+      }
+    }
+  }
+
+  .detail-info {
+    .listing-container {
+      width: 60%;
+      mat-list-item {
+        border-bottom: 1px solid #7A7A7A;
+        padding: 30px 0;
+      }
+      ::ng-deep .mdc-list-item.mdc-list-item--with-one-line {
+        height: auto;
+      }
+      .offre-container {
+        width: 60%;
+      }
+      mat-icon {
+        margin-right: 5px;
+      }
+    }
+    .custom-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .custom-table th,
+    .custom-table td {
+      border: 10px solid #f5f5f5;
+      text-align: left;
+      padding: 8px;
+    }
+
+    .mat-mdc-card-content {
+      display: block;
+      padding: 0;
+    }
+
+    .mat-mdc-card {
+      margin-top: 20px;
+      width: 420px;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+      &-title {
+        padding: 8px 0;
+      }
+    }
+    span {
+      color: #7A7A7A;
+      font-size: 12px;
+    }
+
+    .shareInfo {
+      font-size: 13px;
+    }
+    button {
+      margin: 10px 0;
+      padding: 10px 0;
+      font-size: 13px;
+      background-color: #FF2768;
+      border: none;
+      width: 100%;
+    }
+    input[type="checkbox"]:checked,
+    input[type="radio"]:checked {
+      background-color: #FF2768;
+    }
+
+  }
+}

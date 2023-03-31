@@ -14,18 +14,39 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class OptionController extends AbstractController
 {
+    /**
+     * Afficher toutes les options
+     */
     #[Route(path: 'api/option', name: 'api_options', methods: ['GET'])]
-    public function options(OptionsRepository $optionsRepository, SerializerInterface $serializer): JsonResponse
+    public function options(OptionsRepository $optionsRepository): JsonResponse
     {
         $models = $optionsRepository->findAll();
-        $data = $serializer->serialize($models, JsonEncoder::FORMAT);;
-        return new JsonResponse($data, Response::HTTP_OK, [], true);
+        if (!empty($models)) {
+            foreach ($models as $option) {
+                $tabDesk = [];
+                foreach ($option->getDesks() as $desk) {
+                    $tabDesk[] = $desk->getId();
+                }
+                $data[] = [
+                    'id' => $option->getId(),
+                    'name' => $option->getName(),
+                    'desk' => $tabDesk,
+                ];
+            }
+
+            return new JsonResponse($data,Response::HTTP_OK);
+        } else {
+            return new JsonResponse('Aucun option disponible',Response::HTTP_NOT_FOUND);
+        }
     }
 
+    /**
+     * Supprimer une option (pour l'admin)
+     */
     #[Route(path: 'api/option/{id}', name: 'api_delete_options', methods: ['DELETE'])]
     public function deleteOption(OptionsRepository $optionsRepository, string $id): JsonResponse
     {
-        $option = $optionsRepository->findOneById($id);;
+        $option = $optionsRepository->findOneById($id);
         if ($option == null) {
             throw new \Exception('Sorry, option does not exist', Response::HTTP_NOT_FOUND);
         }
@@ -37,6 +58,9 @@ class OptionController extends AbstractController
         );
     }
 
+    /**
+     * Mettre a jour une option (pour l'admin)
+     */
     #[Route(path: 'api/option/{id}', name: 'api_update_options', methods: ['PUT'])]
     public function editOption(OptionsRepository $optionsRepository, Request $request, string $id): JsonResponse
     {
@@ -64,6 +88,9 @@ class OptionController extends AbstractController
         }
     }
 
+    /**
+     * Ajouter une option (pour l'admin)
+     */
     #[Route(path: 'api/option', name: 'api_update_options', methods: ['POST'])]
     public function addOption(OptionsRepository $optionsRepository, Request $request): JsonResponse
     {

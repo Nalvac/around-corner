@@ -1,0 +1,113 @@
+<div
+  class="addDesk-container"
+>
+  <h5>Ajouter/Editer Un bureau</h5>
+
+  <div
+    [formGroup]="addDeskForm"
+    fxLayout="row"
+    fxLayoutAlign="space-between"
+  >
+    <div
+
+      fxLayout="column"
+    >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between"
+      >
+        <div>
+          <input type="file" #fileInput1 style="display: none;" (change)="onFileSelected1($event)">
+          <div class="image-container" (click)="fileInput1.click()">
+            <ng-container *ngIf="imageSrc1; else uploadPrompt1">
+              <img style="width: 100%;" [src]="imageSrc1" alt="Image sélectionnée" />
+            </ng-container>
+            <ng-template #uploadPrompt1>
+              <span>Cliquez ici pour choisir une image</span>
+            </ng-template>
+          </div>
+        </div>
+        <div>
+          <input type="file" #fileInput2 style="display: none;" (change)="onFileSelected2($event)">
+          <div class="image-container" (click)="fileInput2.click()">
+            <ng-container *ngIf="imageSrc2; else uploadPrompt">
+              <img style="width: 100%;" [src]="imageSrc2" alt="Image sélectionnée" />
+            </ng-container>
+            <ng-template #uploadPrompt>
+              <span>Cliquez ici pour choisir une image</span>
+            </ng-template>
+          </div>
+        </div>
+        <div>
+          <input type="file" #fileInput3 style="display: none;" (change)="onFileSelected3($event)">
+          <div class="image-container" (click)="fileInput3.click()">
+            <ng-container *ngIf="imageSrc3; else uploadPrompt">
+              <img style="width: 100%;" [src]="imageSrc3" alt="Image sélectionnée" />
+            </ng-container>
+            <ng-template #uploadPrompt>
+              <span>Cliquez ici pour choisir une image</span>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+      <div
+        fxLayout="column"
+      >
+        <span>Description</span>
+        <mat-form-field [style.fontSize]="12" appearance="fill">
+          <mat-label>Entrer une description du bureu</mat-label>
+          <textarea matInput
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="1"
+                    formControlName="description"
+                    cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div
+      class="desk-info"
+    >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between"
+        >
+          <mat-form-field style="width: 100%">
+            <input matInput formControlName="address" placeholder="Adresse">
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between"
+        >
+          <mat-form-field>
+            <input matInput formControlName="city" placeholder="Ville">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="zipCode" placeholder="Code Postal">
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between"
+        >
+          <mat-form-field>
+            <input matInput type="number" formControlName="numberPlaces" placeholder="Nombre de place">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" formControlName="price" placeholder="Prix">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <span>Option</span>
+          <mat-radio-group aria-label="Select an option" formControlName="sdid" [(ngModel)]="selectedOption">
+            <mat-radio-button *ngFor="let option of options" [value]="option.id">{{option.name}}</mat-radio-button>
+          </mat-radio-group>
+
+        </div>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()">Ajouter le bureau</button>
+    </div>
+  </div>
+</div>

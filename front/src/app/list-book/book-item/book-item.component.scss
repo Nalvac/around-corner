@@ -1,0 +1,30 @@
+@import "src/assets/variables";
+:host {
+  display: block;
+  font-family: $font-outfit;
+}
+.bookItemContainer {
+  .image-desk {
+    margin-right: 30px;
+    width: 350px;
+    img {
+      border-radius: 10px;
+      width: 100%;
+    }
+  }
+  .button-container {
+    margin-top: auto;
+    button {
+      margin: 0 auto;
+      width: 200px;
+      border: none;
+      border-radius: 30px;
+      margin: 20px 20px 0 0;
+      background-color: #FF2768;
+    }
+  }
+  span {
+    color: #7A7A7A;
+    font-size: 13px;
+  }
+}

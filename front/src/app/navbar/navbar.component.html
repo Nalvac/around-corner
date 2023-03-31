@@ -2,6 +2,8 @@
   fxLayout="row"
   fxLayoutAlign="space-between center"
   class="nav-bar-container"
+  routerLink="/"
+  *ngIf="route.url != '/connexion' && route.url != '/inscription'"
 >
   <div>
     <img src="assets/Logo-around-corner.png">
@@ -17,9 +19,24 @@
     <div class="input-group input-group-sm  input-container">
       <input type="number"  placeholder="Place(s)" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
     </div>
+    <div class="date-picker">
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Date début">
+        <input matEndDate formControlName="end" placeholder="Date de fin">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+      <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+    </div>
     <div class="input-group input-group-sm  input-container">
-      <input type="date" class="form-control" placeholder="Date"
-             name="dp" [(ngModel)]="model" ngbDatepicker>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
     </div>
     <div
       fxLayout="row"

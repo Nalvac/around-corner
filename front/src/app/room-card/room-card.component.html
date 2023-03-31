@@ -12,25 +12,24 @@
       <mat-icon>favorite_border</mat-icon>
     </div>
     <carousel
+      [interval]="0"
       class="image-container"
     >
-      <slide>
-        <img src="assets/room.jpg" class="card-img-top" alt="...">
-      </slide>
-      <slide>
-        <img src="assets/room.jpg" class="card-img-top" alt="...">
-      </slide>
-      <slide>
-        <img src="assets/room.jpg" class="card-img-top" alt="...">
+      <slide
+        *ngFor="let imag of desk?.images | keyvalue"
+      >
+        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
       </slide>
     </carousel>
     <div
       fxLayout="column"
       class="info-container"
+      [routerLink]="desk.id+'/detail'"
     >
-      <p class="address">2578 Folsom street, san francisco, CA, 94110</p>
+      <p class="address">{{desk.adress}}</p>
+      <p class="address">{{desk.city}},{{desk.zipCode}}</p>
       <span class="rent-type">Type de salle</span>
-      <p class="rent-price">130€/Jour</p>
+      <p class="rent-price">{{desk.price}}€/Jour</p>
     </div>
 
     <div
@@ -44,7 +43,7 @@
           fxLayoutAlign="center center"
         >
           <mat-icon>airline_seat_recline_normal</mat-icon>
-          <p style="margin: 0; margin-left: 5px">3</p>
+          <p style="margin: 0; margin-left: 5px">{{desk.numberPlaces}}</p>
         </div>
       </div>
       <div class="middle" style="padding: 10px; border-top: 1px solid #E4E4E4; width: 100%">
@@ -53,15 +52,16 @@
           fxLayoutAlign="center center"
         >
           <mat-icon> near_me</mat-icon>
-          <p style="margin: 0; margin-left: 5px">3 Km</p>
+          <p style="margin: 0; margin-left: 5px">{{distance}}</p>
+          <p style="margin: 0; margin-left: 5px">Km</p>
         </div>
       </div>
       <div
         fxLayout="row"
         fxLayoutAlign="center center"
-        style="padding: 10px; border-top: 1px solid #E4E4E4;  width: 100%">
+        style="padding: 10px; border-top: 1px solid #E4E4E4;  width: 140%">
         <mat-icon>star</mat-icon>
-        <p style="margin: 0; margin-left: 5px">3</p>
+        <p style="margin: 0; margin-left: 5px">{{desk.averageNote != null  ? desk.averageNote: 0}}</p>
       </div>
     </div>
   </div>

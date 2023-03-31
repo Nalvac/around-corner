@@ -1,15 +1,14 @@
 $font-outfit: 'Outfit', sans-serif;
 $primary-palette: (
-  50: #e3f7ff,
-  100: #baecff,
-  200: #8ee0ff,
-  300: #65d3fb,
-  400: #4dcaf6,
-  500: #47c1ef,
-  600: #3fb1db,
-  700: #339cbf,
-  800: #2988a6,
-  900: #166678,
+  50: #5b0000,
+  100: #78000a,
+  200: #95001f,
+  300: #b40033,
+  400: #d40048,
+  500: #f1175e,
+  600: #ff457b,
+  700: #ff709c,
+  900: #FF2768,
   contrast: (
     50: rgba(black, 0.87),
     100: rgba(black, 0.87),
@@ -34,7 +33,7 @@ $secondary-palette: (
   600: #008b81,
   700: #007b71,
   800: #006b61,
-  900: #004f45,
+  900: #FF2768,
   contrast: (
     50: rgba(black, 0.87),
     100: rgba(black, 0.87),

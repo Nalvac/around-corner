@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Dao} from "../service/dao";
 import {UserRegisterModel} from "../model/userRegister.model";
+import {firstValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,8 @@ import {UserRegisterModel} from "../model/userRegister.model";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+
+  hidePassword = true;
   signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -24,7 +27,6 @@ export class RegisterComponent {
   constructor(private signupService: Dao) {}
 
   onSubmit() {
-    console.log(this.signupForm.value)
     if (this.signupForm.valid) {
       const signupData: UserRegisterModel = {
         email: this.signupForm.get('email').value,
@@ -37,14 +39,10 @@ export class RegisterComponent {
         statusUsersId: this.signupForm.get('statusUsersId').value,
         roles: this.signupForm.get('roles').value
       };
-      this.signupService.signup(signupData).subscribe(
-        response => {
-          // gérer la réponse backend si nécessaire
-        },
-        error => {
-          // gérer l'erreur si nécessaire
-        }
-      );
+      firstValueFrom(this.signupService.signup(signupData))
+        .then((data) => {
+          console.log(data);
+        })
     }
   }
 }

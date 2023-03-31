@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+
 <app-banner></app-banner>
 <app-how-it-works></app-how-it-works>
 
@@ -6,11 +6,14 @@
   fxLayout="row"
   fxLayoutAlign="center center"
 >
-  <p>Vos recommandation</p>
+  <p class="sous-titre">Nos recommandations</p>
 </div>
 <div
-  fxLayout="row"
+  fxLayout="row wrap"
 >
-
-  <app-room-card></app-room-card><app-room-card></app-room-card>
+  <app-room-card
+    *ngFor="let desk of allDesk"
+    [desk]="desk"
+  >
+  </app-room-card>
 </div>
