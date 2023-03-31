@@ -49,6 +49,7 @@
 
   <div fxLayout="row" fxLayoutAlign="none center">
     <div fxLayoutAlign="none center" fxLayout="row">
+      <a *ngIf="token != null"  style="color: #FF2768" href="/map"  >Map</a>
       <a *ngIf="token != null"  style="color: #FF2768" href="/nouveau-bureau"  >Mettre en location</a>
       <a *ngIf="token == null" style="color: #FF2768" href="/connexion">Se connecter</a>
       <a *ngIf="token != null" style="color: #FF2768" href="/deconnexion">Déconnexion</a>
