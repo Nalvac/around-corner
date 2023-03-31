@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
+// import {MatToolbarModule} from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -25,6 +26,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatSelectModule} from "@angular/material/select";
 import { FooterComponent } from './footer/footer.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
+import { AdminReservationComponent } from './admin-reservation/admin-reservation.component';
+import { AdminGlobalComponent } from './admin-global/admin-global.component';
+import {TabsModule} from "ngx-bootstrap/tabs";
+import { FormulaireAdminComponent } from './formulaire-admin/formulaire-admin.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +43,10 @@ import { RoomDetailComponent } from './room-detail/room-detail.component';
     HomeComponent,
     RegisterComponent,
     FooterComponent,
-    RoomDetailComponent
+    RoomDetailComponent,
+    AdminReservationComponent,
+    AdminGlobalComponent,
+    FormulaireAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +66,7 @@ import { RoomDetailComponent } from './room-detail/room-detail.component';
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
+    TabsModule.forRoot()
   ],
   providers: [
   ],
