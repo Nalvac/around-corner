@@ -17,7 +17,7 @@ export interface DeskModel {
 
   images?: Array<any>;
 
-  options: Array<number>
+  options: Array<any>
 
   status_desks_id?: string,
 

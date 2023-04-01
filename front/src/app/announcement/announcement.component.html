@@ -1,6 +1,8 @@
 <div>
   <h5>Vos annonces</h5>
   <app-announcement-item
+    *ngFor="let book of bookList.reverse()"
+    [book]="book"
   >
   </app-announcement-item>
 </div>

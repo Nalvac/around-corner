@@ -1,24 +1,28 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Dao} from "../service/dao";
 import {DeskModel} from "../model/desk.model";
 import {firstValueFrom} from "rxjs";
 import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-add-desk',
   templateUrl: './add-desk.component.html',
   styleUrls: ['./add-desk.component.scss']
 })
-export class AddDeskComponent implements OnInit{
+export class AddDeskComponent implements OnInit, AfterContentInit{
 
   options: Array<any> = [];
 
+  isUpdate: boolean = false;
   types: Array<any> = [];
   optionLength: number | null = null;
   userConnected: UserConnectedInfoModel = null;
   addDeskForm: FormGroup;
+
+  desk: DeskModel = null
 
   images: Array<string> = [];
 
@@ -26,13 +30,28 @@ export class AddDeskComponent implements OnInit{
     private dao: Dao,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
-    private _snackBar: MatSnackBar) {}
+
+    private param: ActivatedRoute,
+    private _snackBar: MatSnackBar,) {
+  }
+
+  ngAfterContentInit() {
+    this.getOption();
+  }
 
   ngOnInit() {
+    const id = this.param.snapshot.params['id'];
+    if(id) {
+      this.isUpdate = true;
+      this.getDesk(id)
+    }
     this.getOption();
     this.getTypes();
     this.userConnected = JSON.parse(localStorage.getItem('userConnected'))[0];
     this.initForm();
+    this.addDeskForm.valueChanges.subscribe((change) => {
+
+    })
   }
 
 
@@ -48,6 +67,7 @@ export class AddDeskComponent implements OnInit{
       this.images.push(file.name)
       const reader = new FileReader();
       reader.onload = (e) => {
+        this.isUpdate = false;
         this.imageSrc1 = e.target?.result;
       };
       reader.readAsDataURL(file);
@@ -60,6 +80,7 @@ export class AddDeskComponent implements OnInit{
       this.images.push(file.name)
       const reader = new FileReader();
       reader.onload = (e) => {
+        this.isUpdate = false;
         this.imageSrc2 = e.target?.result;
       };
       reader.readAsDataURL(file);
@@ -72,6 +93,7 @@ export class AddDeskComponent implements OnInit{
       this.images.push(file.name)
       const reader = new FileReader();
       reader.onload = (e) => {
+        this.isUpdate = false;
         this.imageSrc3 = e.target?.result;
       };
       reader.readAsDataURL(file);
@@ -82,11 +104,20 @@ export class AddDeskComponent implements OnInit{
     firstValueFrom(this.dao.getOption()).then(
       (option) =>{
         this.options = option;
-        const optionsArray = new FormArray(
-          this.options.map(() => new FormControl(false))
-        );
-        this.addDeskForm.setControl('options', optionsArray);
-        console.log(this.addDeskForm.value);
+        console.log(this.options);
+        if(this.isUpdate){
+          this.setAddFormValues(this.desk);
+          const optionsArray = new FormArray(
+            this.options.map(option => new FormControl(this.desk.options.hasOwnProperty(option.id)))
+          );
+          this.addDeskForm.setControl('options', optionsArray);
+        } else {
+          this.setAddFormValues(this.desk);
+          const optionsArray = new FormArray(
+            this.options.map(() => new FormControl(false))
+          );
+          this.addDeskForm.setControl('options', optionsArray);
+        }
       }
     )
   }
@@ -104,9 +135,7 @@ export class AddDeskComponent implements OnInit{
   }
 
   onSubmit() {
-    console.log(this.addDeskForm.value)
     const optionsSelected = this.addDeskForm.get('options').value;
-    console.log();
     const deskData: DeskModel = {
       numberPlaces: parseInt(this.addDeskForm.get('numberPlaces').value),
       address: this.addDeskForm.get('address').value,
@@ -152,8 +181,52 @@ export class AddDeskComponent implements OnInit{
       uid:  new FormControl(''),
       sdid:  new FormControl('', [Validators.required]),
       options:  new FormArray(
-        this.options.map(() => new FormControl(false))
+        this.options.map(() => new FormControl(true))
       ),
+    });
+  }
+
+  getDesk(id: string) {
+    firstValueFrom(this.dao.getDeskById(id)).then(
+      (desk) => {
+        this.desk = desk[0];
+        this.images = Object?.values(this.desk.images);
+        this.setAddFormValues(this.desk);
+        console.log(this.desk);
+        firstValueFrom(this.dao.getUserById(this.desk.user_id)).then(
+          (user) => {
+          }
+        )
+      }
+    )
+  }
+
+
+  setAddFormValues(des: DeskModel) {
+    this.addDeskForm.patchValue({
+      numberPlaces: des.numberPlaces,
+      address: des.adress,
+      price: des.price,
+      city: des.city,
+      zipCode: des.zipCode,
+      description: des.description,
+      uid: this.userConnected.id,
+      sdid: des,
+      options: [],
+    });
+    const valuesArray = this.options.map(option => {
+      return des.options.hasOwnProperty(option.id);
+    });
+
+    this.addDeskForm.get('options').patchValue(valuesArray);
+  }
+
+
+  initializeOptions(options, backendOptions) {
+    console.log(options, backendOptions);
+    return options.map(option => {
+      const isChecked = backendOptions.hasOwnProperty(option.id);
+      return new FormControl(isChecked);
     });
   }
 }

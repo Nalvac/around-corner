@@ -20,11 +20,11 @@
     >
       <p>{{desk.address}}</p>
       <p>{{desk.zipCode}} {{desk.city}}</p>
-      <span>28-29 Juin</span>
+      <span style="text-transform: capitalize">{{desk.status_desks_id}}</span>
 
       <div>
-        <p>Jean Damien</p>
-        <span>0576576787</span>
+        <p>{{user.firstName}} {{user.lastName}}</p>
+        <span>{{user.phoneNumber}}</span>
       </div>
 
       <div
@@ -32,7 +32,8 @@
         class="button-container"
         fxLayoutAlign="space-between end"
       >
-        <button type="submit" class="btn btn-primary">Modifier l'annonce</button>
+        <button type="submit" class="btn btn-primary" [routerLink]="'/'+desk.id+'/edit'">Modifier l'annonce</button>
+        <button type="submit" class="btn btn-primary" [routerLink]="'/'+desk.id+'/detail'">Voir l'annonce</button>
       </div>
     </div>
   </div>

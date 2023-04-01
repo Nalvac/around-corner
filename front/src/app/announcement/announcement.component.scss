@@ -1,0 +1,6 @@
+@import "src/assets/variables";
+:host {
+  display: block;
+  font-family: $font-outfit;
+  padding: 90px 70px;
+}

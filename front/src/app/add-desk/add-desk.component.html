@@ -19,8 +19,8 @@
         <div>
           <input type="file" #fileInput1 style="display: none;" (change)="onFileSelected1($event)">
           <div class="image-container" (click)="fileInput1.click()">
-            <ng-container *ngIf="imageSrc1; else uploadPrompt1">
-              <img alt="" style="width: 100%;" [src]="imageSrc1" alt="Image sélectionnée" />
+            <ng-container *ngIf="imageSrc1 || isUpdate; else uploadPrompt1">
+              <img alt="" style="width: 100%;" [src]="isUpdate ? 'assets/'+images[0] : imageSrc1" alt="Image sélectionnée" />
             </ng-container>
             <ng-template #uploadPrompt1>
               <span>Cliquez ici pour choisir une image</span>
@@ -30,8 +30,8 @@
         <div>
           <input type="file" #fileInput2 style="display: none;" (change)="onFileSelected2($event)">
           <div class="image-container" (click)="fileInput2.click()">
-            <ng-container *ngIf="imageSrc2; else uploadPrompt">
-              <img alt="" style="width: 100%;" [src]="imageSrc2" alt="Image sélectionnée" />
+            <ng-container *ngIf="imageSrc2 || isUpdate; else uploadPrompt">
+              <img alt="" style="width: 100%;"  [src]="isUpdate ? 'assets/'+images[1] : imageSrc3" alt="Image sélectionnée" />
             </ng-container>
             <ng-template #uploadPrompt>
               <span>Cliquez ici pour choisir une image</span>
@@ -41,8 +41,8 @@
         <div>
           <input type="file" #fileInput3 style="display: none;" (change)="onFileSelected3($event)">
           <div class="image-container" (click)="fileInput3.click()">
-            <ng-container *ngIf="imageSrc3; else uploadPrompt">
-              <img alt="" style="width: 100%;" [src]="imageSrc3" alt="Image sélectionnée" />
+            <ng-container *ngIf="imageSrc3 || isUpdate; else uploadPrompt">
+              <img alt="" style="width: 100%;"  [src]="isUpdate ? 'assets/'+images[2] : imageSrc1" alt="Image sélectionnée" />
             </ng-container>
             <ng-template #uploadPrompt>
               <span>Cliquez ici pour choisir une image</span>
@@ -109,18 +109,18 @@
             formControlName="sdid"
             class="input-label">
             <mat-radio-button
-              *ngFor="let type of types"  [value]="type.id">{{type.name}}
+              *ngFor="let type of types"  [value]="this.addDeskForm.get('sdid').value">{{type.name}}
             </mat-radio-button>
           </mat-radio-group>
         </div>
       <div
-        *ngIf="addDeskForm.get('options').value.length === options.length"
         formGroupName="options"
       >
+        <span>Options: </span>
         <mat-checkbox
           *ngFor="let option of options | keyvalue"
           class="input-label"
-          [formControlName]="option.key"
+          [checked]="addDeskForm.get('options').get(option.key).value"
         >
           {{option.value.name}}
         </mat-checkbox>

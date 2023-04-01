@@ -55,7 +55,8 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AnnouncementItemComponent } from './announcement/announcement-item/announcement-item.component';
 import {TokenInterceptor} from "./service/tokenInterceptor ";
-import {LogoutComponent} from "./connexion-resgister/logout/logout.component";
+import {LogoutComponent} from "./logout/logout.component";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import {LogoutComponent} from "./connexion-resgister/logout/logout.component";
     MatCheckboxModule,
     MatRadioModule,
     TooltipModule,
+    MatTabsModule,
   ],
   providers: [
     {

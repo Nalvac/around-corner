@@ -8,12 +8,13 @@ import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
 import {LenderModel} from "../model/lender.model";
 import {BookingRequestModel} from "../model/booking.request.model";
 import {BookModel} from "../model/book.model";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class Dao {
-    constructor(private httpService: HttpService ) {
+    constructor(private httpService: HttpService, private route: Router) {
     }
     connexion(data: UserModel): Observable<any> {
       return this.httpService.post('api/login', data);
@@ -69,9 +70,10 @@ export class Dao {
     return sessionStorage.getItem('token');
   }
 
+
   logout(): void {
     sessionStorage.removeItem('token');
     localStorage.removeItem('userConnected');
-
+    this.route.navigate(['connexion'])
   }
 }

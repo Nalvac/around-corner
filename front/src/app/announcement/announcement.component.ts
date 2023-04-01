@@ -13,7 +13,8 @@ import {BookModel} from "../model/book.model";
 export class AnnouncementComponent {
 
   user: UserConnectedInfoModel = JSON.parse(localStorage.getItem('userConnected'))[0];
-  bookList: Array<BookModel>
+  bookList: Array<BookModel> = [];
+  DeskList: Array<BookModel> = [];
   constructor(
     private dao: Dao,
     private _snackBar: MatSnackBar
@@ -31,4 +32,5 @@ export class AnnouncementComponent {
       }
     )
   }
+
 }

@@ -7,6 +7,7 @@ import {LenderModel} from "../model/lender.model";
 import {BookingRequestModel} from "../model/booking.request.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
 
 @Component({
   selector: 'app-rent-detail',
@@ -14,15 +15,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./rent-detail.component.scss']
 })
 export class RentDetailComponent implements OnInit{
-  displayedColumns: string[] = ['column1', 'column2'];
-  dataSource = [
-    { column1: 'Ligne 1, Colonne 1', column2: 'Ligne 1, Colonne 2' },
-    { column1: 'Ligne 2, Colonne 1', column2: 'Ligne 2, Colonne 2' }
-  ];
 
   desk: DeskModel = null;
 
   lender: LenderModel;
+
+  user: UserConnectedInfoModel = JSON.parse(localStorage.getItem('userConnected'))[0];
   public dateForm: FormGroup;
   constructor(
     public param: ActivatedRoute,
@@ -69,9 +67,8 @@ export class RentDetailComponent implements OnInit{
         endDate: endDate.toLocaleDateString('fr-FR').replaceAll('/', '-'),
         price: this.desk.price.toString(),
         startDate: startDate.toLocaleDateString('fr-FR').replaceAll('/', '-'),
-        userId: '1',
+        userId: this.user.id,
       }
-      console.log(bookingRequest);
       firstValueFrom(this.dao.booking(bookingRequest)).then(
         (book) => {
           this._snackBar.open('Réservation réussie')

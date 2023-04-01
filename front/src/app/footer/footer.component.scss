@@ -6,7 +6,7 @@ footer {
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
   width: 100%;
-
+  z-index: 100;
 
   .container {
 
@@ -17,7 +17,7 @@ footer {
     }
     a {
     color: black !important;;
-    text-decoration: none; /* no underline */ 
+    text-decoration: none; /* no underline */
     font-size: 14px;
     }
   }

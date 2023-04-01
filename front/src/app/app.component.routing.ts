@@ -8,7 +8,7 @@ import {AddDeskComponent} from "./add-desk/add-desk.component";
 import {ListBookComponent} from "./list-book/list-book.component";
 import {MapComponent} from "./map/map.component";
 import {ProfilUserComponent} from "./user-profil/profil-user/profil-user.component";
-import { LogoutComponent } from "./connexion-resgister/logout/logout.component";
+import { LogoutComponent } from "./logout/logout.component";
 
 const routes: Routes = [
   {
@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: ':id/detail',
     component: RentDetailComponent,
+  },
+  {
+    path: ':id/edit',
+    component: AddDeskComponent
   },
   {
     path: 'nouveau-bureau',

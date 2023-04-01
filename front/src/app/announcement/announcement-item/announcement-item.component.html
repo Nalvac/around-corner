@@ -9,20 +9,21 @@
       class="image-desk"
     >
       <slide
+        *ngFor="let imag of desk?.images | keyvalue"
       >
-        <img alt="" [src]="" class="card-img-top" alt="...">
+        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
       </slide>
     </carousel>
     <div
       fxLayout="column"
       fxLayoutAlign=""
     >
-      <p>{{book.adress}}</p>
-      <span>28-29 Juin</span>
-
+      <p>{{desk.adress}} {{desk.city}} {{desk.zipCode}}</p>
+      <span>Date de début: {{book.startDate.date | date: 'dd-mm-yy'}}</span>
+      <span>Date de de fin: {{book.endDate.date | date:'dd-mm-yy'}}</span>
       <div>
-        <p>Jean Damien</p>
-        <span>0576576787</span>
+        <p>{{lender?.firstName}} {{lender?.lastName}}</p>
+        <span>{{lender?.phoneNumber}}</span>
       </div>
 
       <div
