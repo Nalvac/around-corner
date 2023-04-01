@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {DeskModel} from "../../model/desk.model";
 
 @Component({
   selector: 'app-book-item',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./book-item.component.scss']
 })
 export class BookItemComponent {
-
+  @Input() desk: DeskModel = null;
 }

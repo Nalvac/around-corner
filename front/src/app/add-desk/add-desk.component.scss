@@ -54,5 +54,15 @@
     border: none;
     background-color: #FF2768;
   }
+  .description-container {
+    height: 150px;
+  }
+
+  .add-desk-form {
+    padding: 45px 0;
+  }
+  ::ng-deep .mdc-form-field>label {
+    text-transform: uppercase;
+  }
 }
 

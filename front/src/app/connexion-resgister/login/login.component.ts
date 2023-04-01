@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {firstValueFrom} from "rxjs";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserModel} from "../model/user.model";
-import {Dao} from "../service/dao";
+import {UserModel} from "../../model/user.model";
+import {Dao} from "../../service/dao";
 import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-login',

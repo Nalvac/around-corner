@@ -65,7 +65,26 @@ export class HttpService {
         .pipe();
     }
 
-    private getHttpParams(
+  patch(
+    url: string,
+    input?: any,
+    header: boolean = true,
+    txtResponse: boolean = false,
+  ): Observable<any> {
+    let headers: HttpHeaders = this.getHeaders();
+    let options = header ? { headers } : {};
+
+    if (txtResponse) {
+      options['responseType'] = 'text';
+    }
+
+    return this.http
+      .patch(`${this.API_URL}/${url}`, input, options)
+      .pipe();
+  }
+
+
+  private getHttpParams(
       input: any,
       jsonContent: boolean = true,
       myFitSession: boolean = false,

@@ -8,4 +8,5 @@ export interface BookModel {
   price: number,
   startDate: {date: string, timezone_type: number, timezone: string}
   user: number,
+  adress: string;
 }

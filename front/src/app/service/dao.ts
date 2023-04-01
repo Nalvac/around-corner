@@ -58,5 +58,20 @@ export class Dao {
   getUserBook(userId: string): Observable<Array<BookModel>> {
       return this.httpService.get('api/booking/user/'+userId)
   }
+  getOwnerDesk(ownerId: string): Observable<Array<DeskModel>> {
+      return this.httpService.get('api/desk-all-by-owner/'+ownerId)
+  }
 
+  sendCertification(userId: string): Observable<any> {
+      return this.httpService.patch(userId+'/certified')
+  }
+  getAccessToken(): string {
+    return sessionStorage.getItem('token');
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('token');
+    localStorage.removeItem('userConnected');
+
+  }
 }

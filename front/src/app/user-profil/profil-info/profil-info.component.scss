@@ -1,0 +1,60 @@
+h1 {
+
+    padding-bottom: 50px;
+    padding-left: 100px;
+}
+
+section {
+    display: flex;
+    justify-content : space-around;
+
+    button {
+        display: flex; 
+        justify-content: center;
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #FF2768;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 30px;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    width: auto;
+    }
+
+    img {
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    }
+    
+    input {
+         margin-right: 10px;
+     
+    }
+
+    input:read-only {
+        background-color: #EDECEC;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    
+    mat-form-field{
+        margin-top : 10px;
+        margin-bottom: 10px;
+    }
+   
+}
+

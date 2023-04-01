@@ -6,10 +6,10 @@
   <div
     [formGroup]="addDeskForm"
     fxLayout="row"
-    fxLayoutAlign="space-between"
+    fxLayoutAlign="space-around"
+    class="add-desk-form"
   >
     <div
-
       fxLayout="column"
     >
       <div
@@ -20,7 +20,7 @@
           <input type="file" #fileInput1 style="display: none;" (change)="onFileSelected1($event)">
           <div class="image-container" (click)="fileInput1.click()">
             <ng-container *ngIf="imageSrc1; else uploadPrompt1">
-              <img style="width: 100%;" [src]="imageSrc1" alt="Image sélectionnée" />
+              <img alt="" style="width: 100%;" [src]="imageSrc1" alt="Image sélectionnée" />
             </ng-container>
             <ng-template #uploadPrompt1>
               <span>Cliquez ici pour choisir une image</span>
@@ -31,7 +31,7 @@
           <input type="file" #fileInput2 style="display: none;" (change)="onFileSelected2($event)">
           <div class="image-container" (click)="fileInput2.click()">
             <ng-container *ngIf="imageSrc2; else uploadPrompt">
-              <img style="width: 100%;" [src]="imageSrc2" alt="Image sélectionnée" />
+              <img alt="" style="width: 100%;" [src]="imageSrc2" alt="Image sélectionnée" />
             </ng-container>
             <ng-template #uploadPrompt>
               <span>Cliquez ici pour choisir une image</span>
@@ -42,7 +42,7 @@
           <input type="file" #fileInput3 style="display: none;" (change)="onFileSelected3($event)">
           <div class="image-container" (click)="fileInput3.click()">
             <ng-container *ngIf="imageSrc3; else uploadPrompt">
-              <img style="width: 100%;" [src]="imageSrc3" alt="Image sélectionnée" />
+              <img alt="" style="width: 100%;" [src]="imageSrc3" alt="Image sélectionnée" />
             </ng-container>
             <ng-template #uploadPrompt>
               <span>Cliquez ici pour choisir une image</span>
@@ -62,6 +62,7 @@
                     #autosize="cdkTextareaAutosize"
                     cdkAutosizeMinRows="1"
                     formControlName="description"
+                    class="description-container"
                     cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
       </div>
@@ -102,15 +103,28 @@
 
         <div>
           <span>Types: </span>
-          <mat-radio-group aria-label="Select an option" formControlName="sdid" [(ngModel)]="selectedOption">
-            <mat-radio-button *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-radio-button>
+          <mat-radio-group
+            fxLayout="row wrap"
+            aria-label="Select an option"
+            formControlName="sdid"
+            class="input-label">
+            <mat-radio-button
+              *ngFor="let type of types"  [value]="type.id">{{type.name}}
+            </mat-radio-button>
           </mat-radio-group>
         </div>
-
-        <div>
-          <span>Option: </span>
-          <mat-checkbox *ngFor="let option of options" >{{option.name}}</mat-checkbox>
-        </div>
+      <div
+        *ngIf="addDeskForm.get('options').value.length === options.length"
+        formGroupName="options"
+      >
+        <mat-checkbox
+          *ngFor="let option of options | keyvalue"
+          class="input-label"
+          [formControlName]="option.key"
+        >
+          {{option.value.name}}
+        </mat-checkbox>
+      </div>
 
         <button class="btn btn-primary" type="submit" (click)="onSubmit()">Ajouter le bureau</button>
     </div>

@@ -1,0 +1,38 @@
+<div
+  class="bookItemContainer"
+>
+  <div
+    fxLayout="row"
+  >
+    <carousel
+      [interval]="0"
+      class="image-desk"
+    >
+      <slide
+      >
+        <img alt="" [src]="" class="card-img-top" alt="...">
+      </slide>
+    </carousel>
+    <div
+      fxLayout="column"
+      fxLayoutAlign=""
+    >
+      <p>{{book.adress}}</p>
+      <span>28-29 Juin</span>
+
+      <div>
+        <p>Jean Damien</p>
+        <span>0576576787</span>
+      </div>
+
+      <div
+        fxLayout="row"
+        class="button-container"
+        fxLayoutAlign="space-between end"
+      >
+        <button type="submit" class="btn btn-primary">Télécharger la facture</button>
+        <button type="submit" class="btn btn-primary">Contrat de location</button>
+      </div>
+    </div>
+  </div>
+</div>

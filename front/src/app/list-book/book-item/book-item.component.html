@@ -4,17 +4,22 @@
   <div
     fxLayout="row"
   >
-    <div
+    <carousel
+      [interval]="0"
       class="image-desk"
     >
-      <img src="assets/big-image.png">
-    </div>
+      <slide
+        *ngFor="let imag of desk?.image | keyvalue"
+      >
+        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
+      </slide>
+    </carousel>
     <div
       fxLayout="column"
       fxLayoutAlign=""
     >
-      <p>Part Dieu company</p>
-      <p>1 rue du grand, Lyon</p>
+      <p>{{desk.address}}</p>
+      <p>{{desk.zipCode}} {{desk.city}}</p>
       <span>28-29 Juin</span>
 
       <div>
@@ -27,9 +32,7 @@
         class="button-container"
         fxLayoutAlign="space-between end"
       >
-        <button type="submit" class="btn btn-primary">Télécharger facture</button>
-        <button type="submit" class="btn btn-primary">Contrat de location</button>
-        <button type="submit" class="btn btn-primary">Annuler la réservation</button>
+        <button type="submit" class="btn btn-primary">Modifier l'annonce</button>
       </div>
     </div>
   </div>

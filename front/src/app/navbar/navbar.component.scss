@@ -11,7 +11,6 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2000;
   height: 80px;
   .input-container {
     width: 95px;
@@ -119,11 +118,10 @@
 ::ng-deep .cdk-overlay-pane {
   width: 200.1875px!important;
   top: 52px;
-  left: 663.24px!important;
+  left: 711px!important;
   position: absolute;
   pointer-events: auto;
   box-sizing: border-box;
-  z-index: 1000;
   display: flex;
   max-width: 100%;
   max-height: 100%;
@@ -132,4 +130,7 @@
 a {
   text-decoration:none;
   margin-right: 10px;
+}
+::ng-deep .mat-mdc-option.mdc-list-item {
+  text-transform: capitalize;
 }

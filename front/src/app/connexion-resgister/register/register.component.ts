@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Dao} from "../service/dao";
-import {UserRegisterModel} from "../model/userRegister.model";
+import {Dao} from "../../service/dao";
+import {UserRegisterModel} from "../../model/userRegister.model";
 import {firstValueFrom} from "rxjs";
 
 @Component({

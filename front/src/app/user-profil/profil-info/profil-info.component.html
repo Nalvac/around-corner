@@ -1,0 +1,102 @@
+
+
+<h1>Profil</h1>
+
+<section class="container" id="profil">
+
+    <app-profil-pictures></app-profil-pictures>
+
+    <!-- <form class="form" formGroup]="userForm"> -->
+    <form class="form">
+        <div class="form-group" style="margin-bottom: 20px">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <input readonly
+                class="form-control"
+                id="exampleNameInput"
+                aria-describedby="Name"
+                placeholder="Nom"
+                [value]="user.firstName"
+                >
+                <input readonly
+                class="form-control"
+                id="exampleInputFirstname"
+                aria-describedby="firstname"
+                [value]="user.lastName"
+                placeholder="Prenom"
+                >
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <input readonly
+                class="form-control"
+                id="exampleGenderInput"
+                aria-describedby="gender"
+                placeholder="Sexe"
+                [value]="user.gender"
+                >
+                <input readonly
+                class="form-control"
+                id="exampleInputNationality"
+                aria-describedby="nationality"
+                placeholder="Nationalitée"
+                [value]="user.nationality"
+                >
+            </div>
+
+            <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            >
+                <mat-form-field>
+                    <input matInput [value]="user.email" placeholder="Email">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput [value]="user.phoneNumber" placeholder="Téléphone">
+                </mat-form-field>
+
+                </div>
+                <mat-form-field>
+                    <input matInput [value]="user.adress" placeholder="Adresse">
+                </mat-form-field><br>
+
+                <div
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                >
+
+                <mat-form-field>
+                  <input matInput [value]="user.city" placeholder="Ville">
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="CP">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayoutAlign="center">
+            <button fxLayoutAlign="center" type="submit" class="btn btn-primary">Mettre à jour</button>
+        </div>
+
+    </form>
+
+</section>
+
+<br>
+<hr fxLayoutAlign="center">
+
+
+
+<!--
+ -->
+
+
+ <app-profil-password-update></app-profil-password-update>
+
+
+
+<hr fxLayoutAlign="center">
+
+
+
+<app-profil-certif></app-profil-certif>

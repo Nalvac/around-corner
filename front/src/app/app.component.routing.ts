@@ -1,14 +1,14 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./connexion-resgister/login/login.component";
 import {HomeComponent} from "./home/home.component";
-import {RegisterComponent} from "./register/register.component";
+import {RegisterComponent} from "./connexion-resgister/register/register.component";
 import {RentDetailComponent} from "./rent-detail/rent-detail.component";
 import {AddDeskComponent} from "./add-desk/add-desk.component";
 import {ListBookComponent} from "./list-book/list-book.component";
 import {MapComponent} from "./map/map.component";
-import {ProfilUserComponent} from "./profil-user/profil-user.component";
-import { LogoutComponent } from "./logout/logout.component";
+import {ProfilUserComponent} from "./user-profil/profil-user/profil-user.component";
+import { LogoutComponent } from "./connexion-resgister/logout/logout.component";
 
 const routes: Routes = [
   {

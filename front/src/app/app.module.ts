@@ -15,13 +15,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { BannerComponent } from './banner/banner.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './connexion-resgister/login/login.component';
 import {CarouselModule} from "ngx-bootstrap/carousel";
 import {MatCardModule} from "@angular/material/card";
 import {AppRoutingModule} from "./app.component.routing";
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import {HttpClientModule} from "@angular/common/http";
+import { RegisterComponent } from './connexion-resgister/register/register.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSelectModule} from "@angular/material/select";
 import { FooterComponent } from './footer/footer.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
@@ -35,13 +35,13 @@ import {MatRadioModule} from "@angular/material/radio";
 import { RatingComponent } from './rating/rating.component';
 import { ListBookComponent } from './list-book/list-book.component';
 import { BookItemComponent } from './list-book/book-item/book-item.component';
-import { ProfilUserComponent } from './profil-user/profil-user.component';
-import { ProfilBannerComponent } from './profil-banner/profil-banner.component';
-import { ProfilPasswordUpdateComponent } from './profil-password-update/profil-password-update.component';
-import { ProfilCertifComponent } from './profil-certif/profil-certif.component';
-import { ProfilNavbarComponent } from './profil-navbar/profil-navbar.component';
-import { ProfilInfoComponent } from './profil-info/profil-info.component';
-import { ProfilPicturesComponent } from './profil-pictures/profil-pictures.component';
+import { ProfilUserComponent } from './user-profil/profil-user/profil-user.component';
+import { ProfilBannerComponent } from './user-profil/profil-banner/profil-banner.component';
+import { ProfilPasswordUpdateComponent } from './user-profil/profil-password-update/profil-password-update.component';
+import { ProfilCertifComponent } from './user-profil/profil-certif/profil-certif.component';
+import { ProfilNavbarComponent } from './user-profil/profil-navbar/profil-navbar.component';
+import { ProfilInfoComponent } from './user-profil/profil-info/profil-info.component';
+import { ProfilPicturesComponent } from './user-profil/profil-pictures/profil-pictures.component';
 import { OfficeComponent } from './office/office.component';
 import { OfficeAddComponent } from './office-add/office-add.component';
 import { OfficeCardComponent } from './office-card/office-card.component';
@@ -52,6 +52,10 @@ import { BookingComingCardComponent } from './booking-coming-card/booking-coming
 import { BookingHistoryComponent } from './booking-history/booking-history.component';
 import { BookingHistoryCardComponent } from './booking-history-card/booking-history-card.component';
 import {TooltipModule} from "ngx-bootstrap/tooltip";
+import { AnnouncementComponent } from './announcement/announcement.component';
+import { AnnouncementItemComponent } from './announcement/announcement-item/announcement-item.component';
+import {TokenInterceptor} from "./service/tokenInterceptor ";
+import {LogoutComponent} from "./connexion-resgister/logout/logout.component";
 
 @NgModule({
   declarations: [
@@ -86,7 +90,10 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     AddDeskComponent,
     RatingComponent,
     ListBookComponent,
-    BookItemComponent
+    BookItemComponent,
+    AnnouncementComponent,
+    LogoutComponent,
+    AnnouncementItemComponent
   ],
   imports: [
     BrowserModule,
@@ -114,6 +121,11 @@ import {TooltipModule} from "ngx-bootstrap/tooltip";
     TooltipModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
