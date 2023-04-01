@@ -8,13 +8,16 @@
 >
   <p class="sous-titre">Nos recommandations</p>
 </div>
-<div
-  fxLayout="row wrap"
-  fxLayoutAlign="center"
->
-  <app-room-card
-    *ngFor="let desk of allDesk"
-    [desk]="desk"
+<div>
+  <div
+    fxLayout="row wrap"
+    fxLayoutAlign="center"
+    class="recommadation-container"
   >
-  </app-room-card>
+    <app-room-card
+      *ngFor="let desk of allDesk"
+      [desk]="desk"
+    >
+    </app-room-card>
+  </div>
 </div>

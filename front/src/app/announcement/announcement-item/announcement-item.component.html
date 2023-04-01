@@ -9,17 +9,15 @@
       class="image-desk"
     >
       <slide
-        *ngFor="let imag of desk?.image | keyvalue"
       >
-        <img [src]="'assets/'+imag.value" class="card-img-top" alt="...">
+        <img alt="" [src]="" class="card-img-top" alt="...">
       </slide>
     </carousel>
     <div
       fxLayout="column"
       fxLayoutAlign=""
     >
-      <p>{{desk.address}}</p>
-      <p>{{desk.zipCode}} {{desk.city}}</p>
+      <p>{{book.adress}}</p>
       <span>28-29 Juin</span>
 
       <div>
@@ -32,7 +30,8 @@
         class="button-container"
         fxLayoutAlign="space-between end"
       >
-        <button type="submit" class="btn btn-primary">Modifier l'annonce</button>
+        <button type="submit" class="btn btn-primary">Télécharger la facture</button>
+        <button type="submit" class="btn btn-primary">Contrat de location</button>
       </div>
     </div>
   </div>

@@ -7,7 +7,6 @@ import {LenderModel} from "../model/lender.model";
 import {BookingRequestModel} from "../model/booking.request.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
 
 @Component({
   selector: 'app-rent-detail',
@@ -43,22 +42,18 @@ export class RentDetailComponent implements OnInit{
     });
   }
 
-
   ngOnInit() {
     const id = this.param.snapshot.params['id'];
     firstValueFrom(this.dao.getDeskById(id)).then(
       (desk) => {
-        console.log(desk);
         this.desk = desk[0];
         firstValueFrom(this.dao.getUserById(this.desk.user_id)).then(
           (user) => {
-            console.log(user);
             this.lender = user[0];
           }
         )
       }
     )
-
   }
   booking() {
     if(sessionStorage.getItem('token') === null) {
@@ -66,14 +61,9 @@ export class RentDetailComponent implements OnInit{
       this.route.navigate(['connexion'])
     } else {
 
-      const connectedUser: UserConnectedInfoModel = JSON.parse(localStorage.getItem('userConnected'));
       const startDate = new Date(this.dateForm.get('start').value);
       const endDate = new Date(this.dateForm.get('end').value);
-      let options = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      };
+
       const bookingRequest: BookingRequestModel = {
         deskId: this.desk.id.toString(),
         endDate: endDate.toLocaleDateString('fr-FR').replaceAll('/', '-'),

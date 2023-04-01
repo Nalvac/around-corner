@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Dao} from "../service/dao";
-import {UserRegisterModel} from "../model/userRegister.model";
 
 
 @Component({
@@ -10,5 +7,4 @@ import {UserRegisterModel} from "../model/userRegister.model";
   styleUrls: ['./profil-user.component.scss']
 })
 export class ProfilUserComponent {
-
-  };
+};

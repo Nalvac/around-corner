@@ -14,6 +14,13 @@
       margin-right: 10px;
       img {
         width: 100%;
+        height: 356.03px;
+      }
+      slide {
+        border-radius: 10px;
+        height: 356.03px;
+      }
+      ::ng-deep .carousel-inner {
         border-radius: 10px;
       }
     }

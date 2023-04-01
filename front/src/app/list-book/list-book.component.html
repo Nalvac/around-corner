@@ -1,4 +1,8 @@
 <div>
-  <h5>Vos location à venir</h5>
-  <app-book-item></app-book-item>
+  <h5>Vos annonces</h5>
+  <app-book-item
+    *ngFor="let desk of deskOwner"
+    [desk]="desk"
+  >
+  </app-book-item>
 </div>

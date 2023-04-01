@@ -3,7 +3,7 @@ import {Dao} from "../service/dao";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {firstValueFrom} from "rxjs";
 import {UserConnectedInfoModel} from "../model/UserConnectedInfo.model";
-import {BookModel} from "../model/book.model";
+import {DeskModel} from "../model/desk.model";
 
 @Component({
   selector: 'app-list-book',
@@ -14,7 +14,7 @@ export class ListBookComponent implements OnInit{
 
   user: UserConnectedInfoModel = JSON.parse(localStorage.getItem('userConnected'))[0];
 
-  bookList: Array<BookModel> = [];
+  deskOwner: Array<DeskModel> = [];
   constructor(
     private dao: Dao,
     private _snackBar: MatSnackBar
@@ -22,15 +22,14 @@ export class ListBookComponent implements OnInit{
 
   }
   ngOnInit() {
-    this.getListBook();
+    this.getListDeskOwner();
   }
 
-  getListBook() {
+  getListDeskOwner() {
     console.log(this.user);
-    firstValueFrom(this.dao.getUserBook(this.user.id)).then(
-      (bookList) => {
-        console.log(bookList);
-        this.bookList = bookList;
+    firstValueFrom(this.dao.getOwnerDesk(this.user.id)).then(
+      (deskList) => {
+        this.deskOwner = deskList;
       }
     )
   }

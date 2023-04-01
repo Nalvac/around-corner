@@ -2,69 +2,61 @@
 
 <h1>Profil</h1>
 
-
-
-
 <section class="container" id="profil">
 
     <app-profil-pictures></app-profil-pictures>
 
-    
     <!-- <form class="form" formGroup]="userForm"> -->
     <form class="form">
         <div class="form-group" style="margin-bottom: 20px">
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <input readonly
-                type="name"
                 class="form-control"
                 id="exampleNameInput"
                 aria-describedby="Name"
                 placeholder="Nom"
-                formControlName="nom" 
+                [value]="user.firstName"
                 >
                 <input readonly
-                type="firstname"
                 class="form-control"
                 id="exampleInputFirstname"
                 aria-describedby="firstname"
+                [value]="user.lastName"
                 placeholder="Prenom"
-                formControlName="firstname" 
                 >
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <input readonly
-                type="gender"
                 class="form-control"
                 id="exampleGenderInput"
                 aria-describedby="gender"
                 placeholder="Sexe"
-                formControlName="gender" 
+                [value]="user.gender"
                 >
                 <input readonly
-                type="nationality"
                 class="form-control"
                 id="exampleInputNationality"
                 aria-describedby="nationality"
                 placeholder="Nationalitée"
-                formControlName="nationality" 
+                [value]="user.nationality"
                 >
             </div>
-            
+
             <div
             fxLayout="row"
             fxLayoutAlign="space-between center"
             >
                 <mat-form-field>
-                    <input matInput formControlName="email" placeholder="Email">
+                    <input matInput [value]="user.email" placeholder="Email">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput formControlName="phone" placeholder="Téléphone">
+                  <input matInput [value]="user.phoneNumber" placeholder="Téléphone">
                 </mat-form-field>
 
                 </div>
                 <mat-form-field>
-                    <input matInput formControlName="adress" placeholder="Adresse">
+                    <input matInput [value]="user.adress" placeholder="Adresse">
                 </mat-form-field><br>
 
                 <div
@@ -73,11 +65,11 @@
                 >
 
                 <mat-form-field>
-                    <input matInput formControlName="town" placeholder="Ville">
+                  <input matInput [value]="user.city" placeholder="Ville">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput formControlName="zip" placeholder="CP">
+                    <input matInput placeholder="CP">
                 </mat-form-field>
             </div>
         </div>
@@ -87,7 +79,7 @@
         </div>
 
     </form>
- 
+
 </section>
 
 <br>
@@ -95,7 +87,7 @@
 
 
 
-<!-- 
+<!--
  -->
 
 
