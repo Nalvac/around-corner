@@ -9,7 +9,7 @@ section {
     justify-content : space-around;
 
     button {
-        display: flex; 
+        display: flex;
         justify-content: center;
     align-items: center;
     background-clip: padding-box;
@@ -39,10 +39,10 @@ section {
     height: 300px;
     width: 300px;
     }
-    
+
     input {
          margin-right: 10px;
-     
+
     }
 
     input:read-only {
@@ -50,11 +50,69 @@ section {
         border-radius: 10px;
         margin-bottom: 20px;
     }
-    
+
     mat-form-field{
         margin-top : 10px;
         margin-bottom: 10px;
     }
-   
+
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 400px) {
+
+
 }
 
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 601px) {
+  .container {
+    img {
+      display: none!important;
+    }
+    div {
+      margin: 0;
+      margin-top : 20px;
+    }
+  }
+  .container {
+    padding: 20px;
+    flex-wrap: wrap!important;
+
+    img {
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
+    }
+  }
+  h1 {
+    display: none;
+  }
+  form {
+    width: 350px;
+    padding: 30px;
+  }
+  h2 {
+
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  /* Vos styles spécifiques pour les tablettes en mode paysage */
+  .text {
+    font-size: 12px!important;
+  }
+  h5 {
+    font-size: 14px!important;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  /* Vos styles spécifiques pour les ordinateurs portables et de bureau */
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* Vos styles spécifiques pour les grands ordinateurs portables et de bureau */
+}

@@ -15,6 +15,7 @@
       <div
         fxLayout="row"
         fxLayoutAlign="space-between"
+        class="image-upload"
       >
         <div>
           <input type="file" #fileInput1 style="display: none;" (change)="onFileSelected1($event)">
@@ -120,7 +121,7 @@
         <mat-checkbox
           *ngFor="let option of options | keyvalue"
           class="input-label"
-          [checked]="addDeskForm.get('options').get(option.key).value"
+          [checked]="isUpdate ? addDeskForm.get('options').get(option.key).value : 'false'"
         >
           {{option.value.name}}
         </mat-checkbox>

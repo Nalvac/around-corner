@@ -57,6 +57,9 @@ import { AnnouncementItemComponent } from './announcement/announcement-item/anno
 import {TokenInterceptor} from "./service/tokenInterceptor ";
 import {LogoutComponent} from "./logout/logout.component";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -121,6 +124,9 @@ import {MatTabsModule} from "@angular/material/tabs";
     MatRadioModule,
     TooltipModule,
     MatTabsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatMenuModule,
   ],
   providers: [
     {

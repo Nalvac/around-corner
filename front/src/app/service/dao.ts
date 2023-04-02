@@ -69,6 +69,9 @@ export class Dao {
   getAccessToken(): string {
     return sessionStorage.getItem('token');
   }
+  updateDesk(deskId: string, deskData: DeskModel): Observable<any> {
+      return this.httpService.put('api/desk-edit/'+deskId, deskData);
+  }
 
 
   logout(): void {

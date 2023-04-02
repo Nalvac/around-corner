@@ -5,12 +5,15 @@
   *ngIf="route.url != '/connexion' && route.url != '/inscription'"
 >
   <div
+    class="logo-container"
     routerLink="/"
   >
     <img src="assets/Logo-around-corner.png">
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="none center">
+  <div
+    class="filtre-container"
+    fxLayout="row" fxLayoutAlign="none center">
     <div class="input-group input-group-sm  input-container">
       <input type="text" placeholder="Ville" class="form-control" aria-label="Sizing example input"
         aria-describedby="inputGroup-sizing-sm">
@@ -54,13 +57,43 @@
 
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="none center">
+  <div class="links" fxLayout="row" fxLayoutAlign="none center">
     <div fxLayoutAlign="none center" fxLayout="row">
-      <a *ngIf="token != null"  style="color: #FF2768" href="/nouveau-bureau"  >Mettre en location</a>
+      <a *ngIf="token != null"  style="color: #FF2768" href="/map" >Map</a>
+      <a *ngIf="token != null"  style="color: #FF2768" href="/nouveau-bureau" >Mettre en location</a>
       <a *ngIf="token == null" style="color: #FF2768" href="/connexion">Se connecter</a>
       <a *ngIf="token != null" style="color: #FF2768" href="/deconnexion">Déconnexion</a>
       <a href="/profil"><img *ngIf="token != null" style="height: 40px; width: 40px; margin: 0 10px" src="assets/user-profil.png"></a>
     </div>
 
   </div>
+
+  <div class="toggle">
+    <button     style="border: none;
+        background-color: transparent;"mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button
+
+        mat-menu-item>
+        <mat-icon> person_pin</mat-icon>
+        <span>Profil</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon> pin_drop</mat-icon>
+        <a *ngIf="token != null"  style="color: #FF2768" href="nouveau-bureau" >Mettre en location</a>
+      </button>
+      <button mat-menu-item>
+        <mat-icon> map</mat-icon>
+        <a *ngIf="token != null"  style="color: #FF2768" href="map" >Map</a>
+      </button>
+      <button mat-menu-item>
+        <mat-icon> power_settings_new</mat-icon>
+        <a *ngIf="token != null" style="color: #FF2768" href="deconnexion">Déconnexion</a>
+      </button>
+    </mat-menu>
+
+  </div>
+
 </div>

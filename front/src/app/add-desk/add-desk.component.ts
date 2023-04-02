@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterContentInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Dao} from "../service/dao";
 import {DeskModel} from "../model/desk.model";
@@ -154,19 +154,31 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
         return acc;
       }, [])
     };
-    firstValueFrom(this.dao.addDesk(deskData)).then(
-      (addDesk) => {
-        console.log(addDesk);
-        this.images = [];
-        this._snackBar.open('Bureau ajouter')
-        setTimeout(() => {
-          window.location.href = '';
-        },2000)
-      },
-      (error) => {
-        window.alert('Veuillez remplir tout les champs!')
-      }
-    )
+    if (this.isUpdate) {
+      firstValueFrom(this.dao.updateDesk(this.desk.id.toString(), deskData)).then(
+        (desUpdated) => {
+          this.images = [];
+          this._snackBar.open(desUpdated.message);
+          setTimeout(() => {
+            window.location.href = this.desk.id+'/edit';
+          },2000)
+        }
+      )
+    } else {
+      firstValueFrom(this.dao.addDesk(deskData)).then(
+        (addDesk) => {
+          console.log(addDesk);
+          this.images = [];
+          this._snackBar.open('Bureau ajouter')
+          setTimeout(() => {
+            window.location.href = '';
+          },2000)
+        },
+        (error) => {
+          window.alert('Veuillez remplir tout les champs!')
+        }
+      )
+    }
 
   }
 
@@ -200,7 +212,6 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
       }
     )
   }
-
 
   setAddFormValues(des: DeskModel) {
     this.addDeskForm.patchValue({

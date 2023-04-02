@@ -11,3 +11,37 @@
 .recommadation-container {
   padding-bottom: 100px;
 }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+  .nav-bar-container {
+    flex-direction: row;
+  }
+
+
+  .input-group,
+  .date-picker,
+  .dropdown {
+    width: auto;
+    margin-bottom: 0;
+  }
+
+  .nav-bar-container {
+    font-size: 14px;
+  }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* Vos styles spécifiques pour les tablettes en mode paysage */
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  /* Vos styles spécifiques pour les ordinateurs portables et de bureau */
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* Vos styles spécifiques pour les grands ordinateurs portables et de bureau */
+}

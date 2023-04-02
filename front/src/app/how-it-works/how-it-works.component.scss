@@ -12,3 +12,43 @@
     text-transform: uppercase;
   }
 }
+
+@media only screen and (max-width: 600px) {
+
+
+  .how-works-container {
+    .image-text {
+      display: flex!important;
+      flex-direction: column!important;
+    }
+
+    .image {
+      margin: 0!important;
+    }
+    .text {
+      width: 100%!important;
+    }
+  }
+
+
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* Vos styles spécifiques pour les tablettes en mode paysage */
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  /* Vos styles spécifiques pour les ordinateurs portables et de bureau */
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* Vos styles spécifiques pour les grands ordinateurs portables et de bureau */
+}

@@ -108,4 +108,22 @@ export class MapComponent implements AfterViewInit, OnInit {
     )
   }
 
+  addCustomMarker(map, lat, lng, text, imageUrl, description) {
+    const icon = L.divIcon({
+      className: 'custom-marker',
+      html: `
+      <div class="marker-container">
+        ${text}
+        <div class="marker-popup">
+          <img src="${imageUrl}" alt="Image" />
+          <p>${description}</p>
+        </div>
+      </div>
+    `,
+    });
+
+    const marker = L.marker([lat, lng], { icon: icon }).addTo(map);
+  }
+
+
 }

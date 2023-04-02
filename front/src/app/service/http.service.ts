@@ -65,6 +65,24 @@ export class HttpService {
         .pipe();
     }
 
+  put(
+    url: string,
+    input?: any,
+    header: boolean = true,
+    txtResponse: boolean = false,
+  ): Observable<any> {
+    let headers: HttpHeaders = this.getHeaders();
+    let options = header ? { headers } : {};
+
+    if (txtResponse) {
+      options['responseType'] = 'text';
+    }
+
+    return this.http
+      .put(`${this.API_URL}/${url}`, input, options)
+      .pipe();
+  }
+
   patch(
     url: string,
     input?: any,

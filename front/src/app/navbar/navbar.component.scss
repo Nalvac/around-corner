@@ -135,3 +135,100 @@ a {
 ::ng-deep .mat-mdc-option.mdc-list-item {
   text-transform: capitalize;
 }
+
+.toggle {
+  display: none;
+}
+@media only screen and (max-width: 1404px) {
+
+  .filtre-container {
+    visibility: hidden;
+    display: none!important;
+  }
+
+}
+@media only screen and (max-height: 300px){
+
+  .cdk-overlay-backdrop{
+    top: 10px;
+    left: 195px;
+    height: 683px;
+    width: 637px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .nav-bar-container {
+    flex-direction: column;
+  }
+
+  .input-group,
+  .date-picker,
+  .dropdown {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .filtre-container {
+    visibility: hidden;
+  }
+  .toggle {
+    display: block;
+    .mat-icon {
+      font-size: 30px;
+    }
+  }
+
+  .links {
+    display: none!important;
+  }
+
+  .logo-container {
+    width: 130px;
+    height: 50px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .nav-bar-container {
+
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+  .nav-bar-container {
+    flex-direction: row;
+  }
+  .cdk-overlay-container {
+    display: none!important;
+  }
+
+  .input-group,
+  .date-picker,
+  .dropdown {
+    width: auto;
+    margin-bottom: 0;
+  }
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* Vos styles spécifiques pour les tablettes en mode paysage */
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  /* Vos styles spécifiques pour les ordinateurs portables et de bureau */
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* Vos styles spécifiques pour les grands ordinateurs portables et de bureau */
+}
