@@ -42,19 +42,9 @@ import { ProfilCertifComponent } from './user-profil/profil-certif/profil-certif
 import { ProfilNavbarComponent } from './user-profil/profil-navbar/profil-navbar.component';
 import { ProfilInfoComponent } from './user-profil/profil-info/profil-info.component';
 import { ProfilPicturesComponent } from './user-profil/profil-pictures/profil-pictures.component';
-import { OfficeComponent } from './office/office.component';
-import { OfficeAddComponent } from './office-add/office-add.component';
-import { OfficeCardComponent } from './office-card/office-card.component';
-import { OfficeCardHistoryComponent } from './office-card-history/office-card-history.component';
-import { BookingComponent } from './booking/booking.component';
-import { BookingComingComponent } from './booking-coming/booking-coming.component';
-import { BookingComingCardComponent } from './booking-coming-card/booking-coming-card.component';
-import { BookingHistoryComponent } from './booking-history/booking-history.component';
-import { BookingHistoryCardComponent } from './booking-history-card/booking-history-card.component';
 import {TooltipModule} from "ngx-bootstrap/tooltip";
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AnnouncementItemComponent } from './announcement/announcement-item/announcement-item.component';
-import {TokenInterceptor} from "./service/tokenInterceptor ";
 import {LogoutComponent} from "./logout/logout.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -81,15 +71,6 @@ import {MatMenuModule} from "@angular/material/menu";
     ProfilNavbarComponent,
     ProfilInfoComponent,
     ProfilPicturesComponent,
-    OfficeComponent,
-    OfficeAddComponent,
-    OfficeCardComponent,
-    OfficeCardHistoryComponent,
-    BookingComponent,
-    BookingComingComponent,
-    BookingComingCardComponent,
-    BookingHistoryComponent,
-    BookingHistoryCardComponent,
     RentDetailComponent,
     AddDeskComponent,
     RatingComponent,
@@ -129,11 +110,6 @@ import {MatMenuModule} from "@angular/material/menu";
     MatMenuModule,
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
   ],
   bootstrap: [AppComponent]
 })

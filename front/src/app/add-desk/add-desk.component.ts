@@ -22,7 +22,20 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
   userConnected: UserConnectedInfoModel = null;
   addDeskForm: FormGroup;
 
-  desk: DeskModel = null
+  desk: DeskModel = {
+    price: null,
+    address: '',
+    city: '',
+    zipCode: null,
+    description: '',
+    numberPlaces: 0,
+    uid: null,
+    sdid: null,
+    averageNote: null,
+    status_desks_id: '',
+    id: null ,
+    options: [],
+  }
 
   images: Array<string> = [];
 
@@ -49,15 +62,13 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
     this.getTypes();
     this.userConnected = JSON.parse(localStorage.getItem('userConnected'))[0];
     this.initForm();
-    this.addDeskForm.valueChanges.subscribe((change) => {
-
-    })
   }
 
 
   imageSrc1: string | ArrayBuffer | null = null;
   imageSrc2: string | ArrayBuffer | null = null;
   imageSrc3: string | ArrayBuffer | null = null;
+  selectedID: number = 2;
 
 
   onFileSelected1(event: Event) {
@@ -112,7 +123,6 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
           );
           this.addDeskForm.setControl('options', optionsArray);
         } else {
-          this.setAddFormValues(this.desk);
           const optionsArray = new FormArray(
             this.options.map(() => new FormControl(false))
           );
@@ -136,6 +146,7 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
 
   onSubmit() {
     const optionsSelected = this.addDeskForm.get('options').value;
+    console.log(this.addDeskForm.value);
     const deskData: DeskModel = {
       numberPlaces: parseInt(this.addDeskForm.get('numberPlaces').value),
       address: this.addDeskForm.get('address').value,
@@ -144,7 +155,7 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
       zipCode: parseInt(this.addDeskForm.get('zipCode').value),
       description:  this.addDeskForm.get('description').value,
       uid:  this.userConnected.id,
-      sdid:  parseInt(this.addDeskForm.get('sdid').value),
+      sdid: parseInt(this.desk.status_desks_id),
       tax: 0,
       images: this.images,
       options: optionsSelected.reduce((acc, value, index) => {
@@ -160,6 +171,8 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
           this.images = [];
           this._snackBar.open(desUpdated.message);
           setTimeout(() => {
+
+            debugger;
             window.location.href = this.desk.id+'/edit';
           },2000)
         }
@@ -167,6 +180,7 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
     } else {
       firstValueFrom(this.dao.addDesk(deskData)).then(
         (addDesk) => {
+          debugger;
           console.log(addDesk);
           this.images = [];
           this._snackBar.open('Bureau ajouter')
@@ -191,9 +205,8 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
       zipCode:  new FormControl('', [Validators.required]),
       description:  new FormControl('', [Validators.required]),
       uid:  new FormControl(''),
-      sdid:  new FormControl('', [Validators.required]),
       options:  new FormArray(
-        this.options.map(() => new FormControl(true))
+        this.options.map(() => new FormControl(false))
       ),
     });
   }
@@ -203,7 +216,6 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
       (desk) => {
         this.desk = desk[0];
         this.images = Object?.values(this.desk.images);
-        this.setAddFormValues(this.desk);
         console.log(this.desk);
         firstValueFrom(this.dao.getUserById(this.desk.user_id)).then(
           (user) => {
@@ -222,7 +234,7 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
       zipCode: des.zipCode,
       description: des.description,
       uid: this.userConnected.id,
-      sdid: des,
+      sdid: des.status_desks_id,
       options: [],
     });
     const valuesArray = this.options.map(option => {
@@ -239,5 +251,9 @@ export class AddDeskComponent implements OnInit, AfterContentInit{
       const isChecked = backendOptions.hasOwnProperty(option.id);
       return new FormControl(isChecked);
     });
+  }
+
+  getTypeId(name: string): number {
+   return this.types.findIndex(type => type.name === name);
   }
 }

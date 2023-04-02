@@ -64,7 +64,7 @@ export class Dao {
   }
 
   sendCertification(userId: string): Observable<any> {
-      return this.httpService.patch(userId+'/certified')
+      return this.httpService.patch('api/user/'+userId+'/certified')
   }
   getAccessToken(): string {
     return sessionStorage.getItem('token');
@@ -77,6 +77,5 @@ export class Dao {
   logout(): void {
     sessionStorage.removeItem('token');
     localStorage.removeItem('userConnected');
-    this.route.navigate(['connexion'])
   }
 }

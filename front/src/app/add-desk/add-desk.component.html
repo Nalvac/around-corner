@@ -106,21 +106,25 @@
           <span>Types: </span>
           <mat-radio-group
             fxLayout="row wrap"
-            aria-label="Select an option"
-            formControlName="sdid"
-            class="input-label">
+            [value]="getTypeId(desk.status_desks_id)"
+            (change)="desk.status_desks_id = $event.value">
             <mat-radio-button
-              *ngFor="let type of types"  [value]="this.addDeskForm.get('sdid').value">{{type.name}}
+              *ngFor="let type of types"
+              [value]="type.id"
+            >
+              {{type.name}}
             </mat-radio-button>
           </mat-radio-group>
         </div>
       <div
+        *ngIf="addDeskForm.get('options').value.length === options.length"
         formGroupName="options"
       >
         <span>Options: </span>
         <mat-checkbox
           *ngFor="let option of options | keyvalue"
           class="input-label"
+          [formControlName]="option.key"
           [checked]="isUpdate ? addDeskForm.get('options').get(option.key).value : 'false'"
         >
           {{option.value.name}}

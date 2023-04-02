@@ -20,7 +20,7 @@ export class RentDetailComponent implements OnInit{
 
   lender: LenderModel;
 
-  user: UserConnectedInfoModel = JSON.parse(localStorage.getItem('userConnected'))[0];
+  user: UserConnectedInfoModel =  null;
   public dateForm: FormGroup;
   constructor(
     public param: ActivatedRoute,
@@ -41,6 +41,9 @@ export class RentDetailComponent implements OnInit{
   }
 
   ngOnInit() {
+    if (JSON.parse(localStorage.getItem('userConnected'))) {
+      this.user = JSON.parse(localStorage.getItem('userConnected'))[0] ;
+    }
     const id = this.param.snapshot.params['id'];
     firstValueFrom(this.dao.getDeskById(id)).then(
       (desk) => {
